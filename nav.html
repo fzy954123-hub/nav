@@ -43,6 +43,11 @@ body{
 .topbar .top-tools{display:flex;gap:18px;list-style:none;padding:0;margin:0}
 .topbar .top-tools a{color:#8899aa;text-decoration:none;font-size:13px;transition:.2s}
 .topbar .top-tools a:hover{color:#00d4ff}
+.live-clock{
+  position:absolute;right:0;top:50%;transform:translateY(-50%);
+  color:#8899aa;font-size:13px;font-family:"Consolas","Monaco",monospace;
+  white-space:nowrap;
+}
 
 /* Banner */
 .banner{
@@ -178,6 +183,7 @@ main{max-width:1300px;margin:0 auto;padding:30px 20px 60px}
     <li><a href="#game">游戏</a></li>
     <li><a href="#tools">工具</a></li>
     <li><a href="#life">生活</a></li>
+    <li><span class="live-clock" id="liveClock" style="color:#00d4ff;font-family:Consolas,monospace;font-size:13px"></span></li>
   </ul>
 </div></div>
 
@@ -423,6 +429,17 @@ $(".cat-bar li").click(function(){
     $("html,body").animate({scrollTop: 0}, 400);
   }
 });
+// 实时时钟
+function updateClock(){
+  var now = new Date();
+  var h = now.getHours().toString().padStart(2,"0");
+  var m = now.getMinutes().toString().padStart(2,"0");
+  var s = now.getSeconds().toString().padStart(2,"0");
+  document.getElementById("liveClock").textContent = "⏰ " + h + ":" + m + ":" + s + " 北京时间";
+}
+updateClock();
+setInterval(updateClock, 1000);
+
 // 平滑滚动
 $("a[href^='#']").click(function(e){
   e.preventDefault();
