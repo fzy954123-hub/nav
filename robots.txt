@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://fzy954123-hub.github.io/nav/sitemap.xml
