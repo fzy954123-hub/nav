@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -9,204 +9,924 @@
 <meta http-equiv="X-Frame-Options" content="DENY">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
 <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.6.2/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
+<style>*{margin:0;padding:0;box-sizing:border-box}
 ::-webkit-scrollbar{width:5px}
 ::-webkit-scrollbar-thumb{background:rgba(180,130,255,.3);border-radius:3px}
 body{background:linear-gradient(135deg,#0a0e14 0%,#131920 40%,#0d1117 100%);min-height:100vh;font-family:"Microsoft YaHei","PingFang SC",sans-serif;color:#c0c8d4}
-.topbar{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,14,20,.94);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.06);padding:12px 24px;display:flex;align-items:center;gap:16px}
+.topbar{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,14,20,.94);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.06);padding:10px 24px;display:flex;align-items:center;gap:12px}
 .topbar .back{color:#8899aa;text-decoration:none;font-size:15px;transition:.2s}
 .topbar .back:hover{color:#a78bfa}
-.topbar .logo{font-size:18px;font-weight:700;color:#fff;display:flex;align-items:center;gap:6px}
+.topbar .logo{font-size:18px;font-weight:700;color:#fff;display:flex;align-items:center;gap:8px}
 .topbar .logo span{background:linear-gradient(135deg,#a78bfa,#7c3aed);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.banner{padding:80px 20px 40px;text-align:center;background:linear-gradient(180deg,rgba(124,58,237,.05),rgba(0,0,0,0))}
-.banner .icon{font-size:48px}
-.banner h1{font-size:30px;font-weight:700;color:#fff;margin:10px 0 4px}
+.topbar .expand-btn{padding:6px 14px;border-radius:20px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);color:#8899aa;cursor:pointer;font-size:12px;transition:.2s}
+.topbar .expand-btn:hover{color:#a78bfa;border-color:rgba(124,58,237,.3)}
+.banner{padding:76px 20px 30px;text-align:center;background:linear-gradient(180deg,rgba(124,58,237,.05),rgba(0,0,0,0))}
+.banner .icon{font-size:44px}
+.banner h1{font-size:28px;font-weight:700;color:#fff;margin:8px 0 4px}
 .banner h1 span{background:linear-gradient(135deg,#a78bfa,#7c3aed);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.banner .sub{color:#556;font-size:14px}
-.cat-bar{position:sticky;top:58px;z-index:999;background:rgba(10,14,20,.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.06);overflow-x:auto;-webkit-overflow-scrolling:touch}
-.cat-bar::-webkit-scrollbar{height:0}
-.cat-bar ul{display:flex;gap:0;list-style:none;margin:0 auto;padding:0;justify-content:center;min-width:max-content}
-.cat-bar li{cursor:pointer;padding:12px 18px;color:#667788;font-size:13px;transition:.2s;border-bottom:2px solid transparent;white-space:nowrap}
-.cat-bar li:hover,.cat-bar li.active{color:#a78bfa;border-bottom-color:#a78bfa}
-main{max-width:1200px;margin:0 auto;padding:30px 20px 60px}
-.sec-title{font-size:18px;font-weight:700;margin:32px 0 14px;padding:0 0 8px;border-bottom:1px solid rgba(255,255,255,.06);color:#e8e8e8;display:flex;align-items:center;gap:8px}
-.link-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:6px}
-.link-item{display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.04);border-radius:10px;text-decoration:none;color:#aabbcc;transition:.2s}
-.link-item:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.1);color:#fff;text-decoration:none}
-.link-item .dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
-.link-item .lname{flex:1;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.link-item .lurl{font-size:11px;color:#445;max-width:140px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.banner .sub{color:#556;font-size:13px}
+main{max-width:960px;margin:0 auto;padding:0 20px 60px}
+.folder-tree{margin-top:10px}
+.folder,.subfolder{background:rgba(255,255,255,.015);border:1px solid rgba(255,255,255,.04);border-radius:12px;margin-bottom:8px;overflow:hidden}
+.subfolder{margin-left:16px;border-radius:8px}
+.folder-header{cursor:pointer;padding:14px 18px;display:flex;align-items:center;gap:10px;transition:.2s;user-select:none}
+.folder-header:hover{background:rgba(255,255,255,.03)}
+.subfolder .folder-header{padding:10px 14px}
+.folder-header .arrow{font-size:10px;color:#556;transition:transform .2s;width:16px;text-align:center}
+.folder.open>.folder-header .arrow,.subfolder.open>.folder-header .arrow{transform:rotate(90deg)}
+.folder-header .f-icon{font-size:18px;width:28px;text-align:center}
+.folder-header .f-name{font-size:15px;font-weight:600;color:#ddd}
+.subfolder .folder-header .f-name{font-size:14px}
+.folder-header .f-count{font-size:11px;color:#556;margin-left:auto}
+.folder-body{display:none;border-top:1px solid rgba(255,255,255,.04)}
+.folder.open>.folder-body,.subfolder.open>.folder-body{display:block}
+.bm-item{display:flex;align-items:center;gap:8px;padding:7px 14px 7px 28px;text-decoration:none;color:#8899aa;font-size:13px;transition:.2s;border-left:2px solid transparent}
+.bm-item:hover{background:rgba(255,255,255,.04);color:#ddd;text-decoration:none;border-left-color:rgba(124,58,237,.5)}
+.bm-item .bm-dot{width:4px;height:4px;border-radius:50%;flex-shrink:0;background:#556}
+.bm-item .bm-name{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bm-item .bm-url{font-size:11px;color:#334;max-width:140px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .footer{text-align:center;padding:30px;color:#333;font-size:13px;border-top:1px solid rgba(255,255,255,.04)}
 .footer a{color:#a78bfa}
-@media(max-width:768px){.link-list{grid-template-columns:1fr}.cat-bar ul{justify-content:flex-start}}
-</style>
+@media(max-width:600px){.bm-item .bm-url{display:none}.subfolder{margin-left:8px}}</style>
 </head>
 <body>
-
 <div class="topbar">
   <a class="back" href="index.html">← 首页</a>
   <div class="logo">📚 <span>技术收藏</span></div>
+  <button class="expand-btn" onclick="toggleAll()">折叠全部</button>
 </div>
-
 <div class="banner">
   <div class="icon">📚</div>
-  <h1>技术 <span>收藏夹</span></h1>
-  <p class="sub">嵌入式开发 · 硬件设计 · 协议学习 · AI工具</p>
+  <h1>我的 <span>收藏夹</span></h1>
+  <p class="sub">浏览器书签同步 · 按文件夹层级整理</p>
 </div>
-
-<div class="cat-bar">
-  <ul>
-    <li class="active" data-cat="all">✨ 全部</li>
-    <li data-cat="dev">💻 嵌入式开发</li>
-    <li data-cat="hw">🔧 硬件设计</li>
-    <li data-cat="proto">🔌 通信协议</li>
-    <li data-cat="periph">🎮 外设驱动</li>
-    <li data-cat="project">🔋 项目知识</li>
-    <li data-cat="ai">🤖 AI工具</li>
-    <li data-cat="other">📦 其他</li>
-  </ul>
+<main><div class="folder-tree">
+<div class="folder open">
+<div class="folder-header" onclick="this.parentElement.classList.toggle('open')">
+  <span class="arrow">▶</span>
+  <span class="f-icon">📂</span>
+  <span class="f-name">其他收藏夹</span>
+  <span class="f-count">(45个 + 1个子文件夹)</span>
 </div>
-
-<main>
-
-<!-- 嵌入式开发 -->
-<section class="cat-section" data-cat="dev">
-<div class="sec-title">💻 嵌入式开发</div>
-<div class="link-list">
-  <a class="link-item" href="https://www.freertos.org/zh-cn-cmn-s" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#20c997"></span><span class="lname">FreeRTOS 官方文档</span><span class="lurl">freertos.org</span></a>
-  <a class="link-item" href="https://www.runoob.com/linux/linux-command-manual.html" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#4dabf7"></span><span class="lname">Linux 命令大全 | 菜鸟教程</span><span class="lurl">runoob.com</span></a>
-  <a class="link-item" href="https://gitee.com/" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#ff6b6b"></span><span class="lname">Gitee 码云</span><span class="lurl">gitee.com</span></a>
-  <a class="link-item" href="https://developer.aliyun.com/mirror/" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#ff922b"></span><span class="lname">阿里开源镜像站</span><span class="lurl">aliyun.com</span></a>
-  <a class="link-item" href="https://netlab.luatos.com/" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#20c997"></span><span class="lname">合宙 TCP/UDP Web工具</span><span class="lurl">luatos.com</span></a>
-  <a class="link-item" href="https://www.huaweicloud.com/" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#ff6b6b"></span><span class="lname">华为云</span><span class="lurl">huaweicloud.com</span></a>
-  <a class="link-item" href="https://www.smartpi.cn/" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#4dabf7"></span><span class="lname">智能公元 AI平台</span><span class="lurl">smartpi.cn</span></a>
-  <a class="link-item" href="https://blog.csdn.net/2301_76800432/article/details/140473478" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#9775fa"></span><span class="lname">赛元MCU Keil工程搭建</span><span class="lurl">CSDN</span></a>
-  <a class="link-item" href="https://blog.csdn.net/hwd00001/article/details/124193668" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#9775fa"></span><span class="lname">赛元单片机触摸库总结</span><span class="lurl">CSDN</span></a>
-  <a class="link-item" href="https://blog.csdn.net/weixin_50932441/article/details/127519828" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#9775fa"></span><span class="lname">赛元EasyCodeCube + Keil配置</span><span class="lurl">CSDN</span></a>
-  <a class="link-item" href="https://www.bilibili.com/video/BV1oA4y1Q7Sh/" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#f06595"></span><span class="lname">易码魔盒 TK触控调试</span><span class="lurl">B站</span></a>
-  <a class="link-item" href="https://www.bilibili.com/video/BV1iG4y1V7gi" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#f06595"></span><span class="lname">易码魔盒触控快速调试</span><span class="lurl">B站</span></a>
-  <a class="link-item" href="https://www.bilibili.com/video/BV1Vx4y1p7Rs/" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#f06595"></span><span class="lname">赛元触控开发板</span><span class="lurl">B站</span></a>
-  <a class="link-item" href="https://blog.csdn.net/lotusloves/article/details/118769497" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#ff922b"></span><span class="lname">Keil5 ARM+C51 共存安装</span><span class="lurl">CSDN</span></a>
-  <a class="link-item" href="https://www.cnblogs.com/andy-songwei/p/9965714.html" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#4dabf7"></span><span class="lname">Source Insight 详解</span><span class="lurl">博客园</span></a>
-  <a class="link-item" href="https://blog.csdn.net/taotongning/article/details/82432555" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#4dabf7"></span><span class="lname">Source Insight 3.5 创建工程</span><span class="lurl">CSDN</span></a>
-  <a class="link-item" href="https://zhuanlan.zhihu.com/p/720949015" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#4dabf7"></span><span class="lname">Visio 2021 安装教程</span><span class="lurl">知乎</span></a>
-  <a class="link-item" href="https://zhuanlan.zhihu.com/p/1919340613746299667" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#20c997"></span><span class="lname">一文读懂 Bootloader</span><span class="lurl">知乎</span></a>
+<div class="folder-body">
+  <div class="subfolder open">
+  <div class="folder-header" onclick="this.parentElement.classList.toggle('open')">
+    <span class="arrow">▶</span>
+    <span class="f-icon">🖨</span>
+    <span class="f-name">HP</span>
+    <span class="f-count">(5)</span>
+  </div>
+  <div class="folder-body">
+    <a class="bm-item" href="http://secure.rezserver.com/sdk/v1/LinkFwd?refid=9006&amp;destination=booking&amp;refclickid=iefav1819" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">Booking.com</span>
+      <span class="bm-url">secure.rezserver.com</span>
+    </a>
+    <a class="bm-item" href="https://www.hpstore.cn/" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">HP China store</span>
+      <span class="bm-url">www.hpstore.cn</span>
+    </a>
+    <a class="bm-item" href="https://www8.hp.com/cn/zh/home.html" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">HP China website</span>
+      <span class="bm-url">www8.hp.com</span>
+    </a>
+    <a class="bm-item" href="https://www.baidu.com/?tn=67074732_7_dg" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">百度</span>
+      <span class="bm-url">www.baidu.com</span>
+    </a>
+    <a class="bm-item" href="http://bdxe.hhycrop.com/Baidu0312_1" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">百度</span>
+      <span class="bm-url">bdxe.hhycrop.com</span>
+    </a>
+  </div>
+  </div>
+  <a class="bm-item" href="https://www.cnblogs.com/andy-songwei/p/9965714.html" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">【工利其器】必会工具之（一）Source Insight篇 - 宋者为王 - 博客园</span>
+    <span class="bm-url">www.cnblogs.com</span>
+  </a>
+  <a class="bm-item" href="https://blog.csdn.net/taotongning/article/details/82432555" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">Source Insight 3.5创建工程简介_sourceinsight3.5创建过程-CSDN博客</span>
+    <span class="bm-url">blog.csdn.net</span>
+  </a>
+  <a class="bm-item" href="https://blog.csdn.net/bichenggui/article/details/4697038" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">SourceInsight3.5序列号_source insight 3.5序列号-CSDN博客</span>
+    <span class="bm-url">blog.csdn.net</span>
+  </a>
+  <a class="bm-item" href="https://www.doc88.com/p-38871881062672.html" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">GBT 4706.1-2024 家用和类似用途电器的安全 第1部分：通用要求(OCR)2 - 道客巴巴</span>
+    <span class="bm-url">www.doc88.com</span>
+  </a>
+  <a class="bm-item" href="https://sneak.blog.csdn.net/article/details/140502928?spm=1001.2101.3001.6650.1&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7Ebaidujs_baidulandingword%7ECtr-1-140502928-blog-112251509.235%5Ev43%5Epc_blog_bottom_relevance_base3&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7Ebaidujs_baidulandingword%7ECtr-1-140502928-blog-112251509.235%5Ev43%5Epc_blog_bottom_relevance_base3&amp;utm_relevant_index=2" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">USB 2.0 协议专栏之 USB 设备描述符（三）_usb栈-CSDN博客</span>
+    <span class="bm-url">sneak.blog.csdn.net</span>
+  </a>
+  <a class="bm-item" href="https://blog.csdn.net/weiaipan1314/article/details/112251509" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">USB协议详解第3讲（USB描述符-设备描述符）_usb standard device descriptor-CSDN博客</span>
+    <span class="bm-url">blog.csdn.net</span>
+  </a>
+  <a class="bm-item" href="https://gitcode.com/open-source-toolkit/b0819/?utm_source=tools_gitcode&amp;index=bottom&amp;type=card&amp;&amp;isLogin=1" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">项目首页 - PC端连接USB设备通信案例STM32实现USB设备:本资源文件提供了一个PC端与USB设备之间简单通信的实现案例。通过该案例，您可以深入理解USB通信的基本原理，并学习如何在PC端编写驱动程序，以及如何使用STM32f103ZET6微控制器实现USB设备功能 - GitCode</span>
+    <span class="bm-url">gitcode.com</span>
+  </a>
+  <a class="bm-item" href="https://blog.csdn.net/weixin_42471823/article/details/143643273" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">掌握STM32 USB通信：上下位机程序设计-CSDN博客</span>
+    <span class="bm-url">blog.csdn.net</span>
+  </a>
+  <a class="bm-item" href="https://www.usbzh.com/article/detail-843.html" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">USB通讯原理 - USB中文网</span>
+    <span class="bm-url">www.usbzh.com</span>
+  </a>
+  <a class="bm-item" href="https://blog.csdn.net/weixin_50932441/article/details/127519828" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">赛元科技EasyCodeCube的使用——Keil环境的配置_赛元easycodecube云编译-CSDN博客</span>
+    <span class="bm-url">blog.csdn.net</span>
+  </a>
+  <a class="bm-item" href="https://blog.csdn.net/weixin_44748127/article/details/125610738" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">stm32 USB HID+CDC 鼠标键盘串口 组合设备配置解析_stm32f103 虚拟串口、hid和u盘-CSDN博客</span>
+    <span class="bm-url">blog.csdn.net</span>
+  </a>
+  <a class="bm-item" href="https://www.usbzh.com/article/detail-345.html" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">HID键盘设备数据抓包分析实践 - USB中文网</span>
+    <span class="bm-url">www.usbzh.com</span>
+  </a>
+  <a class="bm-item" href="https://aijishu.com/a/1060000000121861" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">MM32 USB功能学习笔记 —— 虚拟串口CDC - 极术社区 - 连接开发者与智能计算生态</span>
+    <span class="bm-url">aijishu.com</span>
+  </a>
+  <a class="bm-item" href="https://zhuanlan.zhihu.com/p/656339393" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">彻底搞懂USB描述符 - 知乎</span>
+    <span class="bm-url">zhuanlan.zhihu.com</span>
+  </a>
+  <a class="bm-item" href="https://blog.csdn.net/u012028275/article/details/109280001" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">【USB笔记】配置描述符Configuration Descriptor-CSDN博客</span>
+    <span class="bm-url">blog.csdn.net</span>
+  </a>
+  <a class="bm-item" href="https://blog.csdn.net/u012028275/article/details/109689169" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">【USB笔记】端点描述符Endpoint Descriptor-CSDN博客</span>
+    <span class="bm-url">blog.csdn.net</span>
+  </a>
+  <a class="bm-item" href="https://zhuanlan.zhihu.com/p/720949015" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">Visio 2021安装教程附安装包下载、完整步骤亲测成功 - 知乎</span>
+    <span class="bm-url">zhuanlan.zhihu.com</span>
+  </a>
+  <a class="bm-item" href="https://www.bilibili.com/video/BV1oA4y1Q7Sh/?spm_id_from=333.337.search-card.all.click&amp;vd_source=54c0f290620f2f333ca13dcb61aa227c" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">易码魔盒功能篇——TK触控调试_哔哩哔哩_bilibili</span>
+    <span class="bm-url">www.bilibili.com</span>
+  </a>
+  <a class="bm-item" href="https://www.bilibili.com/video/BV1iG4y1V7gi?spm_id_from=333.788.recommend_more_video.0&amp;vd_source=54c0f290620f2f333ca13dcb61aa227c" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">易码魔盒触控快速调试_哔哩哔哩_bilibili</span>
+    <span class="bm-url">www.bilibili.com</span>
+  </a>
+  <a class="bm-item" href="https://www.bilibili.com/video/BV1Vx4y1p7Rs/?spm_id_from=333.337.search-card.all.click&amp;vd_source=54c0f290620f2f333ca13dcb61aa227c" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">赛元触控开发板（新定义官网可申请白嫖）_哔哩哔哩_bilibili</span>
+    <span class="bm-url">www.bilibili.com</span>
+  </a>
+  <a class="bm-item" href="https://blog.csdn.net/2301_76800432/article/details/140473478" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">赛元MCU初步搭建keil工程并点灯_赛元 keil-CSDN博客</span>
+    <span class="bm-url">blog.csdn.net</span>
+  </a>
+  <a class="bm-item" href="https://blog.csdn.net/hwd00001/article/details/124193668" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">赛元单片机-触摸库使用总结_sc95f8617-CSDN博客</span>
+    <span class="bm-url">blog.csdn.net</span>
+  </a>
+  <a class="bm-item" href="https://blog.csdn.net/qq_43415898/article/details/107561498" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">NEC红外传输协议详解（含代码）_红外nec标准协议结束码-CSDN博客</span>
+    <span class="bm-url">blog.csdn.net</span>
+  </a>
+  <a class="bm-item" href="https://blog.csdn.net/weixin_67907028/article/details/134653661" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">手把手教你玩转WS2812B灯-CSDN博客</span>
+    <span class="bm-url">blog.csdn.net</span>
+  </a>
+  <a class="bm-item" href="https://blog.csdn.net/zhuoqingjoking97298/article/details/120871808" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">WS2812串行可控彩色LED灯珠-CSDN博客</span>
+    <span class="bm-url">blog.csdn.net</span>
+  </a>
+  <a class="bm-item" href="https://blog.csdn.net/lotusloves/article/details/118769497" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">win10 Keil5 ARM C51 共存安装步骤_win10电脑安装keil-CSDN博客</span>
+    <span class="bm-url">blog.csdn.net</span>
+  </a>
+  <a class="bm-item" href="https://blog.csdn.net/qq_44810226/article/details/120154984" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">STM32 SPI+DMA驱动WS2812_stm32 ws2812-CSDN博客</span>
+    <span class="bm-url">blog.csdn.net</span>
+  </a>
+  <a class="bm-item" href="https://blog.csdn.net/lzs2327/article/details/105368483" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">STM32F103C8T6 硬件SPI+DMA 控制WS2811_stm32spi dma ws2811-CSDN博客</span>
+    <span class="bm-url">blog.csdn.net</span>
+  </a>
+  <a class="bm-item" href="https://blog.csdn.net/tq384998430/article/details/53391575" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">纳秒级电平翻转实践-CSDN博客</span>
+    <span class="bm-url">blog.csdn.net</span>
+  </a>
+  <a class="bm-item" href="https://blog.csdn.net/tq384998430/article/details/88542469?depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-3&amp;utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-3" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">STM32 SPI+DMA实现WS2812灯的驱动-CSDN博客</span>
+    <span class="bm-url">blog.csdn.net</span>
+  </a>
+  <a class="bm-item" href="https://blog.csdn.net/weixin_43572492/article/details/89632893" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">WS2812b幻彩ARGB灯珠的STM32F103的CPU-SPI方式驱动_ws2812b spi-CSDN博客</span>
+    <span class="bm-url">blog.csdn.net</span>
+  </a>
+  <a class="bm-item" href="https://blog.csdn.net/lowkeyaaaa/article/details/118526046" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">NTC温度算法&amp;代码实现_ntc温度计算-CSDN博客</span>
+    <span class="bm-url">blog.csdn.net</span>
+  </a>
+  <a class="bm-item" href="https://blog.csdn.net/qq_41359157/article/details/132802069" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">NTC 温度采样 二分查表及公式法_ntc查表法-CSDN博客</span>
+    <span class="bm-url">blog.csdn.net</span>
+  </a>
+  <a class="bm-item" href="https://blog.csdn.net/qq_45325304/article/details/132203510?spm=1001.2101.3001.6650.1&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7EPaidSort-1-132203510-blog-118526046.235%5Ev43%5Epc_blog_bottom_relevance_base3&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7EPaidSort-1-132203510-blog-118526046.235%5Ev43%5Epc_blog_bottom_relevance_base3&amp;utm_relevant_index=1" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">测温型 NTC 热敏电阻器的温度计算方法_ntc温度计算公式-CSDN博客</span>
+    <span class="bm-url">blog.csdn.net</span>
+  </a>
+  <a class="bm-item" href="https://blog.csdn.net/ghostonetwo/article/details/136300630#:~:text=%E6%9C%AC%E6%96%87%E8%AF%A6%E7%BB%86%E6%8F%8F%E8%BF%B0%E4%BA%86%E5%9C%A8%E4%BA%A4%E6%B5%81%E7%94%B5%E5%BA%94%E7%94%A8%E4%B8%AD%EF%BC%8C%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87%E8%BF%87%E9%9B%B6%E6%A3%80%E6%B5%8B%E6%8A%80%E6%9C%AF%E6%9D%A5%E4%BF%9D%E6%8A%A4%E7%BB%A7%E7%94%B5%E5%99%A8%EF%BC%8C%E5%88%A9%E7%94%A8GPIO%E4%B8%AD%E6%96%AD%E5%92%8C%E5%AE%9A%E6%97%B6%E5%99%A8%E5%AE%9E%E7%8E%B0%E9%9B%B6%E7%82%B9%E9%97%AD%E5%90%88%E7%BB%A7%E7%94%B5%E5%99%A8%EF%BC%8C%E7%A1%AE%E4%BF%9D%E7%BB%A7%E7%94%B5%E5%99%A8%E5%9C%A8%E9%9B%B6%E7%82%B9%E6%97%B6%E5%8A%A8%E4%BD%9C%E4%BB%A5%E5%BB%B6%E9%95%BF%E5%AF%BF%E5%91%BD%E3%80%82%20%E7%89%B9%E5%88%AB%E5%BC%BA%E8%B0%83%E4%BA%86%E5%9C%A8%E6%9C%89%E6%97%A0%E8%BF%87%E9%9B%B6%E4%BF%A1%E5%8F%B7%E6%97%B6%E7%9A%84%E5%A4%84%E7%90%86%E7%AD%96%E7%95%A5%EF%BC%8C%E9%98%B2%E6%AD%A2%E5%9B%A0%E6%A3%80%E6%B5%8B%E7%94%B5%E8%B7%AF%E9%97%AE%E9%A2%98%E5%BD%B1%E5%93%8D%E4%BA%A7%E5%93%81%E4%BD%BF%E7%94%A8%E3%80%82%20%E6%91%98%E8%A6%81%E7%94%9F%E6%88%90%E4%BA%8E%20C%E7%9F%A5%E9%81%93%20%EF%BC%8C%E7%94%B1%20DeepSeek-R1,%E6%BB%A1%E8%A1%80%E7%89%88%E6%94%AF%E6%8C%81%EF%BC%8C%20%E5%89%8D%E5%BE%80%E4%BD%93%E9%AA%8C%20%3E%20%E8%BF%87%E9%9B%B6%E6%A3%80%E6%B5%8B%EF%BC%9A%20%E6%A3%80%E6%B5%8B%E7%9A%84%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9A%E4%BA%A4%E6%B5%81%E7%94%B5%E7%9A%84%E7%94%B5%E5%8E%8B%20%E9%9B%B6%EF%BC%9A%E7%94%B5%E5%8E%8B%E5%8F%98%E6%88%90%E9%9B%B6" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">继电器的保护：过零检测（软件版）-CSDN博客</span>
+    <span class="bm-url">blog.csdn.net</span>
+  </a>
+  <a class="bm-item" href="https://blog.csdn.net/FutureStudio1994/article/details/112189049" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">手把手教你使用热敏电阻NTC，产品级精度±0.1℃以内，简单明了，内附源码详解，方便移植_如何保证ntc的测量范围-CSDN博客</span>
+    <span class="bm-url">blog.csdn.net</span>
+  </a>
+  <a class="bm-item" href="https://blog.csdn.net/qq_42289734/article/details/130092876" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">双向可控硅详细用法说明-CSDN博客</span>
+    <span class="bm-url">blog.csdn.net</span>
+  </a>
+  <a class="bm-item" href="https://www.bilibili.com/video/BV1AL4y137pC/?spm_id_from=333.337.search-card.all.click&amp;vd_source=54c0f290620f2f333ca13dcb61aa227c" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">双向可控硅控制原理，程序控制可控硅，单片机实现可控硅调速交流风机_哔哩哔哩_bilibili</span>
+    <span class="bm-url">www.bilibili.com</span>
+  </a>
+  <a class="bm-item" href="https://www.eet-china.com/mp/a92370.html" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">可控硅的两种触发方式：移相触发和过零触发-电子工程专辑</span>
+    <span class="bm-url">www.eet-china.com</span>
+  </a>
+  <a class="bm-item" href="https://fishc.com.cn/thread-55009-1-1.html" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">【新提醒】【原创】用单片机做双向可控硅过零触发电路和移相触发电路、实现调光，调速功能,单片机交流,综合交流区,鱼C论坛 - Powered by Discuz!</span>
+    <span class="bm-url">fishc.com.cn</span>
+  </a>
+  <a class="bm-item" href="https://blog.csdn.net/wuyanboplus/article/details/120307164" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">STM32硬件I2C双机通信_两个单片机i2c通信-CSDN博客</span>
+    <span class="bm-url">blog.csdn.net</span>
+  </a>
+  <a class="bm-item" href="https://blog.csdn.net/weixin_42328389/article/details/120824724" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">STM32对接涂鸦wifi模块项目记录（智能插座完善版本）_tuya stm32-CSDN博客</span>
+    <span class="bm-url">blog.csdn.net</span>
+  </a>
+  <a class="bm-item" href="https://blog.51cto.com/u_16099226/8945148" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">android 涂鸦 框架 涂鸦模块怎么用_mob6454cc6a249f的技术博客_51CTO博客</span>
+    <span class="bm-url">blog.51cto.com</span>
+  </a>
+  <a class="bm-item" href="https://developer.tuya.com/cn/docs/iot/tuya-cloud-universal-serial-port-access-protocol?id=K9hhi0xxtn9cb" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">串口协议-涂鸦开发者平台-涂鸦开发者</span>
+    <span class="bm-url">developer.tuya.com</span>
+  </a>
+  <a class="bm-item" href="https://developer.tuya.com/cn/docs/iot/overview-of-migrating-tuyas-mcu-sdk?id=K9hhi0xr5vll9" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">MCU SDK 移植-涂鸦开发者平台-涂鸦开发者</span>
+    <span class="bm-url">developer.tuya.com</span>
+  </a>
 </div>
-</section>
-
-<!-- 通信协议 -->
-<section class="cat-section" data-cat="proto">
-<div class="sec-title">🔌 通信协议</div>
-<div class="link-list">
-  <a class="link-item" href="https://www.usbzh.com/article/detail-843.html" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#00d4ff"></span><span class="lname">USB通讯原理</span><span class="lurl">USB中文网</span></a>
-  <a class="link-item" href="https://blog.csdn.net/weiaipan1314/article/details/112251509" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#00d4ff"></span><span class="lname">USB协议详解 - 设备描述符</span><span class="lurl">CSDN</span></a>
-  <a class="link-item" href="https://blog.csdn.net/u012028275/article/details/109280001" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#00d4ff"></span><span class="lname">USB配置描述符 Configuration</span><span class="lurl">CSDN</span></a>
-  <a class="link-item" href="https://blog.csdn.net/u012028275/article/details/109689169" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#00d4ff"></span><span class="lname">USB端点描述符 Endpoint</span><span class="lurl">CSDN</span></a>
-  <a class="link-item" href="https://zhuanlan.zhihu.com/p/656339393" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#00d4ff"></span><span class="lname">彻底搞懂USB描述符</span><span class="lurl">知乎</span></a>
-  <a class="link-item" href="https://sneak.blog.csdn.net/article/details/140502928" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#00d4ff"></span><span class="lname">USB 2.0 协议 - 设备描述符</span><span class="lurl">CSDN</span></a>
-  <a class="link-item" href="https://gitcode.com/open-source-toolkit/b0819/" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#00d4ff"></span><span class="lname">STM32 USB设备通信案例</span><span class="lurl">GitCode</span></a>
-  <a class="link-item" href="https://blog.csdn.net/weixin_42471823/article/details/143643273" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#00d4ff"></span><span class="lname">STM32 USB上下位机通信</span><span class="lurl">CSDN</span></a>
-  <a class="link-item" href="https://blog.csdn.net/weixin_44748127/article/details/125610738" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#00d4ff"></span><span class="lname">STM32 USB HID+CDC 组合设备</span><span class="lurl">CSDN</span></a>
-  <a class="link-item" href="https://www.usbzh.com/article/detail-345.html" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#00d4ff"></span><span class="lname">HID键盘设备数据抓包分析</span><span class="lurl">USB中文网</span></a>
-  <a class="link-item" href="https://aijishu.com/a/1060000000121861" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#00d4ff"></span><span class="lname">MM32 USB CDC虚拟串口</span><span class="lurl">极术社区</span></a>
-  <a class="link-item" href="https://blog.csdn.net/as480133937/article/details/105764119" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#20c997"></span><span class="lname">SPI 原理详解</span><span class="lurl">CSDN</span></a>
-  <a class="link-item" href="https://blog.csdn.net/qq_43415898/article/details/107561498" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#ff922b"></span><span class="lname">NEC红外传输协议详解</span><span class="lurl">CSDN</span></a>
 </div>
-</section>
-
-<!-- 硬件设计 -->
-<section class="cat-section" data-cat="hw">
-<div class="sec-title">🔧 硬件设计</div>
-<div class="link-list">
-  <a class="link-item" href="https://pro.lceda.cn/editor" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#4dabf7"></span><span class="lname">嘉立创EDA(专业版)</span><span class="lurl">lceda.cn</span></a>
-  <a class="link-item" href="https://member.jlc.com/" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#4dabf7"></span><span class="lname">嘉立创下单中心</span><span class="lurl">jlc.com</span></a>
-  <a class="link-item" href="https://oshwhub.com/" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#4dabf7"></span><span class="lname">立创开源硬件平台</span><span class="lurl">oshwhub.com</span></a>
-  <a class="link-item" href="https://www.zixel3d.com/p/home" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#9775fa"></span><span class="lname">3D查看器</span><span class="lurl">zixel3d.com</span></a>
-  <a class="link-item" href="https://www.szlcsc.com/" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#ffd43b"></span><span class="lname">立创商城</span><span class="lurl">szlcsc.com</span></a>
-  <a class="link-item" href="https://www.taobao.com/" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#ff922b"></span><span class="lname">淘宝</span><span class="lurl">taobao.com</span></a>
-  <a class="link-item" href="https://www.1688.com/" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#ff6b6b"></span><span class="lname">阿里1688</span><span class="lurl">1688.com</span></a>
-  <a class="link-item" href="https://blog.csdn.net/kfepiza/article/details/139159592" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#20c997"></span><span class="lname">线规线径对照表</span><span class="lurl">CSDN</span></a>
-  <a class="link-item" href="https://www.cnblogs.com/yangykaifa/p/19355130" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#20c997"></span><span class="lname">硬件基础知识-电容</span><span class="lurl">博客园</span></a>
+<div class="folder open">
+<div class="folder-header" onclick="this.parentElement.classList.toggle('open')">
+  <span class="arrow">▶</span>
+  <span class="f-icon">📑</span>
+  <span class="f-name">收藏夹栏</span>
+  <span class="f-count">(14个 + 13个子文件夹)</span>
 </div>
-</section>
-
-<!-- 外设驱动 -->
-<section class="cat-section" data-cat="periph">
-<div class="sec-title">🎮 外设驱动</div>
-<div class="link-list">
-  <a class="link-item" href="https://blog.csdn.net/weixin_67907028/article/details/134653661" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#f06595"></span><span class="lname">手把手玩转WS2812B灯</span><span class="lurl">CSDN</span></a>
-  <a class="link-item" href="https://blog.csdn.net/zhuoqingjoking97298/article/details/120871808" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#f06595"></span><span class="lname">WS2812串行可控彩色LED</span><span class="lurl">CSDN</span></a>
-  <a class="link-item" href="https://blog.csdn.net/qq_44810226/article/details/120154984" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#f06595"></span><span class="lname">STM32 SPI+DMA驱动WS2812</span><span class="lurl">CSDN</span></a>
-  <a class="link-item" href="https://blog.csdn.net/lzs2327/article/details/105368483" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#f06595"></span><span class="lname">STM32 SPI+DMA控制WS2811</span><span class="lurl">CSDN</span></a>
-  <a class="link-item" href="https://blog.csdn.net/tq384998430/article/details/53391575" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#f06595"></span><span class="lname">纳秒级电平翻转实践</span><span class="lurl">CSDN</span></a>
-  <a class="link-item" href="https://blog.csdn.net/tq384998430/article/details/88542469" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#f06595"></span><span class="lname">STM32 SPI+DMA实现WS2812</span><span class="lurl">CSDN</span></a>
+<div class="folder-body">
+  <div class="subfolder open">
+  <div class="folder-header" onclick="this.parentElement.classList.toggle('open')">
+    <span class="arrow">▶</span>
+    <span class="f-icon">🤖</span>
+    <span class="f-name">AI</span>
+    <span class="f-count">(7)</span>
+  </div>
+  <div class="folder-body">
+    <a class="bm-item" href="https://www.doubao.com/chat/?channel=bing_sem&amp;from_login=1" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">豆包 - 字节跳动旗下 AI 智能助手</span>
+      <span class="bm-url">www.doubao.com</span>
+    </a>
+    <a class="bm-item" href="https://chat.deepseek.com/" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">DeepSeek - 探索未至之境</span>
+      <span class="bm-url">chat.deepseek.com</span>
+    </a>
+    <a class="bm-item" href="https://www.bilibili.com/video/BV1QgdHBnEJq/?buvid=XX40C0B42F990052203B37A2C39CB874FA9D9&amp;is_story_h5=false&amp;mid=6HpwBBoVQUY%2F%2BqzCfP5uvw%3D%3D&amp;p=4&amp;plat_id=114&amp;share_from=ugc&amp;share_medium=android&amp;share_plat=android&amp;share_session_id=82d3f6c6-8b5b-4133-a270-79cc4db334b7&amp;share_source=WEIXIN&amp;share_source=weixin&amp;share_tag=s_i&amp;timestamp=1777261268&amp;unique_k=olmgVUa&amp;up_id=3546705813309669&amp;vd_source=b29d8854b1d8b2cc4c0ae5808b218099" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">Clawx部署</span>
+      <span class="bm-url">www.bilibili.com</span>
+    </a>
+    <a class="bm-item" href="https://ai.zkmjnic.tech/docs/getting-started" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">ATRI API</span>
+      <span class="bm-url">ai.zkmjnic.tech</span>
+    </a>
+    <a class="bm-item" href="https://www.scnet.cn/ui/console/index.html#/llm/models" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">模型服务</span>
+      <span class="bm-url">www.scnet.cn</span>
+    </a>
+    <a class="bm-item" href="https://blog.csdn.net/nmdbbzcl/article/details/159380122" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">OpenAI Codex配置</span>
+      <span class="bm-url">blog.csdn.net</span>
+    </a>
+    <a class="bm-item" href="https://www.aliyun.com/benefit/scene/openclaw?accounttraceid=ac055d7498ca42838c9382920d679620btbl" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">阿里云</span>
+      <span class="bm-url">www.aliyun.com</span>
+    </a>
+  </div>
+  </div>
+  <div class="subfolder open">
+  <div class="folder-header" onclick="this.parentElement.classList.toggle('open')">
+    <span class="arrow">▶</span>
+    <span class="f-icon">⚡</span>
+    <span class="f-name">codex</span>
+    <span class="f-count">(10)</span>
+  </div>
+  <div class="folder-body">
+    <a class="bm-item" href="https://api.aipaibox.com/console" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">AI派</span>
+      <span class="bm-url">api.aipaibox.com</span>
+    </a>
+    <a class="bm-item" href="https://platform.deepseek.com/usage" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">DeepSeek_API</span>
+      <span class="bm-url">platform.deepseek.com</span>
+    </a>
+    <a class="bm-item" href="https://max.jojocode.com/dashboard" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">仪表盘 - Max JOJO Code</span>
+      <span class="bm-url">max.jojocode.com</span>
+    </a>
+    <a class="bm-item" href="https://bigmodel.cn/finance-center/finance/overview" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">智谱AI开放平台</span>
+      <span class="bm-url">bigmodel.cn</span>
+    </a>
+    <a class="bm-item" href="https://console.volcengine.com/ark/region:cn-beijing/overview" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">豆包模型</span>
+      <span class="bm-url">console.volcengine.com</span>
+    </a>
+    <a class="bm-item" href="https://13.212.175.5:4433/public-Q/#/dashboard" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">一元机场.VIP</span>
+      <span class="bm-url">13.212.175.5:4433</span>
+    </a>
+    <a class="bm-item" href="https://skillhub.cn/skills?sortBy=score" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">SkillHub</span>
+      <span class="bm-url">skillhub.cn</span>
+    </a>
+    <a class="bm-item" href="https://yandex.com/search/?text=ip%E7%BA%AF%E5%87%80%E5%BA%A6%E6%B5%8B%E8%AF%95&amp;lr=20930&amp;family=yes" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">ip纯净度测试</span>
+      <span class="bm-url">yandex.com</span>
+    </a>
+    <a class="bm-item" href="https://github.com/BigPizzaV3/CodexPlusPlus" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">codex++安装</span>
+      <span class="bm-url">github.com</span>
+    </a>
+    <a class="bm-item" href="https://github.com/fzy954123-hub/nav" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">git</span>
+      <span class="bm-url">github.com</span>
+    </a>
+  </div>
+  </div>
+  <div class="subfolder open">
+  <div class="folder-header" onclick="this.parentElement.classList.toggle('open')">
+    <span class="arrow">▶</span>
+    <span class="f-icon">🛒</span>
+    <span class="f-name">元器件商城</span>
+    <span class="f-count">(3)</span>
+  </div>
+  <div class="folder-body">
+    <a class="bm-item" href="https://www.szlcsc.com/" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">立创商城</span>
+      <span class="bm-url">www.szlcsc.com</span>
+    </a>
+    <a class="bm-item" href="https://www.taobao.com/" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">淘宝</span>
+      <span class="bm-url">www.taobao.com</span>
+    </a>
+    <a class="bm-item" href="https://www.1688.com/?spm=a2615.2177701.leftmenu_EXPEND.dhome" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">阿里1688首页</span>
+      <span class="bm-url">www.1688.com</span>
+    </a>
+  </div>
+  </div>
+  <div class="subfolder open">
+  <div class="folder-header" onclick="this.parentElement.classList.toggle('open')">
+    <span class="arrow">▶</span>
+    <span class="f-icon">🎬</span>
+    <span class="f-name">娱乐</span>
+    <span class="f-count">(14)</span>
+  </div>
+  <div class="folder-body">
+    <a class="bm-item" href="https://fzy954123-hub.github.io/nav/" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">百川导航 - 海纳百川，尽收于此</span>
+      <span class="bm-url">fzy954123-hub.github.io</span>
+    </a>
+    <a class="bm-item" href="https://pc.qq.com/" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">腾讯软件中心</span>
+      <span class="bm-url">pc.qq.com</span>
+    </a>
+    <a class="bm-item" href="https://fanqienovel.com/main/writer/home" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">作家专区-番茄小说网-番茄小说旗下原创文学平台</span>
+      <span class="bm-url">fanqienovel.com</span>
+    </a>
+    <a class="bm-item" href="https://www.jldzz.cn/" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">机佬导航 - 纯净的上网导航站</span>
+      <span class="bm-url">www.jldzz.cn</span>
+    </a>
+    <a class="bm-item" href="https://www.aigei.com/lib/gif/" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">GIF动图大全 动态gif图片素材_免费下载 - 爱给网</span>
+      <span class="bm-url">www.aigei.com</span>
+    </a>
+    <a class="bm-item" href="https://xz.yy2b.com/" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">飞车</span>
+      <span class="bm-url">xz.yy2b.com</span>
+    </a>
+    <a class="bm-item" href="https://www.mgtv.com/" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">芒果TV-天生青春</span>
+      <span class="bm-url">www.mgtv.com</span>
+    </a>
+    <a class="bm-item" href="https://v.qq.com/" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">腾讯视频</span>
+      <span class="bm-url">v.qq.com</span>
+    </a>
+    <a class="bm-item" href="https://www.youku.com/ku/webhome" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">优酷 </span>
+      <span class="bm-url">www.youku.com</span>
+    </a>
+    <a class="bm-item" href="https://www.douyin.com/?recommend=1" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">抖音</span>
+      <span class="bm-url">www.douyin.com</span>
+    </a>
+    <a class="bm-item" href="https://weibo.com/" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">微博</span>
+      <span class="bm-url">weibo.com</span>
+    </a>
+    <a class="bm-item" href="https://www.iqiyi.com/" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">爱奇艺</span>
+      <span class="bm-url">www.iqiyi.com</span>
+    </a>
+    <a class="bm-item" href="https://www.xiaohongshu.com/explore?channel_id=homefeed_recommend" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">小红书 </span>
+      <span class="bm-url">www.xiaohongshu.com</span>
+    </a>
+    <a class="bm-item" href="https://tv.cctv.com/" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">视网</span>
+      <span class="bm-url">tv.cctv.com</span>
+    </a>
+  </div>
+  </div>
+  <div class="subfolder open">
+  <div class="folder-header" onclick="this.parentElement.classList.toggle('open')">
+    <span class="arrow">▶</span>
+    <span class="f-icon">📖</span>
+    <span class="f-name">学习</span>
+    <span class="f-count">(3)</span>
+  </div>
+  <div class="folder-body">
+    <a class="bm-item" href="https://www.bilibili.com/" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">哔哩哔哩</span>
+      <span class="bm-url">www.bilibili.com</span>
+    </a>
+    <a class="bm-item" href="https://www.zhihu.com/" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">知乎</span>
+      <span class="bm-url">www.zhihu.com</span>
+    </a>
+    <a class="bm-item" href="https://www.csdn.net/" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">CSDN</span>
+      <span class="bm-url">www.csdn.net</span>
+    </a>
+  </div>
+  </div>
+  <div class="subfolder open">
+  <div class="folder-header" onclick="this.parentElement.classList.toggle('open')">
+    <span class="arrow">▶</span>
+    <span class="f-icon">💻</span>
+    <span class="f-name">嵌入式学习</span>
+    <span class="f-count">(7)</span>
+  </div>
+  <div class="folder-body">
+    <a class="bm-item" href="https://gitee.com/" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">Gitee.com</span>
+      <span class="bm-url">gitee.com</span>
+    </a>
+    <a class="bm-item" href="https://developer.aliyun.com/mirror/?serviceType=&amp;tag=&amp;keyword=QT" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">阿里巴巴开源镜像站-OPSX镜像站-阿里云开发者社区</span>
+      <span class="bm-url">developer.aliyun.com</span>
+    </a>
+    <a class="bm-item" href="https://www.freertos.org/zh-cn-cmn-s" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">FreeRTOS</span>
+      <span class="bm-url">www.freertos.org</span>
+    </a>
+    <a class="bm-item" href="https://netlab.luatos.com/" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">合宙 TCP/UDP web工具</span>
+      <span class="bm-url">netlab.luatos.com</span>
+    </a>
+    <a class="bm-item" href="https://www.huaweicloud.com/" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">华为云</span>
+      <span class="bm-url">www.huaweicloud.com</span>
+    </a>
+    <a class="bm-item" href="https://www.smartpi.cn/#/" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">智能公元</span>
+      <span class="bm-url">www.smartpi.cn</span>
+    </a>
+    <a class="bm-item" href="https://www.runoob.com/linux/linux-command-manual.html" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">Linux 命令大全 | 菜鸟教程</span>
+      <span class="bm-url">www.runoob.com</span>
+    </a>
+  </div>
+  </div>
+  <div class="subfolder open">
+  <div class="folder-header" onclick="this.parentElement.classList.toggle('open')">
+    <span class="arrow">▶</span>
+    <span class="f-icon">🛠</span>
+    <span class="f-name">工具</span>
+    <span class="f-count">(2)</span>
+  </div>
+  <div class="folder-body">
+    <a class="bm-item" href="https://cn.bing.com/search?q=%E8%AE%A1%E6%97%B6%E5%99%A8%E5%9C%A8%E7%BA%BF%E4%BD%BF%E7%94%A8" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">计时器在线使用</span>
+      <span class="bm-url">cn.bing.com</span>
+    </a>
+    <a class="bm-item" href="file:///C:/Users/CZJ-0/Desktop/DZ/time.html" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">计时器</span>
+      <span class="bm-url"></span>
+    </a>
+  </div>
+  </div>
+  <div class="subfolder open">
+  <div class="folder-header" onclick="this.parentElement.classList.toggle('open')">
+    <span class="arrow">▶</span>
+    <span class="f-icon">📐</span>
+    <span class="f-name">电路设计知识</span>
+    <span class="f-count">(1个子文件夹)</span>
+  </div>
+  <div class="folder-body">
+    <div class="subfolder open">
+    <div class="folder-header" onclick="this.parentElement.classList.toggle('open')">
+      <span class="arrow">▶</span>
+      <span class="f-icon">📏</span>
+      <span class="f-name">1、线规线径</span>
+      <span class="f-count">(1)</span>
+    </div>
+    <div class="folder-body">
+      <a class="bm-item" href="https://blog.csdn.net/kfepiza/article/details/139159592" target="_blank" rel="noopener noreferrer">
+        <span class="bm-dot"></span>
+        <span class="bm-name">线规线径对照表</span>
+        <span class="bm-url">blog.csdn.net</span>
+      </a>
+    </div>
+    </div>
+  </div>
+  </div>
+  <div class="subfolder open">
+  <div class="folder-header" onclick="this.parentElement.classList.toggle('open')">
+    <span class="arrow">▶</span>
+    <span class="f-icon">🔧</span>
+    <span class="f-name">硬件</span>
+    <span class="f-count">(4)</span>
+  </div>
+  <div class="folder-body">
+    <a class="bm-item" href="https://pro.lceda.cn/editor" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">嘉立创EDA(专业版)</span>
+      <span class="bm-url">pro.lceda.cn</span>
+    </a>
+    <a class="bm-item" href="https://member.jlc.com/?spm=PCB.Homepage.functionbar.1023" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">嘉立创下单中心</span>
+      <span class="bm-url">member.jlc.com</span>
+    </a>
+    <a class="bm-item" href="https://oshwhub.com/" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">立创开源硬件平台</span>
+      <span class="bm-url">oshwhub.com</span>
+    </a>
+    <a class="bm-item" href="https://www.zixel3d.com/p/home" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">3D查看器</span>
+      <span class="bm-url">www.zixel3d.com</span>
+    </a>
+  </div>
+  </div>
+  <div class="subfolder open">
+  <div class="folder-header" onclick="this.parentElement.classList.toggle('open')">
+    <span class="arrow">▶</span>
+    <span class="f-icon">⚡</span>
+    <span class="f-name">硬件知识</span>
+    <span class="f-count">(1个子文件夹)</span>
+  </div>
+  <div class="folder-body">
+    <div class="subfolder open">
+    <div class="folder-header" onclick="this.parentElement.classList.toggle('open')">
+      <span class="arrow">▶</span>
+      <span class="f-icon">⚡</span>
+      <span class="f-name">1、电容</span>
+      <span class="f-count">(1)</span>
+    </div>
+    <div class="folder-body">
+      <a class="bm-item" href="https://www.cnblogs.com/yangykaifa/p/19355130" target="_blank" rel="noopener noreferrer">
+        <span class="bm-dot"></span>
+        <span class="bm-name">硬件基础知识-电容</span>
+        <span class="bm-url">www.cnblogs.com</span>
+      </a>
+    </div>
+    </div>
+  </div>
+  </div>
+  <div class="subfolder open">
+  <div class="folder-header" onclick="this.parentElement.classList.toggle('open')">
+    <span class="arrow">▶</span>
+    <span class="f-icon">💿</span>
+    <span class="f-name">软件知识</span>
+    <span class="f-count">(2个子文件夹)</span>
+  </div>
+  <div class="folder-body">
+    <div class="subfolder open">
+    <div class="folder-header" onclick="this.parentElement.classList.toggle('open')">
+      <span class="arrow">▶</span>
+      <span class="f-icon">📡</span>
+      <span class="f-name">1、SPI</span>
+      <span class="f-count">(1)</span>
+    </div>
+    <div class="folder-body">
+      <a class="bm-item" href="https://blog.csdn.net/as480133937/article/details/105764119" target="_blank" rel="noopener noreferrer">
+        <span class="bm-dot"></span>
+        <span class="bm-name">SPI原理</span>
+        <span class="bm-url">blog.csdn.net</span>
+      </a>
+    </div>
+    </div>
+    <div class="subfolder open">
+    <div class="folder-header" onclick="this.parentElement.classList.toggle('open')">
+      <span class="arrow">▶</span>
+      <span class="f-icon">🚀</span>
+      <span class="f-name">2、Bootloader</span>
+      <span class="f-count">(1)</span>
+    </div>
+    <div class="folder-body">
+      <a class="bm-item" href="https://zhuanlan.zhihu.com/p/1919340613746299667" target="_blank" rel="noopener noreferrer">
+        <span class="bm-dot"></span>
+        <span class="bm-name">一文读懂Bootloader</span>
+        <span class="bm-url">zhuanlan.zhihu.com</span>
+      </a>
+    </div>
+    </div>
+  </div>
+  </div>
+  <div class="subfolder open">
+  <div class="folder-header" onclick="this.parentElement.classList.toggle('open')">
+    <span class="arrow">▶</span>
+    <span class="f-icon">📧</span>
+    <span class="f-name">邮件</span>
+    <span class="f-count">(1)</span>
+  </div>
+  <div class="folder-body">
+    <a class="bm-item" href="https://mail.163.com/js6/main.jsp?sid=ZLjlIowwNEZYBrXRHALbwiFHHDwAbLgg&amp;df=unireg#module=mbox.ListModule%7C%7B%22fid%22%3A1%2C%22order%22%3A%22date%22%2C%22desc%22%3Atrue%7D" target="_blank" rel="noopener noreferrer">
+      <span class="bm-dot"></span>
+      <span class="bm-name">网易邮箱6.0版</span>
+      <span class="bm-url">mail.163.com</span>
+    </a>
+  </div>
+  </div>
+  <div class="subfolder open">
+  <div class="folder-header" onclick="this.parentElement.classList.toggle('open')">
+    <span class="arrow">▶</span>
+    <span class="f-icon">🔬</span>
+    <span class="f-name">项目知识扩展</span>
+    <span class="f-count">(3个子文件夹)</span>
+  </div>
+  <div class="folder-body">
+    <div class="subfolder open">
+    <div class="folder-header" onclick="this.parentElement.classList.toggle('open')">
+      <span class="arrow">▶</span>
+      <span class="f-icon">🔋</span>
+      <span class="f-name">1、电池包</span>
+      <span class="f-count">(4)</span>
+    </div>
+    <div class="folder-body">
+      <a class="bm-item" href="http://motor-drive-ic.szczkjgs.com/news_show_183359.htm" target="_blank" rel="noopener noreferrer">
+        <span class="bm-dot"></span>
+        <span class="bm-name">锂电池充电曲线-恒压充电阶段</span>
+        <span class="bm-url">motor-drive-ic.szczkjgs.com</span>
+      </a>
+      <a class="bm-item" href="https://www.chongdiantou.com/archives/283250.html" target="_blank" rel="noopener noreferrer">
+        <span class="bm-dot"></span>
+        <span class="bm-name">长虹三杰INR18650-3000评测</span>
+        <span class="bm-url">www.chongdiantou.com</span>
+      </a>
+      <a class="bm-item" href="https://zhuanlan.zhihu.com/p/1986754857202361513" target="_blank" rel="noopener noreferrer">
+        <span class="bm-dot"></span>
+        <span class="bm-name">安时积分法计算电池SOC变化？</span>
+        <span class="bm-url">zhuanlan.zhihu.com</span>
+      </a>
+      <a class="bm-item" href="https://zhuanlan.zhihu.com/p/646357395" target="_blank" rel="noopener noreferrer">
+        <span class="bm-dot"></span>
+        <span class="bm-name"> 三端保险丝</span>
+        <span class="bm-url">zhuanlan.zhihu.com</span>
+      </a>
+    </div>
+    </div>
+    <div class="subfolder open">
+    <div class="folder-header" onclick="this.parentElement.classList.toggle('open')">
+      <span class="arrow">▶</span>
+      <span class="f-icon">🔌</span>
+      <span class="f-name">2、Type-c</span>
+      <span class="f-count">(1)</span>
+    </div>
+    <div class="folder-body">
+      <a class="bm-item" href="https://item.taobao.com/item.htm?from=cart&amp;id=1002453942466&amp;mi_id=0000f1uMD29N6l433uEzzGuIMFgWXApqc3M-bo9x5WApPdo&amp;skuId=6158347502500&amp;spm=a1z0d.6639537%2F202410.item.d1002453942466.71727484z6cSea&amp;upStreamPrice=2580" target="_blank" rel="noopener noreferrer">
+        <span class="bm-dot"></span>
+        <span class="bm-name">IP2369模块</span>
+        <span class="bm-url">item.taobao.com</span>
+      </a>
+    </div>
+    </div>
+    <div class="subfolder open">
+    <div class="folder-header" onclick="this.parentElement.classList.toggle('open')">
+      <span class="arrow">▶</span>
+      <span class="f-icon">🌀</span>
+      <span class="f-name">3、吸尘器电机</span>
+      <span class="f-count">(1)</span>
+    </div>
+    <div class="folder-body">
+      <a class="bm-item" href="https://www.zhihu.com/question/620525129" target="_blank" rel="noopener noreferrer">
+        <span class="bm-dot"></span>
+        <span class="bm-name">堵住吸尘器为什么电机转速会变高？</span>
+        <span class="bm-url">www.zhihu.com</span>
+      </a>
+    </div>
+    </div>
+  </div>
+  </div>
+  <a class="bm-item" href="https://www.doubao.com/chat/" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">豆包</span>
+    <span class="bm-url">www.doubao.com</span>
+  </a>
+  <a class="bm-item" href="https://chat.deepseek.com/" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">DeepSeek </span>
+    <span class="bm-url">chat.deepseek.com</span>
+  </a>
+  <a class="bm-item" href="https://www.zhihu.com/signin?next=%2F" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">知乎 </span>
+    <span class="bm-url">www.zhihu.com</span>
+  </a>
+  <a class="bm-item" href="https://www.ickey.cn/?utm_source=Bing&amp;utm_medium=CPC&amp;utm_content=yuanqijian&amp;utm_campaign=HangYeCi20240219&amp;utm_term=%E5%85%83%E4%BB%B6%E5%95%86%E5%9F%8E&amp;msclkid=e2bf79d62230121f50c410e959e3ca71" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">云汉芯城</span>
+    <span class="bm-url">www.ickey.cn</span>
+  </a>
+  <a class="bm-item" href="https://www.hqew.com/" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">华强电子网</span>
+    <span class="bm-url">www.hqew.com</span>
+  </a>
+  <a class="bm-item" href="https://www.hqchip.com/" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">华秋商城</span>
+    <span class="bm-url">www.hqchip.com</span>
+  </a>
+  <a class="bm-item" href="https://www.1688.com/zw/hamlet.html?scene=2&amp;keywords=%E9%98%BF%E9%87%8C%E5%B7%B4%E5%B7%B4%E2%80%98&amp;cosite=bingjj&amp;trackid=885232814311083101334061&amp;format=normal&amp;location=landing_t4&amp;m_k=82876808101825&amp;m_a=1326013360201484&amp;m_p=520152399&amp;m_clk=7d5eb667748f1b07f08cdf5808316cd2&amp;m_c=82876061333443&amp;m_q=%E9%98%BF%E9%87%8C%E5%B7%B4%E5%B7%B4&amp;m_mt=be&amp;m_ep=e&amp;m_o=82876808101825&amp;m_site=o&amp;d27=c&amp;m_cext=&amp;m_aud=kwd-82876808101825:loc-39&amp;msclkid=7d5eb667748f1b07f08cdf5808316cd2" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">阿里巴巴1688</span>
+    <span class="bm-url">www.1688.com</span>
+  </a>
+  <a class="bm-item" href="https://www.taobao.com/wow/z/tbhome/pcsem/alimama?refpid=mm_2898300158_3078300397_115665800437&amp;keyword=%E6%B7%98%E5%AE%9D&amp;bc_fl_src=tbsite_T9W2LtnM&amp;channelSrp=bingSomama&amp;msclkid=fcd63a1680a710934f1f5329fdae437a&amp;clk1=1253eed54e0bc287cc1295aa396302c7&amp;upsId=1253eed54e0bc287cc1295aa396302c7" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">淘宝</span>
+    <span class="bm-url">www.taobao.com</span>
+  </a>
+  <a class="bm-item" href="https://www.bilibili.com/" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">哔哩哔哩</span>
+    <span class="bm-url">www.bilibili.com</span>
+  </a>
+  <a class="bm-item" href="https://www.csdn.net/" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">CSDN_专业开发者社区_已接入DeepSeek R1-0528版本</span>
+    <span class="bm-url">www.csdn.net</span>
+  </a>
+  <a class="bm-item" href="https://www.cnblogs.com/sggggr/p/17145918.html" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">Source Insight 4.0使用</span>
+    <span class="bm-url">www.cnblogs.com</span>
+  </a>
+  <a class="bm-item" href="https://www.jlc.com/newOrder/#/pcb/pcbOrderList?spm=JLC.MEMBER" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">嘉立创下单助手</span>
+    <span class="bm-url">www.jlc.com</span>
+  </a>
+  <a class="bm-item" href="https://www.szlcsc.com/?c=Q4&amp;msclkid=01e0427c55631b3d9aa52bc655ac2b8c" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">立创商城</span>
+    <span class="bm-url">www.szlcsc.com</span>
+  </a>
+  <a class="bm-item" href="https://u.lceda.cn/account/user/team/detail/projects?team=34bb064ce8e64cee9890053b489b4302&amp;type=myParticipate" target="_blank" rel="noopener noreferrer">
+    <span class="bm-dot"></span>
+    <span class="bm-name">团队-嘉立创EDA</span>
+    <span class="bm-url">u.lceda.cn</span>
+  </a>
 </div>
-</section>
-
-<!-- 项目知识 -->
-<section class="cat-section" data-cat="project">
-<div class="sec-title">🔋 项目知识扩展</div>
-<div class="link-list">
-  <a class="link-item" href="http://motor-drive-ic.szczkjgs.com/news_show_183359.htm" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#ff6b6b"></span><span class="lname">锂电池充电曲线-恒压充电</span><span class="lurl">szczkjgs.com</span></a>
-  <a class="link-item" href="https://www.chongdiantou.com/archives/283250.html" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#ff6b6b"></span><span class="lname">长虹三杰 INR18650-3000 评测</span><span class="lurl">充电头网</span></a>
-  <a class="link-item" href="https://zhuanlan.zhihu.com/p/1986754857202361513" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#ff6b6b"></span><span class="lname">安时积分法计算电池SOC</span><span class="lurl">知乎</span></a>
-  <a class="link-item" href="https://zhuanlan.zhihu.com/p/646357395" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#ff6b6b"></span><span class="lname">三端保险丝</span><span class="lurl">知乎</span></a>
-  <a class="link-item" href="https://item.taobao.com/item.htm?id=1002453942466" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#ffd43b"></span><span class="lname">IP2369 模块</span><span class="lurl">淘宝</span></a>
-  <a class="link-item" href="https://www.zhihu.com/question/620525129" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#4dabf7"></span><span class="lname">堵住吸尘器电机转速为何变高</span><span class="lurl">知乎</span></a>
-  <a class="link-item" href="https://www.doc88.com/p-38871881062672.html" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#20c997"></span><span class="lname">GBT 4706.1-2024 家用电器安全标准</span><span class="lurl">道客巴巴</span></a>
 </div>
-</section>
-
-<!-- AI工具 -->
-<section class="cat-section" data-cat="ai">
-<div class="sec-title">🤖 AI 开发工具</div>
-<div class="link-list">
-  <a class="link-item" href="https://api.aipaibox.com/console" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#20c997"></span><span class="lname">AI派</span><span class="lurl">aipaibox.com</span></a>
-  <a class="link-item" href="https://platform.deepseek.com/usage" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#4dabf7"></span><span class="lname">DeepSeek API</span><span class="lurl">deepseek.com</span></a>
-  <a class="link-item" href="https://max.jojocode.com/dashboard" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#ff6b6b"></span><span class="lname">Max JOJO Code</span><span class="lurl">jojocode.com</span></a>
-  <a class="link-item" href="https://bigmodel.cn/finance-center" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#9775fa"></span><span class="lname">智谱AI开放平台</span><span class="lurl">bigmodel.cn</span></a>
-  <a class="link-item" href="https://console.volcengine.com/ark/region:cn-beijing/overview" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#f06595"></span><span class="lname">豆包模型 - 火山引擎</span><span class="lurl">volcengine.com</span></a>
-  <a class="link-item" href="https://skillhub.cn/skills?sortBy=score" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#ff922b"></span><span class="lname">SkillHub</span><span class="lurl">skillhub.cn</span></a>
-  <a class="link-item" href="https://github.com/BigPizzaV3/CodexPlusPlus" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#9775fa"></span><span class="lname">Codex++ 安装</span><span class="lurl">GitHub</span></a>
-  <a class="link-item" href="https://github.com/fzy954123-hub/nav" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#9775fa"></span><span class="lname">百川导航 GitHub</span><span class="lurl">GitHub</span></a>
-</div>
-</section>
-
-<!-- 其他 -->
-<section class="cat-section" data-cat="other">
-<div class="sec-title">📦 其他</div>
-<div class="link-list">
-  <a class="link-item" href="https://www.bilibili.com/" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#f06595"></span><span class="lname">哔哩哔哩 B站</span><span class="lurl">bilibili.com</span></a>
-  <a class="link-item" href="https://www.csdn.net/" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#ff6b6b"></span><span class="lname">CSDN</span><span class="lurl">csdn.net</span></a>
-  <a class="link-item" href="https://www.zhihu.com/" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#4dabf7"></span><span class="lname">知乎</span><span class="lurl">zhihu.com</span></a>
-  <a class="link-item" href="https://mail.163.com/" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#ffd43b"></span><span class="lname">网易邮箱</span><span class="lurl">mail.163.com</span></a>
-  <a class="link-item" href="https://fanqienovel.com/main/writer/home" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#f06595"></span><span class="lname">番茄小说-作家专区</span><span class="lurl">fanqienovel.com</span></a>
-  <a class="link-item" href="https://www.aigei.com/lib/gif/" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#ffd43b"></span><span class="lname">GIF动图大全 - 爱给网</span><span class="lurl">aigei.com</span></a>
-  <a class="link-item" href="https://www.jldzz.cn/" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#4dabf7"></span><span class="lname">机佬导航</span><span class="lurl">jldzz.cn</span></a>
-  <a class="link-item" href="https://13.212.175.5:4433/public-Q/" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#ff6b6b"></span><span class="lname">一元机场</span><span class="lurl">VPN</span></a>
-  <a class="link-item" href="https://yandex.com/search/" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#20c997"></span><span class="lname">IP纯净度测试</span><span class="lurl">yandex.com</span></a>
-  <a class="link-item" href="file:///C:/Users/CZJ-0/Desktop/DZ/time.html" target="_blank" rel="noopener noreferrer"><span class="dot" style="background:#ff922b"></span><span class="lname">计时器-本地</span><span class="lurl">本地文件</span></a>
-</div>
-</section>
-
-</main>
-
-<div class="footer">
-  📚 技术收藏夹 · <a href="index.html">百川导航</a>
-</div>
-
-<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</div></main>
+<div class="footer">📚 技术收藏夹 · <a href="index.html">返回百川导航</a></div>
 <script>
 if(window.top!==window.self){window.top.location=window.self.location}
-
-// 分类切换
-$(".cat-bar li").click(function(){
-  var cat=$(this).data("cat");
-  $(".cat-bar li").removeClass("active");$(this).addClass("active");
-  if(cat==="all"){$(".cat-section").show()}else{$(".cat-section").hide();$(".cat-section[data-cat='"+cat+"']").show()}
-});
+function toggleAll(){
+ var fs=document.querySelectorAll('.folder,.subfolder');
+ var all=true;
+ fs.forEach(function(f){if(!f.classList.contains('open'))all=false});
+ fs.forEach(function(f){if(all)f.classList.remove('open');else f.classList.add('open')});
+ document.querySelector('.expand-btn').textContent=all?'展开全部':'折叠全部';
+}
 </script>
 </body>
 </html>
