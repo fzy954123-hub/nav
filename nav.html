@@ -360,7 +360,20 @@ function doSiteSearch(){
   $(".card").each(function(){
     var kw = ($(this).data("keywords") || "").toLowerCase();
     var nm = $(this).find(".c-name").text().toLowerCase();
-    if(nm.indexOf(q)>=0 || kw.indexOf(q)>=0){
+    var text = nm + " " + kw;
+    // token-based: split by whitespace, match if ALL tokens found
+    var tokens = q.split(/\s+/);
+    var match = true;
+    for(var i = 0; i < tokens.length; i++){
+      if(text.indexOf(tokens[i]) < 0){ match = false; break; }
+    }
+    // fallback: progressive shortening of the full query
+    if(!match){
+      for(var len = q.length; len >= 2; len--){
+        if(text.indexOf(q.substring(0, len)) >= 0){ match = true; break; }
+      }
+    }
+    if(match){
       $(this).show();found++;
     } else {
       $(this).hide();
