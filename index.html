@@ -4,388 +4,103 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>百川导航 - 海纳百川，尽收于此</title>
-<meta name="keywords" content="百川导航,影视,短视频,音乐,短剧,工具,网站导航">
-<meta name="description" content="百川导航 - 海纳百川，尽收于此。集合影视、短视频、音乐、短剧、工具等全网资源。">
 <meta name="referrer" content="no-referrer">
-
-<!-- 安全防护 -->
-<meta http-equiv="Content-Security-Policy" content="
-  default-src 'self';
-  style-src 'self' 'unsafe-inline' https://cdn.bootcdn.net;
-  font-src 'self' https://cdn.bootcdn.net data:;
-  script-src 'self' 'unsafe-inline' https://cdn.bootcdn.net;
-  img-src 'self' data: https:;
-  connect-src 'self' https://www.bing.com;
-  frame-ancestors 'none';
-  base-uri 'self';
-  form-action 'self';
-">
-<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://cdn.bootcdn.net; font-src 'self' https://cdn.bootcdn.net data:; script-src 'self' 'unsafe-inline'; img-src 'self' data: https:; frame-ancestors 'none';">
 <meta http-equiv="X-Frame-Options" content="DENY">
-<meta http-equiv="X-XSS-Protection" content="1; mode=block">
-
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌊</text></svg>">
-<link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.6.2/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-::-webkit-scrollbar{width:5px}
-::-webkit-scrollbar-thumb{background:rgba(100,200,255,.3);border-radius:3px}
 body{
-  background:linear-gradient(135deg, #0a0e14 0%, #131920 40%, #0d1117 100%);
-  min-height:100vh;font-family:"Microsoft YaHei","PingFang SC",sans-serif;color:#c0c8d4;
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#0a0e14 0%,#131920 40%,#0d1117 100%);
+  font-family:"Microsoft YaHei","PingFang SC",sans-serif;color:#fff;
+  overflow-x:hidden;
 }
-.topbar{
-  position:fixed;top:0;left:0;right:0;z-index:1000;
-  background:rgba(10,14,20,.94);backdrop-filter:blur(12px);
-  border-bottom:1px solid rgba(255,255,255,.06);padding:0;
+.bg-particles{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0}
+.container{position:relative;z-index:1;text-align:center;padding:20px}
+h1{font-size:48px;font-weight:800;margin-bottom:8px}
+h1 span{background:linear-gradient(135deg,#00d4ff,#7c3aed);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.sub{color:#556;font-size:16px;margin-bottom:60px}
+.doors{display:flex;gap:30px;justify-content:center;flex-wrap:wrap}
+.door{
+  display:block;width:260px;height:340px;border-radius:20px;
+  text-decoration:none;position:relative;overflow:hidden;
+  transition:transform .3s,box-shadow .3s;cursor:pointer;
 }
-.topbar .container{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
-.topbar .logo{font-size:22px;font-weight:700;color:#fff;text-decoration:none;display:flex;align-items:center;gap:8px}
-.topbar .logo .icon-wrap{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#00d4ff,#7c3aed);display:flex;align-items:center;justify-content:center;font-size:18px}
-.topbar .logo span{background:linear-gradient(135deg,#00d4ff,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.topbar .top-tools{display:flex;gap:18px;list-style:none;padding:0;margin:0}
-.topbar .top-tools a{color:#8899aa;text-decoration:none;font-size:13px;transition:.2s}
-.topbar .top-tools a:hover{color:#00d4ff}
-.banner{
-  margin-top:58px;position:relative;padding:60px 20px 50px;text-align:center;overflow:hidden;
-  background:linear-gradient(180deg,rgba(10,14,20,0) 0%,rgba(0,212,255,.03) 50%,rgba(0,0,0,0) 100%);
+.door:hover{transform:translateY(-8px)}
+.door-a{
+  background:linear-gradient(160deg,rgba(0,212,255,.15),rgba(0,180,220,.08));
+  border:1px solid rgba(0,212,255,.2);box-shadow:0 0 40px rgba(0,212,255,.1);
 }
-.banner .logo-big{font-size:52px;margin-bottom:8px;animation:wave 2s ease-in-out infinite}
-@keyframes wave{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-.banner h1{font-size:36px;font-weight:700;color:#fff;margin:0}
-.banner h1 span{background:linear-gradient(135deg,#00d4ff,#7c3aed);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.banner .sub{color:#667788;font-size:15px;margin:10px 0 0}
-.search-area{max-width:760px;margin:0 auto 20px}
-.search-row{display:flex;gap:10px;margin-bottom:8px}
-.search-box{flex:1;display:flex;align-items:center;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;overflow:hidden;transition:.2s}
-.search-box:focus-within{border-color:rgba(0,212,255,.5);box-shadow:0 0 20px rgba(0,212,255,.08)}
-.search-box input{flex:1;border:none;outline:none;background:transparent;color:#e0e0e0;padding:12px 16px;font-size:14px}
-.search-box input::placeholder{color:#556}
-.search-box button{border:none;padding:12px 18px;cursor:pointer;font-size:14px;font-weight:600;transition:.2s;display:flex;align-items:center;gap:6px}
-.search-box .btn-site{background:linear-gradient(135deg,#7c3aed,#6366f1);color:#fff}
-.search-box .btn-site:hover{background:linear-gradient(135deg,#6366f1,#4f46e5)}
-.search-box .btn-bing{background:linear-gradient(135deg,#00a4ef,#0078d4);color:#fff}
-.search-box .btn-bing:hover{background:linear-gradient(135deg,#0078d4,#106ebe)}
-.search-row label{display:flex;align-items:center;color:#556;font-size:12px;white-space:nowrap;gap:4px}
-.cat-bar{position:sticky;top:58px;z-index:999;background:rgba(10,14,20,.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.06);overflow-x:auto;-webkit-overflow-scrolling:touch}
-.cat-bar::-webkit-scrollbar{height:0}
-.cat-bar ul{display:flex;gap:0;list-style:none;margin:0 auto;padding:0;justify-content:center;min-width:max-content}
-.cat-bar li{cursor:pointer;padding:14px 22px;color:#667788;font-size:14px;transition:.2s;border-bottom:2px solid transparent;white-space:nowrap}
-.cat-bar li:hover,.cat-bar li.active{color:#00d4ff;border-bottom-color:#00d4ff}
-.result-hint{text-align:center;color:#445;font-size:13px;margin:0 0 12px;display:none}
-main{max-width:1300px;margin:0 auto;padding:30px 20px 60px}
-.sec-title{font-size:20px;font-weight:700;margin:36px 0 16px;padding:0 0 8px;border-bottom:1px solid rgba(255,255,255,.06);color:#e8e8e8;display:flex;align-items:center;gap:10px}
-.sec-dot{width:8px;height:8px;border-radius:50%;display:inline-block}
-.sec-dot.video{background:#ff6b6b;box-shadow:0 0 10px rgba(255,107,107,.5)}
-.sec-dot.tv{background:#ff922b;box-shadow:0 0 10px rgba(255,146,43,.5)}
-.sec-dot.music{background:#20c997;box-shadow:0 0 10px rgba(32,201,151,.5)}
-.sec-dot.drama{background:#f06595;box-shadow:0 0 10px rgba(240,101,149,.5)}
-.sec-dot.game{background:#ffd43b;box-shadow:0 0 10px rgba(255,212,59,.5)}
-.sec-dot.tools{background:#4dabf7;box-shadow:0 0 10px rgba(77,171,247,.5)}
-.sec-dot.life{background:#9775fa;box-shadow:0 0 10px rgba(151,117,250,.5)}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
-.card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.05);border-radius:14px;padding:18px 12px;text-align:center;text-decoration:none;color:#aabbcc;transition:.25s;display:block;position:relative;overflow:hidden}
-.card:hover{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.1);transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,0,0,.4);color:#fff;text-decoration:none}
-.card .c-icon{width:46px;height:46px;border-radius:12px;margin:0 auto 10px;display:flex;align-items:center;justify-content:center;font-size:22px}
-.card .c-icon.red{background:rgba(255,107,107,.12);color:#ff6b6b}
-.card .c-icon.orange{background:rgba(255,146,43,.12);color:#ff922b}
-.card .c-icon.green{background:rgba(32,201,151,.12);color:#20c997}
-.card .c-icon.pink{background:rgba(240,101,149,.12);color:#f06595}
-.card .c-icon.blue{background:rgba(77,171,247,.12);color:#4dabf7}
-.card .c-icon.purple{background:rgba(151,117,250,.12);color:#9775fa}
-.card .c-icon.yellow{background:rgba(255,212,59,.12);color:#ffd43b}
-.card .c-name{display:block;font-size:13px;font-weight:600;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.card .c-tag{font-size:11px;color:#556;display:block}
-.footer{text-align:center;padding:40px 20px;color:#444;font-size:13px;border-top:1px solid rgba(255,255,255,.04)}
-.footer a{color:#4dabf7}
-@media(max-width:768px){
-  .banner{padding:40px 20px 30px}
-  .banner h1{font-size:26px}
-  .grid{grid-template-columns:repeat(4,1fr)}
-  .search-row{flex-direction:column}
-  .cat-bar ul{justify-content:flex-start}
-  .card{padding:14px 8px}
-  .card .c-icon{width:36px;height:36px;font-size:18px}
+.door-a:hover{box-shadow:0 0 60px rgba(0,212,255,.25)}
+.door-b{
+  background:linear-gradient(160deg,rgba(124,58,237,.15),rgba(100,30,200,.08));
+  border:1px solid rgba(124,58,237,.2);box-shadow:0 0 40px rgba(124,58,237,.1);
+}
+.door-b:hover{box-shadow:0 0 60px rgba(124,58,237,.25)}
+.door .icon{font-size:72px;margin:60px 0 20px;display:block}
+.door .title{font-size:24px;font-weight:700;color:#fff;margin-bottom:8px}
+.door .desc{font-size:13px;color:#667788;padding:0 20px;line-height:1.5}
+.door .badge{
+  display:inline-block;padding:4px 14px;border-radius:20px;
+  font-size:12px;margin-top:16px;
+}
+.door-a .badge{background:rgba(0,212,255,.15);color:#00d4ff}
+.door-b .badge{background:rgba(124,58,237,.15);color:#a78bfa}
+.footer{position:fixed;bottom:30px;left:0;right:0;text-align:center;color:#333;font-size:13px;z-index:1}
+@media(max-width:600px){
+  h1{font-size:32px}
+  .doors{gap:20px}
+  .door{width:220px;height:300px}
+  .door .icon{font-size:56px;margin:50px 0 15px}
+  .door .title{font-size:20px}
 }
 </style>
 </head>
 <body>
 
-<!-- 防劫持：如果被iframe嵌入则跳出去 -->
-<script>if(window.top!==window.self){window.top.location=window.self.location}</script>
+<canvas class="bg-particles" id="bg"></canvas>
 
-<!-- 顶部 -->
-<div class="topbar"><div class="container">
-  <a class="logo" href="#"><div class="icon-wrap">🌊</div><span>百川导航</span></a>
-  <ul class="top-tools">
-    <li><a href="#video" rel="noopener">短视频</a></li>
-    <li><a href="#tv" rel="noopener">影视</a></li>
-    <li><a href="#music" rel="noopener">音乐</a></li>
-    <li><a href="#drama" rel="noopener">短剧</a></li>
-    <li><a href="#tools" rel="noopener">工具</a></li>
-  </ul>
-</div></div>
-
-<!-- Banner -->
-<div class="banner">
-  <div class="logo-big">🌊</div>
+<div class="container">
   <h1>海纳百川 · <span>尽收于此</span></h1>
-  <p class="sub">短视频 / 影视 / 音乐 / 短剧 / 游戏 / 工具 — 一个导航就够了</p>
-</div>
+  <p class="sub">选择一个入口开始探索</p>
 
-<!-- 搜索 -->
-<div class="search-area container">
-  <div class="search-row">
-    <div class="search-box">
-      <input type="text" id="siteSearch" placeholder="🔍 站内搜索 — 搜网站名称快速定位...">
-      <button class="btn-site" onclick="doSiteSearch()"><i class="fas fa-filter"></i> 查找</button>
-    </div>
+  <div class="doors">
+    <a class="door door-a" href="nav.html">
+      <span class="icon">🌊</span>
+      <div class="title">百川导航</div>
+      <div class="desc">短视频 / 影视 / 音乐 / 短剧 / 游戏 / 工具</div>
+      <span class="badge">娱乐 · 工具</span>
+    </a>
+
+    <a class="door door-b" href="bookmarks.html">
+      <span class="icon">📚</span>
+      <div class="title">技术收藏</div>
+      <div class="desc">嵌入式学习 / 硬件设计 / USB协议 / AI工具</div>
+      <span class="badge">开发 · 学习</span>
+    </a>
   </div>
-  <div class="search-row">
-    <div class="search-box">
-      <input type="text" id="bingSearch" placeholder="🌐 Bing 搜索 — 搜任何你想要的内容...">
-      <button class="btn-bing" onclick="doBingSearch()"><i class="fas fa-globe"></i> Bing</button>
-    </div>
-  </div>
 </div>
 
-<p class="result-hint" id="resultHint">找到 <strong id="resultCount">0</strong> 个结果</p>
+<div class="footer">🌊 百川导航</div>
 
-<!-- 分类 -->
-<div class="cat-bar">
-  <ul>
-    <li class="active" data-cat="all">✨ 全部</li>
-    <li data-cat="video">📱 短视频</li>
-    <li data-cat="tv">🎬 影视平台</li>
-    <li data-cat="music">🎵 音乐听歌</li>
-    <li data-cat="drama">📺 短剧平台</li>
-    <li data-cat="game">🎮 游戏</li>
-    <li data-cat="tools">🛠 实用工具</li>
-    <li data-cat="life">🏠 生活服务</li>
-  </ul>
-</div>
-
-<main>
-
-<!-- 短视频 -->
-<section class="cat-section" data-cat="video" data-title="短视频">
-<div class="sec-title"><span class="sec-dot video"></span>📱 短视频平台</div>
-<div class="grid">
-  <a class="card" href="https://www.douyin.com/" target="_blank" rel="noopener noreferrer" data-keywords="抖音 douyin 短视频"><div class="c-icon red"><i class="fas fa-music"></i></div><span class="c-name">抖音</span><span class="c-tag">短视频</span></a>
-  <a class="card" href="https://www.bilibili.com/" target="_blank" rel="noopener noreferrer" data-keywords="b站 bilibili 哔哩哔哩 弹幕"><div class="c-icon pink"><i class="fas fa-tv"></i></div><span class="c-name">哔哩哔哩</span><span class="c-tag">中视频</span></a>
-  <a class="card" href="https://www.kuaishou.com/" target="_blank" rel="noopener noreferrer" data-keywords="快手 kuaishou 直播"><div class="c-icon orange"><i class="fas fa-video"></i></div><span class="c-name">快手</span><span class="c-tag">短视频</span></a>
-  <a class="card" href="https://www.xiaohongshu.com/" target="_blank" rel="noopener noreferrer" data-keywords="小红书 种草 视频 笔记"><div class="c-icon red"><i class="fas fa-book-open"></i></div><span class="c-name">小红书</span><span class="c-tag">图文视频</span></a>
-  <a class="card" href="https://www.zhihu.com/" target="_blank" rel="noopener noreferrer" data-keywords="知乎 问答 视频 知识"><div class="c-icon blue"><i class="fas fa-question-circle"></i></div><span class="c-name">知乎</span><span class="c-tag">知识视频</span></a>
-  <a class="card" href="https://weibo.com/" target="_blank" rel="noopener noreferrer" data-keywords="微博 热搜 话题"><div class="c-icon red"><i class="fas fa-fire"></i></div><span class="c-name">微博</span><span class="c-tag">热搜视频</span></a>
-  <a class="card" href="https://www.weishi.com/" target="_blank" rel="noopener noreferrer" data-keywords="微视 腾讯短视频"><div class="c-icon green"><i class="fas fa-play"></i></div><span class="c-name">微视</span><span class="c-tag">短视频</span></a>
-  <a class="card" href="https://huoshan.com/" target="_blank" rel="noopener noreferrer" data-keywords="火山 直播"><div class="c-icon orange"><i class="fas fa-volcano"></i></div><span class="c-name">火山小视频</span><span class="c-tag">短视频</span></a>
-</div>
-</section>
-
-<!-- 影视 -->
-<section class="cat-section" data-cat="tv" data-title="影视平台">
-<div class="sec-title"><span class="sec-dot tv"></span>🎬 影视平台</div>
-<div class="grid">
-  <a class="card" href="https://v.qq.com/" target="_blank" rel="noopener noreferrer" data-keywords="腾讯视频 电视剧 电影 VIP"><div class="c-icon blue"><i class="fas fa-film"></i></div><span class="c-name">腾讯视频</span><span class="c-tag">影视综艺</span></a>
-  <a class="card" href="https://www.iqiyi.com/" target="_blank" rel="noopener noreferrer" data-keywords="爱奇艺 迷雾剧场 综艺"><div class="c-icon green"><i class="fas fa-clapperboard"></i></div><span class="c-name">爱奇艺</span><span class="c-tag">影视综艺</span></a>
-  <a class="card" href="https://www.youku.com/" target="_blank" rel="noopener noreferrer" data-keywords="优酷 港剧 综艺"><div class="c-icon orange"><i class="fas fa-play-circle"></i></div><span class="c-name">优酷</span><span class="c-tag">影视综艺</span></a>
-  <a class="card" href="https://www.mgtv.com/" target="_blank" rel="noopener noreferrer" data-keywords="芒果TV 综艺 独播"><div class="c-icon yellow"><i class="fas fa-mango"></i></div><span class="c-name">芒果TV</span><span class="c-tag">综艺独播</span></a>
-  <a class="card" href="https://www.netflix.com/" target="_blank" rel="noopener noreferrer" data-keywords="Netflix 奈飞 美剧"><div class="c-icon red"><i class="fas fa-n"></i></div><span class="c-name">Netflix</span><span class="c-tag">海外影视</span></a>
-  <a class="card" href="https://www.hbo.com/" target="_blank" rel="noopener noreferrer" data-keywords="HBO 权游 龙之家族"><div class="c-icon purple"><i class="fas fa-crown"></i></div><span class="c-name">HBO</span><span class="c-tag">美剧</span></a>
-  <a class="card" href="https://www.disneyplus.com/" target="_blank" rel="noopener noreferrer" data-keywords="Disney 迪士尼 漫威"><div class="c-icon blue"><i class="fas fa-star"></i></div><span class="c-name">Disney+</span><span class="c-tag">迪士尼</span></a>
-  <a class="card" href="https://www.soku.com/" target="_blank" rel="noopener noreferrer" data-keywords="搜库 影视搜索 找片"><div class="c-icon yellow"><i class="fas fa-search"></i></div><span class="c-name">搜库</span><span class="c-tag">影视搜索</span></a>
-</div>
-</section>
-
-<!-- 音乐 -->
-<section class="cat-section" data-cat="music" data-title="音乐听歌">
-<div class="sec-title"><span class="sec-dot music"></span>🎵 音乐听歌</div>
-<div class="grid">
-  <a class="card" href="https://music.163.com/" target="_blank" rel="noopener noreferrer" data-keywords="网易云 music 歌单"><div class="c-icon red"><i class="fas fa-compact-disc"></i></div><span class="c-name">网易云音乐</span><span class="c-tag">音乐</span></a>
-  <a class="card" href="https://y.qq.com/" target="_blank" rel="noopener noreferrer" data-keywords="QQ音乐 腾讯 听歌"><div class="c-icon green"><i class="fas fa-headphones"></i></div><span class="c-name">QQ音乐</span><span class="c-tag">音乐</span></a>
-  <a class="card" href="https://www.kugou.com/" target="_blank" rel="noopener noreferrer" data-keywords="酷狗 下载 KTV"><div class="c-icon blue"><i class="fas fa-music"></i></div><span class="c-name">酷狗音乐</span><span class="c-tag">音乐</span></a>
-  <a class="card" href="https://www.kuwo.cn/" target="_blank" rel="noopener noreferrer" data-keywords="酷我 电台 车载"><div class="c-icon purple"><i class="fas fa-podcast"></i></div><span class="c-name">酷我音乐</span><span class="c-tag">音乐电台</span></a>
-  <a class="card" href="https://music.apple.com/cn" target="_blank" rel="noopener noreferrer" data-keywords="Apple Music 苹果 无损"><div class="c-icon pink"><i class="fab fa-apple"></i></div><span class="c-name">Apple Music</span><span class="c-tag">无损音乐</span></a>
-  <a class="card" href="https://www.spotify.com/" target="_blank" rel="noopener noreferrer" data-keywords="Spotify 声破天 海外"><div class="c-icon green"><i class="fab fa-spotify"></i></div><span class="c-name">Spotify</span><span class="c-tag">海外音乐</span></a>
-  <a class="card" href="https://www.xiami.com/" target="_blank" rel="noopener noreferrer" data-keywords="虾米 独立 小众"><div class="c-icon orange"><i class="fas fa-shrimp"></i></div><span class="c-name">虾米音乐</span><span class="c-tag">音乐</span></a>
-  <a class="card" href="https://www.migu.cn/" target="_blank" rel="noopener noreferrer" data-keywords="咪咕 中国移动 彩铃"><div class="c-icon blue"><i class="fas fa-mobile-alt"></i></div><span class="c-name">咪咕音乐</span><span class="c-tag">音乐</span></a>
-</div>
-</section>
-
-<!-- 短剧 -->
-<section class="cat-section" data-cat="drama" data-title="短剧平台">
-<div class="sec-title"><span class="sec-dot drama"></span>📺 短剧平台</div>
-<div class="grid">
-  <a class="card" href="https://www.kuaishou.com/" target="_blank" rel="noopener noreferrer" data-keywords="快手短剧 星芒 微短剧"><div class="c-icon orange"><i class="fas fa-clapperboard"></i></div><span class="c-name">快手短剧</span><span class="c-tag">星芒短剧</span></a>
-  <a class="card" href="https://www.douyin.com/" target="_blank" rel="noopener noreferrer" data-keywords="抖音短剧 番茄 爽文"><div class="c-icon red"><i class="fas fa-film"></i></div><span class="c-name">抖音短剧</span><span class="c-tag">短剧</span></a>
-  <a class="card" href="https://www.bilibili.com/v/douga/" target="_blank" rel="noopener noreferrer" data-keywords="B站短剧 原创 动画"><div class="c-icon pink"><i class="fas fa-pen-nib"></i></div><span class="c-name">B站短剧</span><span class="c-tag">原创短剧</span></a>
-  <a class="card" href="https://short.weixin.qq.com/" target="_blank" rel="noopener noreferrer" data-keywords="微信短剧 小程序"><div class="c-icon green"><i class="fab fa-weixin"></i></div><span class="c-name">微信短剧</span><span class="c-tag">小程序</span></a>
-  <a class="card" href="https://www.guangdianyun.cn/" target="_blank" rel="noopener noreferrer" data-keywords="广电云 正版短剧"><div class="c-icon blue"><i class="fas fa-broadcast-tower"></i></div><span class="c-name">广电云短剧</span><span class="c-tag">短剧</span></a>
-  <a class="card" href="https://www.taopiaopiao.com/" target="_blank" rel="noopener noreferrer" data-keywords="淘票票 预告片 花絮"><div class="c-icon yellow"><i class="fas fa-ticket-alt"></i></div><span class="c-name">淘票票</span><span class="c-tag">预告花絮</span></a>
-</div>
-</section>
-
-<!-- 游戏 -->
-<section class="cat-section" data-cat="game" data-title="游戏">
-<div class="sec-title"><span class="sec-dot game"></span>🎮 游戏</div>
-<div class="grid">
-  <a class="card" href="https://game.qq.com/" target="_blank" rel="noopener noreferrer" data-keywords="腾讯游戏 LOL 王者 DNF"><div class="c-icon blue"><i class="fas fa-gamepad"></i></div><span class="c-name">腾讯游戏</span><span class="c-tag">游戏</span></a>
-  <a class="card" href="https://www.taptap.cn/" target="_blank" rel="noopener noreferrer" data-keywords="TapTap 手游 排行榜"><div class="c-icon green"><i class="fas fa-mobile-alt"></i></div><span class="c-name">TapTap</span><span class="c-tag">手游下载</span></a>
-  <a class="card" href="https://store.steampowered.com/" target="_blank" rel="noopener noreferrer" data-keywords="Steam 单机 PC 打折"><div class="c-icon purple"><i class="fab fa-steam"></i></div><span class="c-name">Steam</span><span class="c-tag">PC游戏</span></a>
-  <a class="card" href="https://www.epicgames.com/" target="_blank" rel="noopener noreferrer" data-keywords="Epic 免费 虚幻"><div class="c-icon purple"><i class="fas fa-cube"></i></div><span class="c-name">Epic Games</span><span class="c-tag">PC游戏</span></a>
-  <a class="card" href="https://www.nintendo.com/" target="_blank" rel="noopener noreferrer" data-keywords="Switch 任天堂 塞尔达"><div class="c-icon red"><i class="fas fa-nintendo-switch"></i></div><span class="c-name">Switch</span><span class="c-tag">任天堂</span></a>
-  <a class="card" href="https://www.miyoushe.com/" target="_blank" rel="noopener noreferrer" data-keywords="米哈游 原神 星穹铁道"><div class="c-icon blue"><i class="fas fa-star"></i></div><span class="c-name">米游社</span><span class="c-tag">原神崩铁</span></a>
-</div>
-</section>
-
-<!-- 工具 -->
-<section class="cat-section" data-cat="tools" data-title="实用工具">
-<div class="sec-title"><span class="sec-dot tools"></span>🛠 实用工具</div>
-<div class="grid">
-  <a class="card" href="https://lceda.cn/" target="_blank" rel="noopener noreferrer" data-keywords="立创EDA PCB 原理图"><div class="c-icon purple"><i class="fas fa-project-diagram"></i></div><span class="c-name">立创EDA</span><span class="c-tag">PCB设计</span></a>
-  <a class="card" href="https://www.jlc.com/" target="_blank" rel="noopener noreferrer" data-keywords="嘉立创 PCB打样"><div class="c-icon blue"><i class="fas fa-print"></i></div><span class="c-name">嘉立创PCB</span><span class="c-tag">PCB打样</span></a>
-  <a class="card" href="https://github.com/" target="_blank" rel="noopener noreferrer" data-keywords="GitHub 开源 程序员"><div class="c-icon purple"><i class="fab fa-github"></i></div><span class="c-name">GitHub</span><span class="c-tag">代码开源</span></a>
-  <a class="card" href="https://gitee.com/" target="_blank" rel="noopener noreferrer" data-keywords="Gitee 码云 国内"><div class="c-icon red"><i class="fas fa-code"></i></div><span class="c-name">Gitee码云</span><span class="c-tag">代码托管</span></a>
-  <a class="card" href="https://docs.qq.com/" target="_blank" rel="noopener noreferrer" data-keywords="腾讯文档 在线 协作"><div class="c-icon green"><i class="fas fa-file-alt"></i></div><span class="c-name">腾讯文档</span><span class="c-tag">在线协作</span></a>
-  <a class="card" href="https://www.kdocs.cn/" target="_blank" rel="noopener noreferrer" data-keywords="金山文档 WPS Office"><div class="c-icon orange"><i class="fas fa-file-word"></i></div><span class="c-name">金山文档</span><span class="c-tag">在线Office</span></a>
-  <a class="card" href="https://excalidraw.com/" target="_blank" rel="noopener noreferrer" data-keywords="Excalidraw 画图 流程图"><div class="c-icon blue"><i class="fas fa-paint-brush"></i></div><span class="c-name">Excalidraw</span><span class="c-tag">在线画图</span></a>
-  <a class="card" href="https://tool.lu/" target="_blank" rel="noopener noreferrer" data-keywords="工具箱 JSON 正则 转换"><div class="c-icon green"><i class="fas fa-toolbox"></i></div><span class="c-name">在线工具箱</span><span class="c-tag">工具集合</span></a>
-</div>
-</section>
-
-<!-- 生活 -->
-<section class="cat-section" data-cat="life" data-title="生活服务">
-<div class="sec-title"><span class="sec-dot life"></span>🏠 生活服务</div>
-<div class="grid">
-  <a class="card" href="https://www.taobao.com/" target="_blank" rel="noopener noreferrer" data-keywords="淘宝 购物 电商"><div class="c-icon orange"><i class="fas fa-shopping-cart"></i></div><span class="c-name">淘宝</span><span class="c-tag">购物</span></a>
-  <a class="card" href="https://www.jd.com/" target="_blank" rel="noopener noreferrer" data-keywords="京东 家电 数码"><div class="c-icon red"><i class="fas fa-truck"></i></div><span class="c-name">京东</span><span class="c-tag">购物</span></a>
-  <a class="card" href="https://www.goofish.com/" target="_blank" rel="noopener noreferrer" data-keywords="闲鱼 二手 闲置"><div class="c-icon yellow"><i class="fas fa-exchange-alt"></i></div><span class="c-name">闲鱼</span><span class="c-tag">二手交易</span></a>
-  <a class="card" href="https://www.douban.com/" target="_blank" rel="noopener noreferrer" data-keywords="豆瓣 影评 书评"><div class="c-icon green"><i class="fas fa-book"></i></div><span class="c-name">豆瓣</span><span class="c-tag">影评书评</span></a>
-  <a class="card" href="https://www.dianping.com/" target="_blank" rel="noopener noreferrer" data-keywords="大众点评 美食 火锅"><div class="c-icon yellow"><i class="fas fa-utensils"></i></div><span class="c-name">大众点评</span><span class="c-tag">吃喝玩乐</span></a>
-  <a class="card" href="https://www.meituan.com/" target="_blank" rel="noopener noreferrer" data-keywords="美团 外卖 酒店"><div class="c-icon green"><i class="fas fa-motorcycle"></i></div><span class="c-name">美团</span><span class="c-tag">外卖团购</span></a>
-</div>
-</section>
-
-</main>
-
-<div class="footer">
-  🌊 百川导航 · 海纳百川，尽收于此 · 安全加固<br>
-  由 <a href="https://github.com/fzy954123-hub/nav" target="_blank" rel="noopener noreferrer">Codex</a> 构建
-</div>
-
-<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
-// ===== 安全防护 =====
 (function(){
-  // 1. 禁止控制台调试（简单的反调试）
-  var devtools = false;
-  var threshold = 160;
-  setInterval(function(){
-    var w = window.outerWidth - window.innerWidth;
-    var h = window.outerHeight - window.innerHeight;
-    if(w > threshold || h > threshold) devtools = true;
-  }, 500);
-
-  // 2. 监控DOM异常（有人注入脚本）
-  var observer = new MutationObserver(function(mutations){
-    mutations.forEach(function(m){
-      m.addedNodes.forEach(function(node){
-        if(node.nodeType === 1 && node.tagName === "SCRIPT" &&
-           !node.src && node.textContent.length > 50){
-          console.log("[安全] 检测到可疑脚本注入，已移除");
-          node.parentNode && node.parentNode.removeChild(node);
-        }
-      });
-    });
-  });
-  observer.observe(document.documentElement, { childList: true, subtree: true });
-
-  // 3. 阻止console被覆盖
-  var _console = {};
-  ["log","warn","error","info"].forEach(function(k){
-    _console[k] = console[k];
-    Object.defineProperty(console, k, {
-      get: function(){ return _console[k]; },
-      set: function(){}
-    });
-  });
+  var c=document.getElementById("bg"),ctx=c.getContext("2d"),w,h,pts=[];
+  function resize(){w=c.width=window.innerWidth;h=c.height=window.innerHeight}
+  resize();window.onresize=resize;
+  for(var i=0;i<50;i++)pts.push({x:Math.random()*w,y:Math.random()*h,r:.3+Math.random()*1.2,s:.2+Math.random()*.4});
+  function draw(){
+    ctx.clearRect(0,0,w,h);
+    for(var i=0;i<pts.length;i++){
+      var p=pts[i];ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle="rgba(0,212,255,"+(.08+Math.sin(Date.now()*.001+i)*.04)+")";ctx.fill();
+      p.y-=p.s;if(p.y<-10){p.y=h+10;p.x=Math.random()*w}
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
 })();
-
-// 站内搜索
-function doSiteSearch(){
-  var q = ($("#siteSearch").val() || "").trim().toLowerCase();
-  if(!q){ resetView(); return; }
-  // 过滤XSS
-  q = q.replace(/[<>"'&\/]/g, "").slice(0, 50);
-  var found = 0;
-  $(".card").each(function(){
-    var kw = ($(this).data("keywords") || "").toLowerCase();
-    var nm = $(this).find(".c-name").text().toLowerCase();
-    if(nm.indexOf(q) >= 0 || kw.indexOf(q) >= 0){
-      $(this).show(); found++;
-    } else {
-      $(this).hide();
-    }
-  });
-  $(".sec-title").show();
-  if(found > 0){
-    $("#resultHint").show(); $("#resultCount").text(found);
-  } else {
-    $("#resultHint").show(); $("#resultCount").text("0");
-  }
-}
-$("#siteSearch").on("keydown", function(e){ if(e.key === "Enter") doSiteSearch(); });
-$("#siteSearch").on("input", function(){
-  if(!this.value.trim()) resetView(); else doSiteSearch();
-});
-
-function resetView(){
-  $(".card").show(); $("#resultHint").hide();
-  var active = $(".cat-bar li.active").data("cat");
-  if(active && active !== "all") filterByCat(active);
-}
-
-// Bing搜索
-function doBingSearch(){
-  var q = ($("#bingSearch").val() || "").trim();
-  if(!q) return;
-  q = q.replace(/[<>"'&]/g, "").slice(0, 200);
-  window.open("https://www.bing.com/search?q=" + encodeURIComponent(q), "_blank", "noopener");
-}
-$("#bingSearch").on("keydown", function(e){ if(e.key === "Enter") doBingSearch(); });
-
-// 分类切换
-function filterByCat(cat){
-  $(".card").each(function(){
-    var p = $(this).closest(".cat-section");
-    if(cat === "all" || (p.length && p.data("cat") === cat)){
-      $(this).show();
-    } else {
-      $(this).hide();
-    }
-  });
-  if(cat === "all") $(".cat-section").show();
-  else {
-    $(".cat-section").hide();
-    $(".cat-section[data-cat='" + cat + "']").show();
-  }
-}
-$(".cat-bar li").click(function(){
-  var cat = $(this).data("cat");
-  $(".cat-bar li").removeClass("active");
-  $(this).addClass("active");
-  $("#siteSearch").val("");
-  $("#resultHint").hide();
-  filterByCat(cat);
-});
-
-// 平滑滚动
-$("a[href^='#']").click(function(e){
-  e.preventDefault();
-  var t = $(this.hash);
-  if(t.length) $("html,body").animate({scrollTop: t.offset().top - 120}, 400);
-});
 </script>
 </body>
 </html>
