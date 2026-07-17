@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -99,7 +99,7 @@ function openFolder(idx){
   document.getElementById('crumb').textContent = f.icon + ' ' + f.name;
   var html = '';
   if (f.items.length > 0){
-    html += '<div class="sec-title"><span style="font-size:14px">📄</span> 书签 (' + f.items.length + ')</div>';
+    html += '<div class="sec-title">' + f.icon + ' ' + f.name + ' (' + f.items.length + ')' + '</div>';
     html += '<div class="grid">';
     f.items.forEach(function(bm, i){
       var color = COLORS[i % COLORS.length];
