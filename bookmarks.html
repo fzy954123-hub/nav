@@ -12,27 +12,28 @@
 <style>*{margin:0;padding:0;box-sizing:border-box}
 ::-webkit-scrollbar{width:5px}
 ::-webkit-scrollbar-thumb{background:rgba(180,130,255,.3);border-radius:3px}
-:root{--c:#7c3aed}
 body{background:linear-gradient(135deg,#0a0e14 0%,#131920 40%,#0d1117 100%);min-height:100vh;font-family:"Microsoft YaHei","PingFang SC",sans-serif;color:#c0c8d4}
-.topbar{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,14,20,.94);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.06);padding:10px 24px;display:flex;align-items:center;gap:12px}
-.topbar .back{color:#8899aa;text-decoration:none;font-size:15px;transition:.2s}
+.topbar{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,14,20,.94);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.06);padding:12px 24px;display:flex;align-items:center;gap:12px}
+.topbar .back{color:#8899aa;text-decoration:none;font-size:15px;cursor:pointer;transition:.2s;display:none}
 .topbar .back:hover{color:#a78bfa}
+.topbar .back.show{display:inline}
 .topbar .logo{font-size:18px;font-weight:700;color:#fff;display:flex;align-items:center;gap:8px}
 .topbar .logo span{background:linear-gradient(135deg,#a78bfa,#7c3aed);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.banner{padding:76px 20px 30px;text-align:center;background:linear-gradient(180deg,rgba(124,58,237,.05),rgba(0,0,0,0))}
+.banner{padding:76px 20px 24px;text-align:center}
 .banner .icon{font-size:44px}
 .banner h1{font-size:28px;font-weight:700;color:#fff;margin:8px 0 4px}
 .banner h1 span{background:linear-gradient(135deg,#a78bfa,#7c3aed);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .banner .sub{color:#556;font-size:13px}
-main{max-width:1300px;margin:0 auto;padding:20px 20px 60px}
-.sec-title{font-size:20px;font-weight:700;margin:36px 0 16px;padding:0 0 8px;border-bottom:1px solid rgba(255,255,255,.06);color:#e8e8e8;display:flex;align-items:center;gap:10px}
+.banner .crumb{color:#556;font-size:13px;margin-top:6px}
+main{max-width:1300px;margin:0 auto;padding:10px 20px 60px}
+.sec-title{font-size:18px;font-weight:700;margin:24px 0 12px;padding:0 0 8px;border-bottom:1px solid rgba(255,255,255,.06);color:#ddd;display:flex;align-items:center;gap:8px}
 .sec-dot{width:8px;height:8px;border-radius:50%}
-.sub-title{font-size:15px;font-weight:600;margin:24px 0 12px 10px;color:#aabbcc;display:flex;align-items:center;gap:8px}
+.sub-title{font-size:14px;font-weight:600;margin:20px 0 10px 10px;color:#aabbcc}
 .sub-count{font-size:11px;color:#445;font-weight:400}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
-.card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.05);border-radius:14px;padding:18px 12px;text-align:center;text-decoration:none;color:#aabbcc;transition:.25s;display:block}
-.card:hover{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.1);transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,0,0,.4);color:#fff;text-decoration:none}
-.card .c-icon{width:42px;height:42px;border-radius:10px;margin:0 auto 8px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
+.card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.05);border-radius:14px;padding:18px 10px;text-align:center;text-decoration:none;color:#aabbcc;transition:.25s;display:block;cursor:pointer}
+.card:hover{background:rgba(255,255,255,.08);border-color:rgba(0,212,255,.2);transform:translateY(-3px);box-shadow:0 8px 25px rgba(0,0,0,.3);color:#fff;text-decoration:none}
+.card .c-icon{width:44px;height:44px;border-radius:12px;margin:0 auto 8px;display:flex;align-items:center;justify-content:center;font-size:22px}
 .card .c-icon.red{background:rgba(255,107,107,.12);color:#ff6b6b}
 .card .c-icon.orange{background:rgba(255,146,43,.12);color:#ff922b}
 .card .c-icon.green{background:rgba(32,201,151,.12);color:#20c997}
@@ -40,196 +41,35 @@ main{max-width:1300px;margin:0 auto;padding:20px 20px 60px}
 .card .c-icon.blue{background:rgba(77,171,247,.12);color:#4dabf7}
 .card .c-icon.purple{background:rgba(151,117,250,.12);color:#9775fa}
 .card .c-icon.yellow{background:rgba(255,212,59,.12);color:#ffd43b}
-.card .c-name{display:block;font-size:13px;font-weight:600;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.card .c-tag{font-size:11px;color:#445;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card .c-name{display:block;font-size:14px;font-weight:600;margin-bottom:2px}
+.card .c-tag{font-size:11px;color:#445}
+.card .c-arrow{font-size:10px;color:#445;margin-top:4px}
+#folders,.detail{display:block}
+.detail{display:none}
 .footer{text-align:center;padding:30px;color:#333;font-size:13px;border-top:1px solid rgba(255,255,255,.04)}
 .footer a{color:#a78bfa}
-@media(max-width:768px){.grid{grid-template-columns:repeat(4,1fr)}.card{padding:14px 8px}.card .c-icon{width:34px;height:34px;font-size:15px}}</style>
+@media(max-width:768px){.grid{grid-template-columns:repeat(3,1fr)}.card{padding:14px 8px}}
+</style>
 </head>
 <body>
 <div class="topbar">
-  <a class="back" href="index.html">← 首页</a>
+  <a class="back" id="backBtn" onclick="goBack()">← 返回</a>
+  <a class="back" href="index.html" style="display:inline">← 首页</a>
   <div class="logo">📚 <span>技术收藏</span></div>
 </div>
 <div class="banner">
   <div class="icon">📚</div>
   <h1>我的 <span>技术收藏</span></h1>
-  <p class="sub">浏览器书签同步 · 按分类整理</p>
+  <p class="sub">浏览器书签同步 · 点击文件夹浏览</p>
+  <p class="crumb" id="crumb"></p>
 </div>
 <main>
-<div class="sec-title"><span class="sec-dot" style="background:var(--c)"></span>📂 其他收藏夹</div>
-<div class="grid">
-  <a class="card" href="https://www.cnblogs.com/andy-songwei/p/9965714.html" target="_blank" rel="noopener noreferrer"><div class="c-icon red">【</div><span class="c-name">【工利其器】必会工具之…</span><span class="c-tag">www.cnblogs.com</span></a>
-  <a class="card" href="https://blog.csdn.net/taotongning/article/details/82432555" target="_blank" rel="noopener noreferrer"><div class="c-icon orange">S</div><span class="c-name">Source Insi…</span><span class="c-tag">blog.csdn.net</span></a>
-  <a class="card" href="https://blog.csdn.net/bichenggui/article/details/4697038" target="_blank" rel="noopener noreferrer"><div class="c-icon green">S</div><span class="c-name">SourceInsig…</span><span class="c-tag">blog.csdn.net</span></a>
-  <a class="card" href="https://www.doc88.com/p-38871881062672.html" target="_blank" rel="noopener noreferrer"><div class="c-icon pink">G</div><span class="c-name">GBT 4706.1-…</span><span class="c-tag">www.doc88.com</span></a>
-  <a class="card" href="https://sneak.blog.csdn.net/article/details/140502928?spm=1001.2101.3001.6650.1&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7Ebaidujs_baidulandingword%7ECtr-1-140502928-blog-112251509.235%5Ev43%5Epc_blog_bottom_relevance_base3&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7Ebaidujs_baidulandingword%7ECtr-1-140502928-blog-112251509.235%5Ev43%5Epc_blog_bottom_relevance_base3&amp;utm_relevant_index=2" target="_blank" rel="noopener noreferrer"><div class="c-icon blue">U</div><span class="c-name">USB 2.0 协议专…</span><span class="c-tag">sneak.blog.csdn.net</span></a>
-  <a class="card" href="https://blog.csdn.net/weiaipan1314/article/details/112251509" target="_blank" rel="noopener noreferrer"><div class="c-icon purple">U</div><span class="c-name">USB协议详解第3讲（…</span><span class="c-tag">blog.csdn.net</span></a>
-  <a class="card" href="https://gitcode.com/open-source-toolkit/b0819/?utm_source=tools_gitcode&amp;index=bottom&amp;type=card&amp;&amp;isLogin=1" target="_blank" rel="noopener noreferrer"><div class="c-icon yellow">项</div><span class="c-name">项目首页 - PC端连…</span><span class="c-tag">gitcode.com</span></a>
-  <a class="card" href="https://blog.csdn.net/weixin_42471823/article/details/143643273" target="_blank" rel="noopener noreferrer"><div class="c-icon red">掌</div><span class="c-name">掌握STM32 USB…</span><span class="c-tag">blog.csdn.net</span></a>
-  <a class="card" href="https://www.usbzh.com/article/detail-843.html" target="_blank" rel="noopener noreferrer"><div class="c-icon orange">U</div><span class="c-name">USB通讯原理 - U…</span><span class="c-tag">www.usbzh.com</span></a>
-  <a class="card" href="https://blog.csdn.net/weixin_50932441/article/details/127519828" target="_blank" rel="noopener noreferrer"><div class="c-icon green">赛</div><span class="c-name">赛元科技EasyCod…</span><span class="c-tag">blog.csdn.net</span></a>
-  <a class="card" href="https://blog.csdn.net/weixin_44748127/article/details/125610738" target="_blank" rel="noopener noreferrer"><div class="c-icon pink">s</div><span class="c-name">stm32 USB H…</span><span class="c-tag">blog.csdn.net</span></a>
-  <a class="card" href="https://www.usbzh.com/article/detail-345.html" target="_blank" rel="noopener noreferrer"><div class="c-icon blue">H</div><span class="c-name">HID键盘设备数据抓包…</span><span class="c-tag">www.usbzh.com</span></a>
-  <a class="card" href="https://aijishu.com/a/1060000000121861" target="_blank" rel="noopener noreferrer"><div class="c-icon purple">M</div><span class="c-name">MM32 USB功能学…</span><span class="c-tag">aijishu.com</span></a>
-  <a class="card" href="https://zhuanlan.zhihu.com/p/656339393" target="_blank" rel="noopener noreferrer"><div class="c-icon yellow">彻</div><span class="c-name">彻底搞懂USB描述符 …</span><span class="c-tag">zhuanlan.zhihu.com</span></a>
-  <a class="card" href="https://blog.csdn.net/u012028275/article/details/109280001" target="_blank" rel="noopener noreferrer"><div class="c-icon red">【</div><span class="c-name">【USB笔记】配置描述…</span><span class="c-tag">blog.csdn.net</span></a>
-  <a class="card" href="https://blog.csdn.net/u012028275/article/details/109689169" target="_blank" rel="noopener noreferrer"><div class="c-icon orange">【</div><span class="c-name">【USB笔记】端点描述…</span><span class="c-tag">blog.csdn.net</span></a>
-  <a class="card" href="https://zhuanlan.zhihu.com/p/720949015" target="_blank" rel="noopener noreferrer"><div class="c-icon green">V</div><span class="c-name">Visio 2021安…</span><span class="c-tag">zhuanlan.zhihu.com</span></a>
-  <a class="card" href="https://www.bilibili.com/video/BV1oA4y1Q7Sh/?spm_id_from=333.337.search-card.all.click&amp;vd_source=54c0f290620f2f333ca13dcb61aa227c" target="_blank" rel="noopener noreferrer"><div class="c-icon pink">易</div><span class="c-name">易码魔盒功能篇——TK…</span><span class="c-tag">www.bilibili.com</span></a>
-  <a class="card" href="https://www.bilibili.com/video/BV1iG4y1V7gi?spm_id_from=333.788.recommend_more_video.0&amp;vd_source=54c0f290620f2f333ca13dcb61aa227c" target="_blank" rel="noopener noreferrer"><div class="c-icon blue">易</div><span class="c-name">易码魔盒触控快速调试_…</span><span class="c-tag">www.bilibili.com</span></a>
-  <a class="card" href="https://www.bilibili.com/video/BV1Vx4y1p7Rs/?spm_id_from=333.337.search-card.all.click&amp;vd_source=54c0f290620f2f333ca13dcb61aa227c" target="_blank" rel="noopener noreferrer"><div class="c-icon purple">赛</div><span class="c-name">赛元触控开发板（新定义…</span><span class="c-tag">www.bilibili.com</span></a>
-  <a class="card" href="https://blog.csdn.net/2301_76800432/article/details/140473478" target="_blank" rel="noopener noreferrer"><div class="c-icon yellow">赛</div><span class="c-name">赛元MCU初步搭建ke…</span><span class="c-tag">blog.csdn.net</span></a>
-  <a class="card" href="https://blog.csdn.net/hwd00001/article/details/124193668" target="_blank" rel="noopener noreferrer"><div class="c-icon red">赛</div><span class="c-name">赛元单片机-触摸库使用…</span><span class="c-tag">blog.csdn.net</span></a>
-  <a class="card" href="https://blog.csdn.net/qq_43415898/article/details/107561498" target="_blank" rel="noopener noreferrer"><div class="c-icon orange">N</div><span class="c-name">NEC红外传输协议详解…</span><span class="c-tag">blog.csdn.net</span></a>
-  <a class="card" href="https://blog.csdn.net/weixin_67907028/article/details/134653661" target="_blank" rel="noopener noreferrer"><div class="c-icon green">手</div><span class="c-name">手把手教你玩转WS28…</span><span class="c-tag">blog.csdn.net</span></a>
-  <a class="card" href="https://blog.csdn.net/zhuoqingjoking97298/article/details/120871808" target="_blank" rel="noopener noreferrer"><div class="c-icon pink">W</div><span class="c-name">WS2812串行可控彩…</span><span class="c-tag">blog.csdn.net</span></a>
-  <a class="card" href="https://blog.csdn.net/lotusloves/article/details/118769497" target="_blank" rel="noopener noreferrer"><div class="c-icon blue">w</div><span class="c-name">win10 Keil5…</span><span class="c-tag">blog.csdn.net</span></a>
-  <a class="card" href="https://blog.csdn.net/qq_44810226/article/details/120154984" target="_blank" rel="noopener noreferrer"><div class="c-icon purple">S</div><span class="c-name">STM32 SPI+D…</span><span class="c-tag">blog.csdn.net</span></a>
-  <a class="card" href="https://blog.csdn.net/lzs2327/article/details/105368483" target="_blank" rel="noopener noreferrer"><div class="c-icon yellow">S</div><span class="c-name">STM32F103C8…</span><span class="c-tag">blog.csdn.net</span></a>
-  <a class="card" href="https://blog.csdn.net/tq384998430/article/details/53391575" target="_blank" rel="noopener noreferrer"><div class="c-icon red">纳</div><span class="c-name">纳秒级电平翻转实践-C…</span><span class="c-tag">blog.csdn.net</span></a>
-  <a class="card" href="https://blog.csdn.net/tq384998430/article/details/88542469?depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-3&amp;utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-3" target="_blank" rel="noopener noreferrer"><div class="c-icon orange">S</div><span class="c-name">STM32 SPI+D…</span><span class="c-tag">blog.csdn.net</span></a>
-  <a class="card" href="https://blog.csdn.net/weixin_43572492/article/details/89632893" target="_blank" rel="noopener noreferrer"><div class="c-icon green">W</div><span class="c-name">WS2812b幻彩AR…</span><span class="c-tag">blog.csdn.net</span></a>
-  <a class="card" href="https://blog.csdn.net/lowkeyaaaa/article/details/118526046" target="_blank" rel="noopener noreferrer"><div class="c-icon pink">N</div><span class="c-name">NTC温度算法&amp…</span><span class="c-tag">blog.csdn.net</span></a>
-  <a class="card" href="https://blog.csdn.net/qq_41359157/article/details/132802069" target="_blank" rel="noopener noreferrer"><div class="c-icon blue">N</div><span class="c-name">NTC 温度采样 二分…</span><span class="c-tag">blog.csdn.net</span></a>
-  <a class="card" href="https://blog.csdn.net/qq_45325304/article/details/132203510?spm=1001.2101.3001.6650.1&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7EPaidSort-1-132203510-blog-118526046.235%5Ev43%5Epc_blog_bottom_relevance_base3&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7EPaidSort-1-132203510-blog-118526046.235%5Ev43%5Epc_blog_bottom_relevance_base3&amp;utm_relevant_index=1" target="_blank" rel="noopener noreferrer"><div class="c-icon purple">测</div><span class="c-name">测温型 NTC 热敏电…</span><span class="c-tag">blog.csdn.net</span></a>
-  <a class="card" href="https://blog.csdn.net/ghostonetwo/article/details/136300630#:~:text=%E6%9C%AC%E6%96%87%E8%AF%A6%E7%BB%86%E6%8F%8F%E8%BF%B0%E4%BA%86%E5%9C%A8%E4%BA%A4%E6%B5%81%E7%94%B5%E5%BA%94%E7%94%A8%E4%B8%AD%EF%BC%8C%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87%E8%BF%87%E9%9B%B6%E6%A3%80%E6%B5%8B%E6%8A%80%E6%9C%AF%E6%9D%A5%E4%BF%9D%E6%8A%A4%E7%BB%A7%E7%94%B5%E5%99%A8%EF%BC%8C%E5%88%A9%E7%94%A8GPIO%E4%B8%AD%E6%96%AD%E5%92%8C%E5%AE%9A%E6%97%B6%E5%99%A8%E5%AE%9E%E7%8E%B0%E9%9B%B6%E7%82%B9%E9%97%AD%E5%90%88%E7%BB%A7%E7%94%B5%E5%99%A8%EF%BC%8C%E7%A1%AE%E4%BF%9D%E7%BB%A7%E7%94%B5%E5%99%A8%E5%9C%A8%E9%9B%B6%E7%82%B9%E6%97%B6%E5%8A%A8%E4%BD%9C%E4%BB%A5%E5%BB%B6%E9%95%BF%E5%AF%BF%E5%91%BD%E3%80%82%20%E7%89%B9%E5%88%AB%E5%BC%BA%E8%B0%83%E4%BA%86%E5%9C%A8%E6%9C%89%E6%97%A0%E8%BF%87%E9%9B%B6%E4%BF%A1%E5%8F%B7%E6%97%B6%E7%9A%84%E5%A4%84%E7%90%86%E7%AD%96%E7%95%A5%EF%BC%8C%E9%98%B2%E6%AD%A2%E5%9B%A0%E6%A3%80%E6%B5%8B%E7%94%B5%E8%B7%AF%E9%97%AE%E9%A2%98%E5%BD%B1%E5%93%8D%E4%BA%A7%E5%93%81%E4%BD%BF%E7%94%A8%E3%80%82%20%E6%91%98%E8%A6%81%E7%94%9F%E6%88%90%E4%BA%8E%20C%E7%9F%A5%E9%81%93%20%EF%BC%8C%E7%94%B1%20DeepSeek-R1,%E6%BB%A1%E8%A1%80%E7%89%88%E6%94%AF%E6%8C%81%EF%BC%8C%20%E5%89%8D%E5%BE%80%E4%BD%93%E9%AA%8C%20%3E%20%E8%BF%87%E9%9B%B6%E6%A3%80%E6%B5%8B%EF%BC%9A%20%E6%A3%80%E6%B5%8B%E7%9A%84%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9A%E4%BA%A4%E6%B5%81%E7%94%B5%E7%9A%84%E7%94%B5%E5%8E%8B%20%E9%9B%B6%EF%BC%9A%E7%94%B5%E5%8E%8B%E5%8F%98%E6%88%90%E9%9B%B6" target="_blank" rel="noopener noreferrer"><div class="c-icon yellow">继</div><span class="c-name">继电器的保护：过零检测…</span><span class="c-tag">blog.csdn.net</span></a>
-  <a class="card" href="https://blog.csdn.net/FutureStudio1994/article/details/112189049" target="_blank" rel="noopener noreferrer"><div class="c-icon red">手</div><span class="c-name">手把手教你使用热敏电阻…</span><span class="c-tag">blog.csdn.net</span></a>
-  <a class="card" href="https://blog.csdn.net/qq_42289734/article/details/130092876" target="_blank" rel="noopener noreferrer"><div class="c-icon orange">双</div><span class="c-name">双向可控硅详细用法说明…</span><span class="c-tag">blog.csdn.net</span></a>
-  <a class="card" href="https://www.bilibili.com/video/BV1AL4y137pC/?spm_id_from=333.337.search-card.all.click&amp;vd_source=54c0f290620f2f333ca13dcb61aa227c" target="_blank" rel="noopener noreferrer"><div class="c-icon green">双</div><span class="c-name">双向可控硅控制原理，程…</span><span class="c-tag">www.bilibili.com</span></a>
-  <a class="card" href="https://www.eet-china.com/mp/a92370.html" target="_blank" rel="noopener noreferrer"><div class="c-icon pink">可</div><span class="c-name">可控硅的两种触发方式：…</span><span class="c-tag">www.eet-china.com</span></a>
-  <a class="card" href="https://fishc.com.cn/thread-55009-1-1.html" target="_blank" rel="noopener noreferrer"><div class="c-icon blue">【</div><span class="c-name">【新提醒】【原创】用单…</span><span class="c-tag">fishc.com.cn</span></a>
-  <a class="card" href="https://blog.csdn.net/wuyanboplus/article/details/120307164" target="_blank" rel="noopener noreferrer"><div class="c-icon purple">S</div><span class="c-name">STM32硬件I2C双…</span><span class="c-tag">blog.csdn.net</span></a>
-  <a class="card" href="https://blog.csdn.net/weixin_42328389/article/details/120824724" target="_blank" rel="noopener noreferrer"><div class="c-icon yellow">S</div><span class="c-name">STM32对接涂鸦wi…</span><span class="c-tag">blog.csdn.net</span></a>
-  <a class="card" href="https://blog.51cto.com/u_16099226/8945148" target="_blank" rel="noopener noreferrer"><div class="c-icon red">a</div><span class="c-name">android 涂鸦 …</span><span class="c-tag">blog.51cto.com</span></a>
-  <a class="card" href="https://developer.tuya.com/cn/docs/iot/tuya-cloud-universal-serial-port-access-protocol?id=K9hhi0xxtn9cb" target="_blank" rel="noopener noreferrer"><div class="c-icon orange">串</div><span class="c-name">串口协议-涂鸦开发者平…</span><span class="c-tag">developer.tuya.com</span></a>
-  <a class="card" href="https://developer.tuya.com/cn/docs/iot/overview-of-migrating-tuyas-mcu-sdk?id=K9hhi0xr5vll9" target="_blank" rel="noopener noreferrer"><div class="c-icon green">M</div><span class="c-name">MCU SDK 移植-…</span><span class="c-tag">developer.tuya.com</span></a>
+<div id="folders">
+  <div class="sec-title">📂 收藏夹分类</div>
+  <div class="grid" id="folderGrid"></div>
 </div>
-<div class="sec-title"><span class="sec-dot" style="background:var(--c)"></span>📁 收藏夹栏</div>
-<div class="grid">
-  <a class="card" href="https://www.doubao.com/chat/" target="_blank" rel="noopener noreferrer"><div class="c-icon red">豆</div><span class="c-name">豆包</span><span class="c-tag">www.doubao.com</span></a>
-  <a class="card" href="https://chat.deepseek.com/" target="_blank" rel="noopener noreferrer"><div class="c-icon orange">D</div><span class="c-name">DeepSeek </span><span class="c-tag">chat.deepseek.com</span></a>
-  <a class="card" href="https://www.zhihu.com/signin?next=%2F" target="_blank" rel="noopener noreferrer"><div class="c-icon green">知</div><span class="c-name">知乎 </span><span class="c-tag">www.zhihu.com</span></a>
-  <a class="card" href="https://www.ickey.cn/?utm_source=Bing&amp;utm_medium=CPC&amp;utm_content=yuanqijian&amp;utm_campaign=HangYeCi20240219&amp;utm_term=%E5%85%83%E4%BB%B6%E5%95%86%E5%9F%8E&amp;msclkid=e2bf79d62230121f50c410e959e3ca71" target="_blank" rel="noopener noreferrer"><div class="c-icon pink">云</div><span class="c-name">云汉芯城</span><span class="c-tag">www.ickey.cn</span></a>
-  <a class="card" href="https://www.hqew.com/" target="_blank" rel="noopener noreferrer"><div class="c-icon blue">华</div><span class="c-name">华强电子网</span><span class="c-tag">www.hqew.com</span></a>
-  <a class="card" href="https://www.hqchip.com/" target="_blank" rel="noopener noreferrer"><div class="c-icon purple">华</div><span class="c-name">华秋商城</span><span class="c-tag">www.hqchip.com</span></a>
-  <a class="card" href="https://www.1688.com/zw/hamlet.html?scene=2&amp;keywords=%E9%98%BF%E9%87%8C%E5%B7%B4%E5%B7%B4%E2%80%98&amp;cosite=bingjj&amp;trackid=885232814311083101334061&amp;format=normal&amp;location=landing_t4&amp;m_k=82876808101825&amp;m_a=1326013360201484&amp;m_p=520152399&amp;m_clk=7d5eb667748f1b07f08cdf5808316cd2&amp;m_c=82876061333443&amp;m_q=%E9%98%BF%E9%87%8C%E5%B7%B4%E5%B7%B4&amp;m_mt=be&amp;m_ep=e&amp;m_o=82876808101825&amp;m_site=o&amp;d27=c&amp;m_cext=&amp;m_aud=kwd-82876808101825:loc-39&amp;msclkid=7d5eb667748f1b07f08cdf5808316cd2" target="_blank" rel="noopener noreferrer"><div class="c-icon yellow">阿</div><span class="c-name">阿里巴巴1688</span><span class="c-tag">www.1688.com</span></a>
-  <a class="card" href="https://www.taobao.com/wow/z/tbhome/pcsem/alimama?refpid=mm_2898300158_3078300397_115665800437&amp;keyword=%E6%B7%98%E5%AE%9D&amp;bc_fl_src=tbsite_T9W2LtnM&amp;channelSrp=bingSomama&amp;msclkid=fcd63a1680a710934f1f5329fdae437a&amp;clk1=1253eed54e0bc287cc1295aa396302c7&amp;upsId=1253eed54e0bc287cc1295aa396302c7" target="_blank" rel="noopener noreferrer"><div class="c-icon red">淘</div><span class="c-name">淘宝</span><span class="c-tag">www.taobao.com</span></a>
-  <a class="card" href="https://www.bilibili.com/" target="_blank" rel="noopener noreferrer"><div class="c-icon orange">哔</div><span class="c-name">哔哩哔哩</span><span class="c-tag">www.bilibili.com</span></a>
-  <a class="card" href="https://www.csdn.net/" target="_blank" rel="noopener noreferrer"><div class="c-icon green">C</div><span class="c-name">CSDN_专业开发者社…</span><span class="c-tag">www.csdn.net</span></a>
-  <a class="card" href="https://www.cnblogs.com/sggggr/p/17145918.html" target="_blank" rel="noopener noreferrer"><div class="c-icon pink">S</div><span class="c-name">Source Insi…</span><span class="c-tag">www.cnblogs.com</span></a>
-  <a class="card" href="https://www.jlc.com/newOrder/#/pcb/pcbOrderList?spm=JLC.MEMBER" target="_blank" rel="noopener noreferrer"><div class="c-icon blue">嘉</div><span class="c-name">嘉立创下单助手</span><span class="c-tag">www.jlc.com</span></a>
-  <a class="card" href="https://www.szlcsc.com/?c=Q4&amp;msclkid=01e0427c55631b3d9aa52bc655ac2b8c" target="_blank" rel="noopener noreferrer"><div class="c-icon purple">立</div><span class="c-name">立创商城</span><span class="c-tag">www.szlcsc.com</span></a>
-  <a class="card" href="https://u.lceda.cn/account/user/team/detail/projects?team=34bb064ce8e64cee9890053b489b4302&amp;type=myParticipate" target="_blank" rel="noopener noreferrer"><div class="c-icon yellow">团</div><span class="c-name">团队-嘉立创EDA</span><span class="c-tag">u.lceda.cn</span></a>
-</div>
-<div class="sub-title">🤖 AI <span class="sub-count">(7)</span></div>
-<div class="grid">
-  <a class="card" href="https://www.doubao.com/chat/?channel=bing_sem&amp;from_login=1" target="_blank" rel="noopener noreferrer"><div class="c-icon red">豆</div><span class="c-name">豆包 - 字节跳动旗下…</span><span class="c-tag">www.doubao.com</span></a>
-  <a class="card" href="https://chat.deepseek.com/" target="_blank" rel="noopener noreferrer"><div class="c-icon orange">D</div><span class="c-name">DeepSeek - …</span><span class="c-tag">chat.deepseek.com</span></a>
-  <a class="card" href="https://www.bilibili.com/video/BV1QgdHBnEJq/?buvid=XX40C0B42F990052203B37A2C39CB874FA9D9&amp;is_story_h5=false&amp;mid=6HpwBBoVQUY%2F%2BqzCfP5uvw%3D%3D&amp;p=4&amp;plat_id=114&amp;share_from=ugc&amp;share_medium=android&amp;share_plat=android&amp;share_session_id=82d3f6c6-8b5b-4133-a270-79cc4db334b7&amp;share_source=WEIXIN&amp;share_source=weixin&amp;share_tag=s_i&amp;timestamp=1777261268&amp;unique_k=olmgVUa&amp;up_id=3546705813309669&amp;vd_source=b29d8854b1d8b2cc4c0ae5808b218099" target="_blank" rel="noopener noreferrer"><div class="c-icon green">C</div><span class="c-name">Clawx部署</span><span class="c-tag">www.bilibili.com</span></a>
-  <a class="card" href="https://ai.zkmjnic.tech/docs/getting-started" target="_blank" rel="noopener noreferrer"><div class="c-icon pink">A</div><span class="c-name">ATRI API</span><span class="c-tag">ai.zkmjnic.tech</span></a>
-  <a class="card" href="https://www.scnet.cn/ui/console/index.html#/llm/models" target="_blank" rel="noopener noreferrer"><div class="c-icon blue">模</div><span class="c-name">模型服务</span><span class="c-tag">www.scnet.cn</span></a>
-  <a class="card" href="https://blog.csdn.net/nmdbbzcl/article/details/159380122" target="_blank" rel="noopener noreferrer"><div class="c-icon purple">O</div><span class="c-name">OpenAI Code…</span><span class="c-tag">blog.csdn.net</span></a>
-  <a class="card" href="https://www.aliyun.com/benefit/scene/openclaw?accounttraceid=ac055d7498ca42838c9382920d679620btbl" target="_blank" rel="noopener noreferrer"><div class="c-icon yellow">阿</div><span class="c-name">阿里云</span><span class="c-tag">www.aliyun.com</span></a>
-</div>
-<div class="sub-title">⚡ codex <span class="sub-count">(10)</span></div>
-<div class="grid">
-  <a class="card" href="https://api.aipaibox.com/console" target="_blank" rel="noopener noreferrer"><div class="c-icon red">A</div><span class="c-name">AI派</span><span class="c-tag">api.aipaibox.com</span></a>
-  <a class="card" href="https://platform.deepseek.com/usage" target="_blank" rel="noopener noreferrer"><div class="c-icon orange">D</div><span class="c-name">DeepSeek_API</span><span class="c-tag">platform.deepseek.com</span></a>
-  <a class="card" href="https://max.jojocode.com/dashboard" target="_blank" rel="noopener noreferrer"><div class="c-icon green">仪</div><span class="c-name">仪表盘 - Max J…</span><span class="c-tag">max.jojocode.com</span></a>
-  <a class="card" href="https://bigmodel.cn/finance-center/finance/overview" target="_blank" rel="noopener noreferrer"><div class="c-icon pink">智</div><span class="c-name">智谱AI开放平台</span><span class="c-tag">bigmodel.cn</span></a>
-  <a class="card" href="https://console.volcengine.com/ark/region:cn-beijing/overview" target="_blank" rel="noopener noreferrer"><div class="c-icon blue">豆</div><span class="c-name">豆包模型</span><span class="c-tag">console.volcengine.com</span></a>
-  <a class="card" href="https://13.212.175.5:4433/public-Q/#/dashboard" target="_blank" rel="noopener noreferrer"><div class="c-icon purple">一</div><span class="c-name">一元机场.VIP</span><span class="c-tag">13.212.175.5:4433</span></a>
-  <a class="card" href="https://skillhub.cn/skills?sortBy=score" target="_blank" rel="noopener noreferrer"><div class="c-icon yellow">S</div><span class="c-name">SkillHub</span><span class="c-tag">skillhub.cn</span></a>
-  <a class="card" href="https://yandex.com/search/?text=ip%E7%BA%AF%E5%87%80%E5%BA%A6%E6%B5%8B%E8%AF%95&amp;lr=20930&amp;family=yes" target="_blank" rel="noopener noreferrer"><div class="c-icon red">i</div><span class="c-name">ip纯净度测试</span><span class="c-tag">yandex.com</span></a>
-  <a class="card" href="https://github.com/BigPizzaV3/CodexPlusPlus" target="_blank" rel="noopener noreferrer"><div class="c-icon orange">c</div><span class="c-name">codex++安装</span><span class="c-tag">github.com</span></a>
-  <a class="card" href="https://github.com/fzy954123-hub/nav" target="_blank" rel="noopener noreferrer"><div class="c-icon green">g</div><span class="c-name">git</span><span class="c-tag">github.com</span></a>
-</div>
-<div class="sub-title">🛒 元器件商城 <span class="sub-count">(3)</span></div>
-<div class="grid">
-  <a class="card" href="https://www.szlcsc.com/" target="_blank" rel="noopener noreferrer"><div class="c-icon red">立</div><span class="c-name">立创商城</span><span class="c-tag">www.szlcsc.com</span></a>
-  <a class="card" href="https://www.taobao.com/" target="_blank" rel="noopener noreferrer"><div class="c-icon orange">淘</div><span class="c-name">淘宝</span><span class="c-tag">www.taobao.com</span></a>
-  <a class="card" href="https://www.1688.com/?spm=a2615.2177701.leftmenu_EXPEND.dhome" target="_blank" rel="noopener noreferrer"><div class="c-icon green">阿</div><span class="c-name">阿里1688首页</span><span class="c-tag">www.1688.com</span></a>
-</div>
-<div class="sub-title">🎬 娱乐 <span class="sub-count">(14)</span></div>
-<div class="grid">
-  <a class="card" href="https://fzy954123-hub.github.io/nav/" target="_blank" rel="noopener noreferrer"><div class="c-icon red">百</div><span class="c-name">百川导航 - 海纳百川…</span><span class="c-tag">fzy954123-hub.github.io</span></a>
-  <a class="card" href="https://pc.qq.com/" target="_blank" rel="noopener noreferrer"><div class="c-icon orange">腾</div><span class="c-name">腾讯软件中心</span><span class="c-tag">pc.qq.com</span></a>
-  <a class="card" href="https://fanqienovel.com/main/writer/home" target="_blank" rel="noopener noreferrer"><div class="c-icon green">作</div><span class="c-name">作家专区-番茄小说网-…</span><span class="c-tag">fanqienovel.com</span></a>
-  <a class="card" href="https://www.jldzz.cn/" target="_blank" rel="noopener noreferrer"><div class="c-icon pink">机</div><span class="c-name">机佬导航 - 纯净的上…</span><span class="c-tag">www.jldzz.cn</span></a>
-  <a class="card" href="https://www.aigei.com/lib/gif/" target="_blank" rel="noopener noreferrer"><div class="c-icon blue">G</div><span class="c-name">GIF动图大全 动态g…</span><span class="c-tag">www.aigei.com</span></a>
-  <a class="card" href="https://xz.yy2b.com/" target="_blank" rel="noopener noreferrer"><div class="c-icon purple">飞</div><span class="c-name">飞车</span><span class="c-tag">xz.yy2b.com</span></a>
-  <a class="card" href="https://www.mgtv.com/" target="_blank" rel="noopener noreferrer"><div class="c-icon yellow">芒</div><span class="c-name">芒果TV-天生青春</span><span class="c-tag">www.mgtv.com</span></a>
-  <a class="card" href="https://v.qq.com/" target="_blank" rel="noopener noreferrer"><div class="c-icon red">腾</div><span class="c-name">腾讯视频</span><span class="c-tag">v.qq.com</span></a>
-  <a class="card" href="https://www.youku.com/ku/webhome" target="_blank" rel="noopener noreferrer"><div class="c-icon orange">优</div><span class="c-name">优酷 </span><span class="c-tag">www.youku.com</span></a>
-  <a class="card" href="https://www.douyin.com/?recommend=1" target="_blank" rel="noopener noreferrer"><div class="c-icon green">抖</div><span class="c-name">抖音</span><span class="c-tag">www.douyin.com</span></a>
-  <a class="card" href="https://weibo.com/" target="_blank" rel="noopener noreferrer"><div class="c-icon pink">微</div><span class="c-name">微博</span><span class="c-tag">weibo.com</span></a>
-  <a class="card" href="https://www.iqiyi.com/" target="_blank" rel="noopener noreferrer"><div class="c-icon blue">爱</div><span class="c-name">爱奇艺</span><span class="c-tag">www.iqiyi.com</span></a>
-  <a class="card" href="https://www.xiaohongshu.com/explore?channel_id=homefeed_recommend" target="_blank" rel="noopener noreferrer"><div class="c-icon purple">小</div><span class="c-name">小红书 </span><span class="c-tag">www.xiaohongshu.com</span></a>
-  <a class="card" href="https://tv.cctv.com/" target="_blank" rel="noopener noreferrer"><div class="c-icon yellow">视</div><span class="c-name">视网</span><span class="c-tag">tv.cctv.com</span></a>
-</div>
-<div class="sub-title">📖 学习 <span class="sub-count">(3)</span></div>
-<div class="grid">
-  <a class="card" href="https://www.bilibili.com/" target="_blank" rel="noopener noreferrer"><div class="c-icon red">哔</div><span class="c-name">哔哩哔哩</span><span class="c-tag">www.bilibili.com</span></a>
-  <a class="card" href="https://www.zhihu.com/" target="_blank" rel="noopener noreferrer"><div class="c-icon orange">知</div><span class="c-name">知乎</span><span class="c-tag">www.zhihu.com</span></a>
-  <a class="card" href="https://www.csdn.net/" target="_blank" rel="noopener noreferrer"><div class="c-icon green">C</div><span class="c-name">CSDN</span><span class="c-tag">www.csdn.net</span></a>
-</div>
-<div class="sub-title">💻 嵌入式学习 <span class="sub-count">(7)</span></div>
-<div class="grid">
-  <a class="card" href="https://gitee.com/" target="_blank" rel="noopener noreferrer"><div class="c-icon red">G</div><span class="c-name">Gitee.com</span><span class="c-tag">gitee.com</span></a>
-  <a class="card" href="https://developer.aliyun.com/mirror/?serviceType=&amp;tag=&amp;keyword=QT" target="_blank" rel="noopener noreferrer"><div class="c-icon orange">阿</div><span class="c-name">阿里巴巴开源镜像站-O…</span><span class="c-tag">developer.aliyun.com</span></a>
-  <a class="card" href="https://www.freertos.org/zh-cn-cmn-s" target="_blank" rel="noopener noreferrer"><div class="c-icon green">F</div><span class="c-name">FreeRTOS</span><span class="c-tag">www.freertos.org</span></a>
-  <a class="card" href="https://netlab.luatos.com/" target="_blank" rel="noopener noreferrer"><div class="c-icon pink">合</div><span class="c-name">合宙 TCP/UDP …</span><span class="c-tag">netlab.luatos.com</span></a>
-  <a class="card" href="https://www.huaweicloud.com/" target="_blank" rel="noopener noreferrer"><div class="c-icon blue">华</div><span class="c-name">华为云</span><span class="c-tag">www.huaweicloud.com</span></a>
-  <a class="card" href="https://www.smartpi.cn/#/" target="_blank" rel="noopener noreferrer"><div class="c-icon purple">智</div><span class="c-name">智能公元</span><span class="c-tag">www.smartpi.cn</span></a>
-  <a class="card" href="https://www.runoob.com/linux/linux-command-manual.html" target="_blank" rel="noopener noreferrer"><div class="c-icon yellow">L</div><span class="c-name">Linux 命令大全 …</span><span class="c-tag">www.runoob.com</span></a>
-</div>
-<div class="sub-title">🛠 工具 <span class="sub-count">(2)</span></div>
-<div class="grid">
-  <a class="card" href="https://cn.bing.com/search?q=%E8%AE%A1%E6%97%B6%E5%99%A8%E5%9C%A8%E7%BA%BF%E4%BD%BF%E7%94%A8" target="_blank" rel="noopener noreferrer"><div class="c-icon red">计</div><span class="c-name">计时器在线使用</span><span class="c-tag">cn.bing.com</span></a>
-  <a class="card" href="file:///C:/Users/CZJ-0/Desktop/DZ/time.html" target="_blank" rel="noopener noreferrer"><div class="c-icon orange">计</div><span class="c-name">计时器</span><span class="c-tag"></span></a>
-</div>
-<div class="sub-title">📄 电路设计知识/1、线规线径 <span class="sub-count">(1)</span></div>
-<div class="grid">
-  <a class="card" href="https://blog.csdn.net/kfepiza/article/details/139159592" target="_blank" rel="noopener noreferrer"><div class="c-icon red">线</div><span class="c-name">线规线径对照表</span><span class="c-tag">blog.csdn.net</span></a>
-</div>
-<div class="sub-title">🔧 硬件 <span class="sub-count">(4)</span></div>
-<div class="grid">
-  <a class="card" href="https://pro.lceda.cn/editor" target="_blank" rel="noopener noreferrer"><div class="c-icon red">嘉</div><span class="c-name">嘉立创EDA(专业版)</span><span class="c-tag">pro.lceda.cn</span></a>
-  <a class="card" href="https://member.jlc.com/?spm=PCB.Homepage.functionbar.1023" target="_blank" rel="noopener noreferrer"><div class="c-icon orange">嘉</div><span class="c-name">嘉立创下单中心</span><span class="c-tag">member.jlc.com</span></a>
-  <a class="card" href="https://oshwhub.com/" target="_blank" rel="noopener noreferrer"><div class="c-icon green">立</div><span class="c-name">立创开源硬件平台</span><span class="c-tag">oshwhub.com</span></a>
-  <a class="card" href="https://www.zixel3d.com/p/home" target="_blank" rel="noopener noreferrer"><div class="c-icon pink">3</div><span class="c-name">3D查看器</span><span class="c-tag">www.zixel3d.com</span></a>
-</div>
-<div class="sub-title">📄 硬件知识/1、电容 <span class="sub-count">(1)</span></div>
-<div class="grid">
-  <a class="card" href="https://www.cnblogs.com/yangykaifa/p/19355130" target="_blank" rel="noopener noreferrer"><div class="c-icon red">硬</div><span class="c-name">硬件基础知识-电容</span><span class="c-tag">www.cnblogs.com</span></a>
-</div>
-<div class="sub-title">📄 软件知识/1、SPI <span class="sub-count">(1)</span></div>
-<div class="grid">
-  <a class="card" href="https://blog.csdn.net/as480133937/article/details/105764119" target="_blank" rel="noopener noreferrer"><div class="c-icon red">S</div><span class="c-name">SPI原理</span><span class="c-tag">blog.csdn.net</span></a>
-</div>
-<div class="sub-title">📄 软件知识/2、Bootloader <span class="sub-count">(1)</span></div>
-<div class="grid">
-  <a class="card" href="https://zhuanlan.zhihu.com/p/1919340613746299667" target="_blank" rel="noopener noreferrer"><div class="c-icon red">一</div><span class="c-name">一文读懂Bootloa…</span><span class="c-tag">zhuanlan.zhihu.com</span></a>
-</div>
-<div class="sub-title">📧 邮件 <span class="sub-count">(1)</span></div>
-<div class="grid">
-  <a class="card" href="https://mail.163.com/js6/main.jsp?sid=ZLjlIowwNEZYBrXRHALbwiFHHDwAbLgg&amp;df=unireg#module=mbox.ListModule%7C%7B%22fid%22%3A1%2C%22order%22%3A%22date%22%2C%22desc%22%3Atrue%7D" target="_blank" rel="noopener noreferrer"><div class="c-icon red">网</div><span class="c-name">网易邮箱6.0版</span><span class="c-tag">mail.163.com</span></a>
-</div>
-<div class="sub-title">📄 项目知识扩展/1、电池包 <span class="sub-count">(4)</span></div>
-<div class="grid">
-  <a class="card" href="http://motor-drive-ic.szczkjgs.com/news_show_183359.htm" target="_blank" rel="noopener noreferrer"><div class="c-icon red">锂</div><span class="c-name">锂电池充电曲线-恒压充…</span><span class="c-tag">motor-drive-ic.szczkjgs.com</span></a>
-  <a class="card" href="https://www.chongdiantou.com/archives/283250.html" target="_blank" rel="noopener noreferrer"><div class="c-icon orange">长</div><span class="c-name">长虹三杰INR1865…</span><span class="c-tag">www.chongdiantou.com</span></a>
-  <a class="card" href="https://zhuanlan.zhihu.com/p/1986754857202361513" target="_blank" rel="noopener noreferrer"><div class="c-icon green">安</div><span class="c-name">安时积分法计算电池SO…</span><span class="c-tag">zhuanlan.zhihu.com</span></a>
-  <a class="card" href="https://zhuanlan.zhihu.com/p/646357395" target="_blank" rel="noopener noreferrer"><div class="c-icon pink"> </div><span class="c-name"> 三端保险丝</span><span class="c-tag">zhuanlan.zhihu.com</span></a>
-</div>
-<div class="sub-title">📄 项目知识扩展/2、Type-c <span class="sub-count">(1)</span></div>
-<div class="grid">
-  <a class="card" href="https://item.taobao.com/item.htm?from=cart&amp;id=1002453942466&amp;mi_id=0000f1uMD29N6l433uEzzGuIMFgWXApqc3M-bo9x5WApPdo&amp;skuId=6158347502500&amp;spm=a1z0d.6639537%2F202410.item.d1002453942466.71727484z6cSea&amp;upStreamPrice=2580" target="_blank" rel="noopener noreferrer"><div class="c-icon red">I</div><span class="c-name">IP2369模块</span><span class="c-tag">item.taobao.com</span></a>
-</div>
-<div class="sub-title">📄 项目知识扩展/3、吸尘器电机 <span class="sub-count">(1)</span></div>
-<div class="grid">
-  <a class="card" href="https://www.zhihu.com/question/620525129" target="_blank" rel="noopener noreferrer"><div class="c-icon red">堵</div><span class="c-name">堵住吸尘器为什么电机转…</span><span class="c-tag">www.zhihu.com</span></a>
+<div id="detail" class="detail">
+  <div id="detailContent"></div>
 </div>
 </main>
 <div class="footer">
@@ -237,6 +77,72 @@ main{max-width:1300px;margin:0 auto;padding:20px 20px 60px}
 </div>
 <script>
 if(window.top!==window.self){window.top.location=window.self.location}
+var DATA = [{"name": "收藏夹栏", "icon": "📁", "items": [{"name": "豆包", "url": "https://www.doubao.com/chat/", "domain": "www.doubao.com"}, {"name": "DeepSeek ", "url": "https://chat.deepseek.com/", "domain": "chat.deepseek.com"}, {"name": "知乎 ", "url": "https://www.zhihu.com/signin?next=%2F", "domain": "www.zhihu.com"}, {"name": "云汉芯城", "url": "https://www.ickey.cn/?utm_source=Bing&utm_medium=CPC&utm_content=yuanqijian&utm_campaign=HangYeCi20240219&utm_term=%E5%85%83%E4%BB%B6%E5%95%86%E5%9F%8E&msclkid=e2bf79d62230121f50c410e959e3ca71", "domain": "www.ickey.cn"}, {"name": "华强电子网", "url": "https://www.hqew.com/", "domain": "www.hqew.com"}, {"name": "华秋商城", "url": "https://www.hqchip.com/", "domain": "www.hqchip.com"}, {"name": "阿里巴巴1688", "url": "https://www.1688.com/zw/hamlet.html?scene=2&keywords=%E9%98%BF%E9%87%8C%E5%B7%B4%E5%B7%B4%E2%80%98&cosite=bingjj&trackid=885232814311083101334061&format=normal&location=landing_t4&m_k=82876808101825&m_a=1326013360201484&m_p=520152399&m_clk=7d5eb667748f1b07f08cdf5808316cd2&m_c=82876061333443&m_q=%E9%98%BF%E9%87%8C%E5%B7%B4%E5%B7%B4&m_mt=be&m_ep=e&m_o=82876808101825&m_site=o&d27=c&m_cext=&m_aud=kwd-82876808101825:loc-39&msclkid=7d5eb667748f1b07f08cdf5808316cd2", "domain": "www.1688.com"}, {"name": "淘宝", "url": "https://www.taobao.com/wow/z/tbhome/pcsem/alimama?refpid=mm_2898300158_3078300397_115665800437&keyword=%E6%B7%98%E5%AE%9D&bc_fl_src=tbsite_T9W2LtnM&channelSrp=bingSomama&msclkid=fcd63a1680a710934f1f5329fdae437a&clk1=1253eed54e0bc287cc1295aa396302c7&upsId=1253eed54e0bc287cc1295aa396302c7", "domain": "www.taobao.com"}, {"name": "哔哩哔哩", "url": "https://www.bilibili.com/", "domain": "www.bilibili.com"}, {"name": "CSDN_专业开发者社区_已接入DeepSeek R1-0528版本", "url": "https://www.csdn.net/", "domain": "www.csdn.net"}, {"name": "Source Insight 4.0使用", "url": "https://www.cnblogs.com/sggggr/p/17145918.html", "domain": "www.cnblogs.com"}, {"name": "嘉立创下单助手", "url": "https://www.jlc.com/newOrder/#/pcb/pcbOrderList?spm=JLC.MEMBER", "domain": "www.jlc.com"}, {"name": "立创商城", "url": "https://www.szlcsc.com/?c=Q4&msclkid=01e0427c55631b3d9aa52bc655ac2b8c", "domain": "www.szlcsc.com"}, {"name": "团队-嘉立创EDA", "url": "https://u.lceda.cn/account/user/team/detail/projects?team=34bb064ce8e64cee9890053b489b4302&type=myParticipate", "domain": "u.lceda.cn"}], "subs": [{"name": "AI", "icon": "🤖", "items": [{"name": "豆包 - 字节跳动旗下 AI 智能助手", "url": "https://www.doubao.com/chat/?channel=bing_sem&from_login=1", "domain": "www.doubao.com"}, {"name": "DeepSeek - 探索未至之境", "url": "https://chat.deepseek.com/", "domain": "chat.deepseek.com"}, {"name": "Clawx部署", "url": "https://www.bilibili.com/video/BV1QgdHBnEJq/?buvid=XX40C0B42F990052203B37A2C39CB874FA9D9&is_story_h5=false&mid=6HpwBBoVQUY%2F%2BqzCfP5uvw%3D%3D&p=4&plat_id=114&share_from=ugc&share_medium=android&share_plat=android&share_session_id=82d3f6c6-8b5b-4133-a270-79cc4db334b7&share_source=WEIXIN&share_source=weixin&share_tag=s_i&timestamp=1777261268&unique_k=olmgVUa&up_id=3546705813309669&vd_source=b29d8854b1d8b2cc4c0ae5808b218099", "domain": "www.bilibili.com"}, {"name": "ATRI API", "url": "https://ai.zkmjnic.tech/docs/getting-started", "domain": "ai.zkmjnic.tech"}, {"name": "模型服务", "url": "https://www.scnet.cn/ui/console/index.html#/llm/models", "domain": "www.scnet.cn"}, {"name": "OpenAI Codex配置", "url": "https://blog.csdn.net/nmdbbzcl/article/details/159380122", "domain": "blog.csdn.net"}, {"name": "阿里云", "url": "https://www.aliyun.com/benefit/scene/openclaw?accounttraceid=ac055d7498ca42838c9382920d679620btbl", "domain": "www.aliyun.com"}]}, {"name": "codex", "icon": "⚡", "items": [{"name": "AI派", "url": "https://api.aipaibox.com/console", "domain": "api.aipaibox.com"}, {"name": "DeepSeek_API", "url": "https://platform.deepseek.com/usage", "domain": "platform.deepseek.com"}, {"name": "仪表盘 - Max JOJO Code", "url": "https://max.jojocode.com/dashboard", "domain": "max.jojocode.com"}, {"name": "智谱AI开放平台", "url": "https://bigmodel.cn/finance-center/finance/overview", "domain": "bigmodel.cn"}, {"name": "豆包模型", "url": "https://console.volcengine.com/ark/region:cn-beijing/overview", "domain": "console.volcengine.com"}, {"name": "一元机场.VIP", "url": "https://13.212.175.5:4433/public-Q/#/dashboard", "domain": "13.212.175.5:4433"}, {"name": "SkillHub", "url": "https://skillhub.cn/skills?sortBy=score", "domain": "skillhub.cn"}, {"name": "ip纯净度测试", "url": "https://yandex.com/search/?text=ip%E7%BA%AF%E5%87%80%E5%BA%A6%E6%B5%8B%E8%AF%95&lr=20930&family=yes", "domain": "yandex.com"}, {"name": "codex++安装", "url": "https://github.com/BigPizzaV3/CodexPlusPlus", "domain": "github.com"}, {"name": "git", "url": "https://github.com/fzy954123-hub/nav", "domain": "github.com"}]}, {"name": "元器件商城", "icon": "🛒", "items": [{"name": "立创商城", "url": "https://www.szlcsc.com/", "domain": "www.szlcsc.com"}, {"name": "淘宝", "url": "https://www.taobao.com/", "domain": "www.taobao.com"}, {"name": "阿里1688首页", "url": "https://www.1688.com/?spm=a2615.2177701.leftmenu_EXPEND.dhome", "domain": "www.1688.com"}]}, {"name": "娱乐", "icon": "🎬", "items": [{"name": "百川导航 - 海纳百川，尽收于此", "url": "https://fzy954123-hub.github.io/nav/", "domain": "fzy954123-hub.github.io"}, {"name": "腾讯软件中心", "url": "https://pc.qq.com/", "domain": "pc.qq.com"}, {"name": "作家专区-番茄小说网-番茄小说旗下原创文学平台", "url": "https://fanqienovel.com/main/writer/home", "domain": "fanqienovel.com"}, {"name": "机佬导航 - 纯净的上网导航站", "url": "https://www.jldzz.cn/", "domain": "www.jldzz.cn"}, {"name": "GIF动图大全 动态gif图片素材_免费下载 - 爱给网", "url": "https://www.aigei.com/lib/gif/", "domain": "www.aigei.com"}, {"name": "飞车", "url": "https://xz.yy2b.com/", "domain": "xz.yy2b.com"}, {"name": "芒果TV-天生青春", "url": "https://www.mgtv.com/", "domain": "www.mgtv.com"}, {"name": "腾讯视频", "url": "https://v.qq.com/", "domain": "v.qq.com"}, {"name": "优酷 ", "url": "https://www.youku.com/ku/webhome", "domain": "www.youku.com"}, {"name": "抖音", "url": "https://www.douyin.com/?recommend=1", "domain": "www.douyin.com"}, {"name": "微博", "url": "https://weibo.com/", "domain": "weibo.com"}, {"name": "爱奇艺", "url": "https://www.iqiyi.com/", "domain": "www.iqiyi.com"}, {"name": "小红书 ", "url": "https://www.xiaohongshu.com/explore?channel_id=homefeed_recommend", "domain": "www.xiaohongshu.com"}, {"name": "视网", "url": "https://tv.cctv.com/", "domain": "tv.cctv.com"}]}, {"name": "学习", "icon": "📖", "items": [{"name": "哔哩哔哩", "url": "https://www.bilibili.com/", "domain": "www.bilibili.com"}, {"name": "知乎", "url": "https://www.zhihu.com/", "domain": "www.zhihu.com"}, {"name": "CSDN", "url": "https://www.csdn.net/", "domain": "www.csdn.net"}]}, {"name": "嵌入式学习", "icon": "💻", "items": [{"name": "Gitee.com", "url": "https://gitee.com/", "domain": "gitee.com"}, {"name": "阿里巴巴开源镜像站-OPSX镜像站-阿里云开发者社区", "url": "https://developer.aliyun.com/mirror/?serviceType=&tag=&keyword=QT", "domain": "developer.aliyun.com"}, {"name": "FreeRTOS", "url": "https://www.freertos.org/zh-cn-cmn-s", "domain": "www.freertos.org"}, {"name": "合宙 TCP/UDP web工具", "url": "https://netlab.luatos.com/", "domain": "netlab.luatos.com"}, {"name": "华为云", "url": "https://www.huaweicloud.com/", "domain": "www.huaweicloud.com"}, {"name": "智能公元", "url": "https://www.smartpi.cn/#/", "domain": "www.smartpi.cn"}, {"name": "Linux 命令大全 | 菜鸟教程", "url": "https://www.runoob.com/linux/linux-command-manual.html", "domain": "www.runoob.com"}]}, {"name": "工具", "icon": "🛠", "items": [{"name": "计时器在线使用", "url": "https://cn.bing.com/search?q=%E8%AE%A1%E6%97%B6%E5%99%A8%E5%9C%A8%E7%BA%BF%E4%BD%BF%E7%94%A8", "domain": "cn.bing.com"}, {"name": "计时器", "url": "file:///C:/Users/CZJ-0/Desktop/DZ/time.html", "domain": ""}]}, {"name": "电路设计知识", "icon": "📐", "items": []}, {"name": "硬件", "icon": "🔧", "items": [{"name": "嘉立创EDA(专业版)", "url": "https://pro.lceda.cn/editor", "domain": "pro.lceda.cn"}, {"name": "嘉立创下单中心", "url": "https://member.jlc.com/?spm=PCB.Homepage.functionbar.1023", "domain": "member.jlc.com"}, {"name": "立创开源硬件平台", "url": "https://oshwhub.com/", "domain": "oshwhub.com"}, {"name": "3D查看器", "url": "https://www.zixel3d.com/p/home", "domain": "www.zixel3d.com"}]}, {"name": "硬件知识", "icon": "⚡", "items": []}, {"name": "软件知识", "icon": "💿", "items": []}, {"name": "邮件", "icon": "📧", "items": [{"name": "网易邮箱6.0版", "url": "https://mail.163.com/js6/main.jsp?sid=ZLjlIowwNEZYBrXRHALbwiFHHDwAbLgg&df=unireg#module=mbox.ListModule%7C%7B%22fid%22%3A1%2C%22order%22%3A%22date%22%2C%22desc%22%3Atrue%7D", "domain": "mail.163.com"}]}, {"name": "项目知识扩展", "icon": "🔬", "items": []}]}];
+var COLORS = ["red", "orange", "green", "pink", "blue", "purple", "yellow"];
+var currentPath = [];
+
+function renderFolders(){
+  document.getElementById('folders').style.display='block';
+  document.getElementById('detail').style.display='none';
+  document.getElementById('backBtn').classList.remove('show');
+  document.getElementById('crumb').textContent='';
+  var grid = document.getElementById('folderGrid');
+  grid.innerHTML = '';
+  DATA.forEach(function(f, i){
+    var color = COLORS[i % COLORS.length];
+    var count = f.items.length;
+    if (f.subs.length > 0) count += ' +' + f.subs.length + '子';
+    grid.innerHTML += '<div class="card" onclick="openFolder(' + i + ')"><div class="c-icon ' + color + '">' + f.icon + '</div><span class="c-name">' + f.name + '</span><span class="c-tag">' + count + '个</span></div>';
+  });
+}
+
+function openFolder(idx){
+  var f = DATA[idx];
+  currentPath = [f];
+  document.getElementById('folders').style.display='none';
+  document.getElementById('detail').style.display='block';
+  document.getElementById('backBtn').classList.add('show');
+  document.getElementById('crumb').textContent = f.icon + ' ' + f.name;
+  renderDetail(f);
+}
+
+function renderDetail(folder){
+  var html = '';
+  // Items
+  if (folder.items.length > 0){
+    html += '<div class="sec-title"><span class="sec-dot" style="background:var(--c)"></span>书签 (' + folder.items.length + ')</div>';
+    html += '<div class="grid">';
+    folder.items.forEach(function(bm, i){
+      var color = COLORS[i % COLORS.length];
+      var nm = bm.name; if (nm.length > 14) nm = nm.slice(0,13) + '…';
+      html += '<a class="card" href="' + bm.url + '" target="_blank" rel="noopener noreferrer"><div class="c-icon ' + color + '">' + (nm[0] || '🔗') + '</div><span class="c-name">' + nm + '</span><span class="c-tag">' + bm.domain + '</span></a>';
+    });
+    html += '</div>';
+  }
+  // Sub folders
+  folder.subs.forEach(function(sub, si){
+    html += '<div class="sub-title">' + sub.icon + ' ' + sub.name + ' <span class="sub-count">(' + sub.items.length + ')</span></div>';
+    html += '<div class="grid">';
+    sub.items.forEach(function(bm, i){
+      var color = COLORS[(si*3+i) % COLORS.length];
+      var nm = bm.name; if (nm.length > 16) nm = nm.slice(0,15) + '…';
+      html += '<a class="card" href="' + bm.url + '" target="_blank" rel="noopener noreferrer"><div class="c-icon ' + color + '">' + (nm[0] || '🔗') + '</div><span class="c-name">' + nm + '</span><span class="c-tag">' + bm.domain + '</span></a>';
+    });
+    html += '</div>';
+  });
+  document.getElementById('detailContent').innerHTML = html;
+}
+
+function goBack(){
+  document.getElementById('folders').style.display='block';
+  document.getElementById('detail').style.display='none';
+  document.getElementById('backBtn').classList.remove('show');
+  document.getElementById('crumb').textContent='';
+  currentPath = [];
+}
+
+renderFolders();
+
 </script>
 </body>
 </html>
