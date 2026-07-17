@@ -383,12 +383,11 @@ $(".cat-bar li").click(function(){
   $(this).addClass("active");
   $("#siteSearch").val("");
   $("#resultHint").hide();
+  var scrollTarget = $(".cat-section[data-cat='" + cat + "']");
+  var scrollPos = (cat !== "all" && scrollTarget.length) ? scrollTarget.offset().top - 120 : null;
   filterByCat(cat);
-  if (cat !== "all") {
-    var target = $(".cat-section[data-cat='" + cat + "']");
-    if (target.length) {
-      $("html,body").animate({scrollTop: target.offset().top - 120}, 300);
-    }
+  if (scrollPos !== null) {
+    $("html,body").animate({scrollTop: scrollPos}, 300);
   }
 });
 
