@@ -333,7 +333,13 @@ function doSiteSearch(){
       $(this).hide();
     }
   });
-  $(".sec-title").each(function(){ $(this).show(); });
+  $(".cat-section").each(function(){
+    if($(this).find(".card:visible").length > 0){
+      $(this).show();$(this).find(".sec-title").show();
+    } else {
+      $(this).hide();
+    }
+  });
   if(found>0){
     $("#resultHint").show();$("#resultCount").text(found);
   } else {
