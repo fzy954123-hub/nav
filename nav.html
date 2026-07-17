@@ -323,6 +323,7 @@ main{max-width:1300px;margin:0 auto;padding:30px 20px 60px}
 function doSiteSearch(){
   var q = $("#siteSearch").val().trim().toLowerCase();
   if(!q){ resetView(); return; }
+  $(".cat-section").show();
   var found = 0;
   $(".card").each(function(){
     var kw = ($(this).data("keywords") || "").toLowerCase();
@@ -334,16 +335,14 @@ function doSiteSearch(){
     }
   });
   $(".cat-section").each(function(){
-    if($(this).find(".card:visible").length > 0){
-      $(this).show();$(this).find(".sec-title").show();
-    } else {
+    if($(this).find(".card:visible").length === 0){
       $(this).hide();
     }
   });
   if(found>0){
     $("#resultHint").show();$("#resultCount").text(found);
   } else {
-    $("#resultHint").show();$("#resultCount").text(0).text("0");
+    $("#resultHint").show();$("#resultCount").text("0");
   }
 }
 $("#siteSearch").on("keydown",function(e){ if(e.key==="Enter")doSiteSearch(); });
