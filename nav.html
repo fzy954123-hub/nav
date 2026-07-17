@@ -27,9 +27,11 @@ body{
   border-bottom:1px solid rgba(255,255,255,.06);padding:0;
 }
 .topbar .container{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:12px 0;
+  display:flex;align-items:center;justify-content:center;
+  padding:12px 0;position:relative;
 }
+.topbar .back-home{position:absolute;left:0;top:50%;transform:translateY(-50%)}
+.topbar .top-tools{position:absolute;right:0;top:50%;transform:translateY(-50%)}
 .topbar .logo{
   font-size:22px;font-weight:700;color:#fff;text-decoration:none;display:flex;align-items:center;gap:8px;
 }
@@ -166,7 +168,7 @@ main{max-width:1300px;margin:0 auto;padding:30px 20px 60px}
 <body>
 
 <!-- 顶部 -->
-<div class="topbar"><div class="container"><a href="index.html" style="color:#667788;text-decoration:none;font-size:14px;margin-right:16px">← 首页</a>
+<div class="topbar"><div class="container"><a href="index.html" class="back-home" style="color:#667788;text-decoration:none;font-size:14px">← 首页</a>
   <a class="logo" href="#"><div class="icon-wrap">🌊</div><span>百川导航</span></a>
   <ul class="top-tools">
     <li><a href="#video">短视频</a></li>
