@@ -19,7 +19,7 @@ body{background:linear-gradient(135deg,#0a0e14 0%,#131920 40%,#0d1117 100%);min-
 .topbar .back.show{display:inline}
 .topbar .logo{font-size:18px;font-weight:700;color:#fff;display:flex;align-items:center;gap:8px}
 .topbar .logo span{background:linear-gradient(135deg,#a78bfa,#7c3aed);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.banner{padding:76px 20px 24px;text-align:center}
+.banner{position:relative;padding:76px 20px 24px;text-align:center}
 .banner .icon{font-size:44px}
 .banner h1{font-size:28px;font-weight:700;color:#fff;margin:8px 0 4px}
 .banner h1 span{background:linear-gradient(135deg,#a78bfa,#7c3aed);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
@@ -46,7 +46,21 @@ main{max-width:1300px;margin:0 auto;padding:10px 20px 60px}
 #detail{display:none}
 .footer{text-align:center;padding:30px;color:#333;font-size:13px;border-top:1px solid rgba(255,255,255,.04)}
 .footer a{color:#a78bfa}
-@media(max-width:768px){.grid{grid-template-columns:repeat(3,1fr)}.card{padding:14px 8px}}</style>
+@media(max-width:768px){.grid{grid-template-columns:repeat(3,1fr)}.card{padding:14px 8px}}
+/* 实时时钟 */
+.banner-clock{
+  position:absolute;right:20px;top:50%;transform:translateY(-50%);
+  text-align:right;line-height:1.4;z-index:2;
+}
+.banner-clock .clock-date{
+  color:#a78bfa;font-size:16px;font-weight:600;
+}
+.banner-clock .clock-time{
+  color:#a78bfa;font-size:28px;font-weight:800;
+  font-family:"Consolas","Monaco",monospace;
+  text-shadow:0 0 20px rgba(167,139,250,.3);
+}
+</style>
 </head>
 <body>
 <div class="topbar">
@@ -55,6 +69,10 @@ main{max-width:1300px;margin:0 auto;padding:10px 20px 60px}
   <div class="logo">📚 <span>技术收藏</span></div>
 </div>
 <div class="banner">
+  <div class="banner-clock">
+    <div class="clock-date" id="clockDate"></div>
+    <div class="clock-time" id="clockTime"></div>
+  </div>
   <div class="icon">📚</div>
   <h1>我的 <span>技术收藏</span></h1>
   <p class="sub">浏览器书签同步 · 点击文件夹浏览</p>
@@ -132,6 +150,25 @@ function goBack(){
 
 renderFolders();
 
+</script>
+<script>
+function updateClock(){
+  var now = new Date();
+  var y = now.getFullYear();
+  var mo = (now.getMonth()+1).toString().padStart(2,"0");
+  var d = now.getDate().toString().padStart(2,"0");
+  var wds = ["日","一","二","三","四","五","六"];
+  var wd = "星期" + wds[now.getDay()];
+  var h = now.getHours().toString().padStart(2,"0");
+  var m = now.getMinutes().toString().padStart(2,"0");
+  var s = now.getSeconds().toString().padStart(2,"0");
+  var elD = document.getElementById("clockDate");
+  var elT = document.getElementById("clockTime");
+  if(elD) elD.textContent = y + "-" + mo + "-" + d + " " + wd;
+  if(elT) elT.textContent = h + ":" + m + ":" + s;
+}
+updateClock();
+setInterval(updateClock, 1000);
 </script>
 </body>
 </html>

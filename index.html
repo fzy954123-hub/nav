@@ -55,6 +55,19 @@ h1 span{background:linear-gradient(135deg,#00d4ff,#7c3aed);-webkit-background-cl
   .door .icon{font-size:56px;margin:50px 0 15px}
   .door .title{font-size:20px}
 }
+/* 实时时钟 */
+.banner-clock{
+  position:absolute;right:20px;top:50%;transform:translateY(-50%);
+  text-align:right;line-height:1.4;z-index:2;
+}
+.banner-clock .clock-date{
+  color:#00d4ff;font-size:16px;font-weight:600;
+}
+.banner-clock .clock-time{
+  color:#00d4ff;font-size:28px;font-weight:800;
+  font-family:"Consolas","Monaco",monospace;
+  text-shadow:0 0 20px rgba(0,212,255,.3);
+}
 </style>
 </head>
 <body>
@@ -62,6 +75,10 @@ h1 span{background:linear-gradient(135deg,#00d4ff,#7c3aed);-webkit-background-cl
 <canvas class="bg-particles" id="bg"></canvas>
 
 <div class="container">
+  <div class="banner-clock">
+    <div class="clock-date" id="clockDate"></div>
+    <div class="clock-time" id="clockTime"></div>
+  </div>
   <h1>海纳百川 · <span>尽收于此</span></h1>
   <p class="sub">选择一个入口开始探索</p>
 
@@ -101,6 +118,25 @@ h1 span{background:linear-gradient(135deg,#00d4ff,#7c3aed);-webkit-background-cl
   }
   draw();
 })();
+</script>
+<script>
+function updateClock(){
+  var now = new Date();
+  var y = now.getFullYear();
+  var mo = (now.getMonth()+1).toString().padStart(2,"0");
+  var d = now.getDate().toString().padStart(2,"0");
+  var wds = ["日","一","二","三","四","五","六"];
+  var wd = "星期" + wds[now.getDay()];
+  var h = now.getHours().toString().padStart(2,"0");
+  var m = now.getMinutes().toString().padStart(2,"0");
+  var s = now.getSeconds().toString().padStart(2,"0");
+  var elD = document.getElementById("clockDate");
+  var elT = document.getElementById("clockTime");
+  if(elD) elD.textContent = y + "-" + mo + "-" + d + " " + wd;
+  if(elT) elT.textContent = h + ":" + m + ":" + s;
+}
+updateClock();
+setInterval(updateClock, 1000);
 </script>
 </body>
 </html>

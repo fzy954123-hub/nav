@@ -43,18 +43,22 @@ body{
 .topbar .top-tools{display:flex;gap:18px;list-style:none;padding:0;margin:0}
 .topbar .top-tools a{color:#8899aa;text-decoration:none;font-size:13px;transition:.2s}
 .topbar .top-tools a:hover{color:#00d4ff}
-.topbar-clock{
-  position:absolute;right:0;top:32px;
-  text-align:right;line-height:1.3;
+
+/* 实时时钟 */
+.banner-clock{
+  position:absolute;right:20px;top:50%;transform:translateY(-50%);
+  text-align:right;line-height:1.4;z-index:2;
 }
-.clock-date{
-  color:#8899aa;font-size:12px;
+.banner-clock .clock-date{
+  color:#00d4ff;font-size:16px;font-weight:600;
 }
-.clock-time{
-  color:#00d4ff;font-size:16px;font-weight:700;
+.banner-clock .clock-time{
+  color:#00d4ff;font-size:28px;font-weight:800;
   font-family:"Consolas","Monaco",monospace;
+  text-shadow:0 0 20px rgba(0,212,255,.3);
 }
 
+/* Banner */
 /* Banner */
 .banner{
   margin-top:58px;position:relative;padding:60px 20px 50px;text-align:center;overflow:hidden;
@@ -190,14 +194,14 @@ main{max-width:1300px;margin:0 auto;padding:30px 20px 60px}
     <li><a href="#tools">工具</a></li>
     <li><a href="#life">生活</a></li>
   </ul>
-  <div class="topbar-clock">
-    <div id="clockDate" class="clock-date"></div>
-    <div id="clockTime" class="clock-time"></div>
-  </div>
 </div></div>
 
 <!-- Banner -->
 <div class="banner">
+  <div class="banner-clock">
+    <div class="clock-date" id="clockDate"></div>
+    <div class="clock-time" id="clockTime"></div>
+  </div>
   <div class="logo-big">🌊</div>
   <h1>海纳百川 · <span>尽收于此</span></h1>
   <p class="sub">短视频 / 影视 / 音乐 / 短剧 / 游戏 / 工具 — 一个导航就够了</p>
