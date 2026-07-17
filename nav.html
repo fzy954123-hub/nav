@@ -162,7 +162,9 @@ main{max-width:1300px;margin:0 auto;padding:30px 20px 60px}
     <li><a href="#tv">影视</a></li>
     <li><a href="#music">音乐</a></li>
     <li><a href="#drama">短剧</a></li>
+    <li><a href="#game">游戏</a></li>
     <li><a href="#tools">工具</a></li>
+    <li><a href="#life">生活</a></li>
   </ul>
 </div></div>
 
@@ -262,14 +264,14 @@ main{max-width:1300px;margin:0 auto;padding:30px 20px 60px}
   <a class="card" href="https://www.kuaishou.com/" target="_blank" data-keywords="快手短剧 星芒短剧 微短剧"><div class="c-icon orange"><i class="fas fa-clapperboard"></i></div><span class="c-name">快手短剧</span><span class="c-tag">星芒短剧</span></a>
   <a class="card" href="https://www.douyin.com/" target="_blank" data-keywords="抖音短剧 番茄短剧 爽文短剧"><div class="c-icon red"><i class="fas fa-film"></i></div><span class="c-name">抖音短剧</span><span class="c-tag">短剧</span></a>
   <a class="card" href="https://www.bilibili.com/v/douga/" target="_blank" data-keywords="B站短剧 原创短剧 动画短剧"><div class="c-icon pink"><i class="fas fa-pen-nib"></i></div><span class="c-name">B站短剧</span><span class="c-tag">原创短剧</span></a>
-  <a class="card" href="https://short.weixin.qq.com/" target="_blank" data-keywords="微信短剧 小程序短剧 微短剧"><div class="c-icon green"><i class="fab fa-weixin"></i></div><span class="c-name">微信短剧</span><span class="c-tag">小程序</span></a>
-  <a class="card" href="https://www.guangdianyun.cn/" target="_blank" data-keywords="广电云 短剧 正规短剧"><div class="c-icon blue"><i class="fas fa-broadcast-tower"></i></div><span class="c-name">广电云短剧</span><span class="c-tag">短剧</span></a>
+  
+  
   <a class="card" href="https://www.taopiaopiao.com/" target="_blank" data-keywords="淘票票 短剧 预告片 花絮"><div class="c-icon yellow"><i class="fas fa-ticket-alt"></i></div><span class="c-name">淘票票</span><span class="c-tag">预告花絮</span></a>
 </div>
 </section>
 
 <!-- 游戏 -->
-<section class="cat-section" data-cat="game" data-title="游戏">
+<section class="cat-section" data-cat="game" data-title="游戏" id="game">
 <div class="sec-title"><span class="sec-dot game"></span>🎮 游戏</div>
 <div class="grid">
   <a class="card" href="https://game.qq.com/" target="_blank" data-keywords="腾讯游戏 LOL 王者荣耀 和平精英 DNF"><div class="c-icon blue"><i class="fas fa-gamepad"></i></div><span class="c-name">腾讯游戏</span><span class="c-tag">游戏</span></a>
@@ -297,7 +299,7 @@ main{max-width:1300px;margin:0 auto;padding:30px 20px 60px}
 </section>
 
 <!-- 生活 -->
-<section class="cat-section" data-cat="life" data-title="生活服务">
+<section class="cat-section" data-cat="life" data-title="生活服务" id="life">
 <div class="sec-title"><span class="sec-dot life"></span>🏠 生活服务</div>
 <div class="grid">
   <a class="card" href="https://www.taobao.com/" target="_blank" data-keywords="淘宝 购物 电商 天猫"><div class="c-icon orange"><i class="fas fa-shopping-cart"></i></div><span class="c-name">淘宝</span><span class="c-tag">购物</span></a>
@@ -382,6 +384,12 @@ $(".cat-bar li").click(function(){
   $("#siteSearch").val("");
   $("#resultHint").hide();
   filterByCat(cat);
+  if (cat !== "all") {
+    var target = $(".cat-section[data-cat='" + cat + "']");
+    if (target.length) {
+      $("html,body").animate({scrollTop: target.offset().top - 120}, 300);
+    }
+  }
 });
 
 // 平滑滚动
