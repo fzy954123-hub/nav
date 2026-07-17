@@ -71,8 +71,18 @@ body{
 }
 .search-box .btn-site{background:linear-gradient(135deg,#7c3aed,#6366f1);color:#fff}
 .search-box .btn-site:hover{background:linear-gradient(135deg,#6366f1,#4f46e5)}
-.search-box .btn-bing{background:linear-gradient(135deg,#00a4ef,#0078d4);color:#fff}
-.search-box .btn-bing:hover{background:linear-gradient(135deg,#0078d4,#106ebe)}
+.search-box .btn-web{background:linear-gradient(135deg,#00a4ef,#0078d4);color:#fff}
+.search-box .btn-web:hover{background:linear-gradient(135deg,#0078d4,#106ebe)}
+.engine-select{
+  appearance:none;-webkit-appearance:none;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+  border-radius:10px 0 0 10px;color:#c0c8d4;padding:12px 30px 12px 12px;
+  font-size:13px;cursor:pointer;outline:none;transition:.2s;
+  background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'><path fill='%23899' d='M6 8L2 4h8z'/></svg>");
+  background-repeat:no-repeat;background-position:right 8px center;background-size:10px;
+}
+.engine-select:focus{border-color:rgba(0,212,255,.4)}
+.engine-select option{background:#131920;color:#c0c8d4}
 .search-row label{display:flex;align-items:center;color:#556;font-size:12px;white-space:nowrap;gap:4px}
 
 /* 分类导航 */
@@ -185,11 +195,18 @@ main{max-width:1300px;margin:0 auto;padding:30px 20px 60px}
       <button class="btn-site" onclick="doSiteSearch()"><i class="fas fa-filter"></i> 查找</button>
     </div>
   </div>
-  <!-- Bing搜索 -->
+  <!-- 网页搜索（多引擎） -->
   <div class="search-row">
     <div class="search-box">
-      <input type="text" id="bingSearch" placeholder="🌐 Bing 搜索 — 搜任何你想要的内容...">
-      <button class="btn-bing" onclick="doBingSearch()"><i class="fas fa-globe"></i> Bing</button>
+      <select class="engine-select" id="engineSelect">
+        <option value="bing">🔍 Bing</option>
+        <option value="baidu">🔵 百度</option>
+        <option value="google">🌐 Google</option>
+        <option value="sogou">🟠 搜狗</option>
+        <option value="so360">🟢 360搜索</option>
+      </select>
+      <input type="text" id="webSearch" placeholder="🌐 输入关键词，选择搜索引擎搜索...">
+      <button class="btn-web" onclick="doWebSearch()"><i class="fas fa-globe"></i> <span id="btnEngineLabel">搜索</span></button>
     </div>
   </div>
 </div>
@@ -351,13 +368,25 @@ function resetView(){
   $(".card").show();$(".cat-section").show();$(".resultHint").hide();
 }
 
-// Bing搜索
-function doBingSearch(){
-  var q = $("#bingSearch").val().trim();
+// 多引擎搜索
+function doWebSearch(){
+  var q = $("#webSearch").val().trim();
   if(!q) return;
-  window.open("https://www.bing.com/search?q=" + encodeURIComponent(q),"_blank");
+  var eng = $("#engineSelect").val();
+  var urls = {
+    "bing":   "https://www.bing.com/search?q=",
+    "baidu":  "https://www.baidu.com/s?wd=",
+    "google": "https://www.google.com/search?q=",
+    "sogou":  "https://www.sogou.com/web?query=",
+    "so360":  "https://www.so.com/s?q="
+  };
+  window.open((urls[eng] || urls["bing"]) + encodeURIComponent(q),"_blank");
 }
-$("#bingSearch").on("keydown",function(e){ if(e.key==="Enter")doBingSearch(); });
+$("#webSearch").on("keydown",function(e){ if(e.key==="Enter")doWebSearch(); });
+$("#engineSelect").on("change",function(){
+  var labels = {"bing":"Bing","baidu":"百度","google":"Google","sogou":"搜狗","so360":"360搜索"};
+  $("#btnEngineLabel").text(labels[this.value] || "搜索");
+});
 
 // 分类切换
 function filterByCat(cat){
