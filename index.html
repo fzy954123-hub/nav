@@ -1,0 +1,272 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>嵌入式导航 - 电控开发一站式工具</title>
+<meta name="keywords" content="嵌入式导航,电控开发,MCU工具,硬件工程师导航">
+<meta name="description" content="嵌入式电控工程师专属导航，汇聚开发工具、数据手册、开源资源、论坛社区。">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+<link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.6.2/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+::-webkit-scrollbar { width:6px; }
+::-webkit-scrollbar-thumb { background:#c1c1c1; border-radius:3px; }
+
+body {
+  background: linear-gradient(135deg, #0f1923 0%, #1a2332 50%, #1a1a2e 100%);
+  min-height:100vh; font-family: "Microsoft YaHei", "PingFang SC", sans-serif; color:#e0e0e0;
+}
+
+/* 顶部导航 */
+.topbar {
+  position:fixed; top:0; left:0; right:0; z-index:1000;
+  background:rgba(15,25,35,.92); backdrop-filter:blur(10px);
+  border-bottom:1px solid rgba(255,255,255,.08); padding:10px 0;
+}
+.topbar .container { display:flex; align-items:center; justify-content:space-between; }
+.topbar .brand { font-size:20px; font-weight:bold; color:#00d4ff; text-decoration:none; }
+.topbar .brand span { color:#ff6b6b; }
+.topbar .nav-links { display:flex; gap:20px; list-style:none; margin:0; padding:0; }
+.topbar .nav-links a { color:#aaa; text-decoration:none; font-size:14px; transition:.2s; }
+.topbar .nav-links a:hover { color:#00d4ff; }
+
+/* Banner */
+.banner {
+  margin-top:56px; position:relative; height:320px;
+  background:linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  display:flex; align-items:center; justify-content:center; text-align:center;
+  overflow:hidden;
+}
+.banner::before {
+  content:""; position:absolute; top:-50%; left:-50%; width:200%; height:200%;
+  background:radial-gradient(circle at 30% 50%, rgba(0,212,255,.08) 0%, transparent 50%),
+             radial-gradient(circle at 70% 50%, rgba(255,107,107,.08) 0%, transparent 50%);
+  animation: float 8s ease-in-out infinite;
+}
+@keyframes float { 0%,100%{transform:translate(0,0)} 50%{transform:translate(20px,-20px)} }
+.banner-content { position:relative; z-index:1; }
+.banner h1 { font-size:42px; font-weight:bold; color:#fff; margin-bottom:10px; }
+.banner h1 em { color:#00d4ff; font-style:normal; }
+.banner p { color:#999; font-size:16px; margin-bottom:30px; }
+
+/* 搜索框 */
+.search-wrap {
+  display:flex; max-width:560px; margin:0 auto;
+  background:rgba(255,255,255,.1); border-radius:30px; overflow:hidden;
+  border:1px solid rgba(255,255,255,.15);
+}
+.search-wrap input {
+  flex:1; border:none; outline:none; background:transparent;
+  color:#fff; padding:14px 20px; font-size:15px;
+}
+.search-wrap input::placeholder { color:#666; }
+.search-wrap button {
+  border:none; background:#00d4ff; color:#fff; padding:14px 28px;
+  cursor:pointer; font-size:15px; font-weight:bold; transition:.2s;
+}
+.search-wrap button:hover { background:#00b8e6; }
+
+/* 分类导航 */
+.cat-nav {
+  position:sticky; top:56px; z-index:999;
+  background:rgba(15,25,35,.95); backdrop-filter:blur(10px);
+  border-bottom:1px solid rgba(255,255,255,.08); padding:0;
+}
+.cat-nav ul {
+  display:flex; gap:0; list-style:none; margin:0; padding:0; justify-content:center;
+}
+.cat-nav li { cursor:pointer; padding:14px 28px; color:#888; font-size:14px; transition:.2s; border-bottom:2px solid transparent; }
+.cat-nav li:hover, .cat-nav li.active { color:#00d4ff; border-bottom-color:#00d4ff; }
+
+/* 主内容 */
+.main-content { max-width:1200px; margin:0 auto; padding:40px 20px; }
+
+.section-title {
+  font-size:22px; font-weight:bold; margin:40px 0 20px; padding-bottom:10px;
+  border-bottom:1px solid rgba(255,255,255,.1); color:#fff;
+  display:flex; align-items:center; gap:10px;
+}
+.section-title .icon { width:32px; height:32px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:16px; }
+.section-title .icon.blue { background:rgba(0,212,255,.15); color:#00d4ff; }
+.section-title .icon.red { background:rgba(255,107,107,.15); color:#ff6b6b; }
+.section-title .icon.green { background:rgba(0,230,118,.15); color:#00e676; }
+.section-title .icon.yellow { background:rgba(255,215,0,.15); color:#ffd740; }
+.section-title .icon.purple { background:rgba(179,136,255,.15); color:#b388ff; }
+
+/* 卡片网格 */
+.card-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(160px, 1fr)); gap:12px; }
+
+.card-item {
+  background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.06);
+  border-radius:12px; padding:20px 12px; text-align:center;
+  text-decoration:none; color:#ccc; transition:.25s; display:block;
+}
+.card-item:hover {
+  background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.12);
+  transform:translateY(-3px); box-shadow:0 8px 25px rgba(0,0,0,.3);
+  color:#fff; text-decoration:none;
+}
+.card-item img { width:48px; height:48px; border-radius:10px; margin-bottom:10px; object-fit:cover; }
+.card-item .card-icon { width:48px; height:48px; border-radius:10px; margin:0 auto 10px; display:flex; align-items:center; justify-content:center; font-size:24px; background:rgba(0,212,255,.1); color:#00d4ff; }
+.card-item span { display:block; font-size:13px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+
+/* 页脚 */
+.footer { text-align:center; padding:30px; color:#555; font-size:13px; border-top:1px solid rgba(255,255,255,.05); }
+.footer a { color:#00d4ff; }
+</style>
+</head>
+<body>
+
+<!-- 顶部 -->
+<div class="topbar">
+  <div class="container">
+    <a class="brand" href="#">⚡ <span>嵌入式</span>导航</a>
+    <ul class="nav-links">
+      <li><a href="#tools">开发工具</a></li>
+      <li><a href="#chip">芯片厂商</a></li>
+      <li><a href="#datasheet">数据手册</a></li>
+      <li><a href="#learn">学习资源</a></li>
+      <li><a href="#forum">技术社区</a></li>
+    </ul>
+  </div>
+</div>
+
+<!-- Banner -->
+<div class="banner"><div class="banner-content">
+  <h1>电控工程师的 <em>专属导航</em></h1>
+  <p>沉淀最有价值的嵌入式开发工具与资源</p>
+  <div class="search-wrap">
+    <input type="text" id="searchInput" placeholder="搜索工具、芯片型号、开发资源...">
+    <button onclick="doSearch()"><i class="fas fa-search"></i> 搜 索</button>
+  </div>
+</div></div>
+
+<!-- 分类 -->
+<div class="cat-nav">
+  <ul>
+    <li class="active" data-cat="all">全 部</li>
+    <li data-cat="tools">开发工具</li>
+    <li data-cat="chip">芯片厂商</li>
+    <li data-cat="learn">学习资源</li>
+    <li data-cat="forum">技术社区</li>
+    <li data-cat="tools-hw">硬件工具</li>
+  </ul>
+</div>
+
+<!-- 内容 -->
+<div class="main-content">
+
+  <!-- 开发工具 -->
+  <div class="cat-section" data-cat="tools">
+  <div class="section-title"><div class="icon blue"><i class="fas fa-code"></i></div>开发工具</div>
+  <div class="card-grid">
+    <a class="card-item" href="https://www.keil.com/" target="_blank"><div class="card-icon"><i class="fas fa-microchip"></i></div><span>Keil MDK</span></a>
+    <a class="card-item" href="https://www.iar.com/" target="_blank"><div class="card-icon"><i class="fas fa-cube"></i></div><span>IAR Embedded</span></a>
+    <a class="card-item" href="https://www.st.com/en/development-tools/stm32cubeide.html" target="_blank"><div class="card-icon"><i class="fas fa-cubes"></i></div><span>STM32CubeIDE</span></a>
+    <a class="card-item" href="https://code.visualstudio.com/" target="_blank"><div class="card-icon"><i class="fas fa-laptop-code"></i></div><span>VS Code</span></a>
+    <a class="card-item" href="https://platformio.org/" target="_blank"><div class="card-icon"><i class="fas fa-puzzle-piece"></i></div><span>PlatformIO</span></a>
+    <a class="card-item" href="https://www.arduino.cc/" target="_blank"><div class="card-icon"><i class="fas fa-infinity"></i></div><span>Arduino IDE</span></a>
+    <a class="card-item" href="https://www.eclipse.org/ide/" target="_blank"><div class="card-icon"><i class="fas fa-eclipse"></i></div><span>Eclipse IDE</span></a>
+    <a class="card-item" href="https://www.segger.com/" target="_blank"><div class="card-icon"><i class="fas fa-bug"></i></div><span>Segger J-Link</span></a>
+    <a class="card-item" href="https://openocd.org/" target="_blank"><div class="card-icon"><i class="fas fa-plug"></i></div><span>OpenOCD</span></a>
+    <a class="card-item" href="https://git-scm.com/" target="_blank"><div class="card-icon"><i class="fas fa-code-branch"></i></div><span>Git</span></a>
+  </div>
+  </div>
+
+  <!-- 芯片厂商 -->
+  <div class="cat-section" data-cat="chip" style="display:none">
+  <div class="section-title"><div class="icon red"><i class="fas fa-industry"></i></div>芯片厂商</div>
+  <div class="card-grid">
+    <a class="card-item" href="https://www.st.com/" target="_blank"><div class="card-icon"><i class="fas fa-memory"></i></div><span>意法半导体 ST</span></a>
+    <a class="card-item" href="https://www.ti.com/" target="_blank"><div class="card-icon"><i class="fas fa-calculator"></i></div><span>德州仪器 TI</span></a>
+    <a class="card-item" href="https://www.nxp.com/" target="_blank"><div class="card-icon"><i class="fas fa-car"></i></div><span>NXP</span></a>
+    <a class="card-item" href="https://www.microchip.com/" target="_blank"><div class="card-icon"><i class="fas fa-database"></i></div><span>Microchip</span></a>
+    <a class="card-item" href="https://www.infineon.com/" target="_blank"><div class="card-icon"><i class="fas fa-bolt"></i></div><span>英飞凌 Infineon</span></a>
+    <a class="card-item" href="https://www.espressif.com/" target="_blank"><div class="card-icon"><i class="fas fa-wifi"></i></div><span>乐鑫 Espressif</span></a>
+    <a class="card-item" href="https://www.gd32mcu.com/" target="_blank"><div class="card-icon"><i class="fas fa-compact-disc"></i></div><span>兆易创新 GD32</span></a>
+    <a class="card-item" href="https://www.wch.cn/" target="_blank"><div class="card-icon"><i class="fas fa-circle"></i></div><span>沁恒微 WCH</span></a>
+  </div>
+  </div>
+
+  <!-- 学习资源 -->
+  <div class="cat-section" data-cat="learn" style="display:none">
+  <div class="section-title"><div class="icon green"><i class="fas fa-graduation-cap"></i></div>学习资源</div>
+  <div class="card-grid">
+    <a class="card-item" href="https://www.bilibili.com/" target="_blank"><div class="card-icon"><i class="fas fa-play-circle"></i></div><span>B站 哔哩哔哩</span></a>
+    <a class="card-item" href="https://www.csdn.net/" target="_blank"><div class="card-icon"><i class="fas fa-blog"></i></div><span>CSDN</span></a>
+    <a class="card-item" href="https://www.eet-china.com/" target="_blank"><div class="card-icon"><i class="fas fa-newspaper"></i></div><span>电子工程专辑</span></a>
+    <a class="card-item" href="https://oshwhub.com/" target="_blank"><div class="card-icon"><i class="fas fa-share-alt"></i></div><span>立创开源平台</span></a>
+    <a class="card-item" href="https://github.com/" target="_blank"><div class="card-icon"><i class="fab fa-github"></i></div><span>GitHub</span></a>
+    <a class="card-item" href="https://gitee.com/" target="_blank"><div class="card-icon"><i class="fas fa-code"></i></div><span>Gitee码云</span></a>
+  </div>
+  </div>
+
+  <!-- 技术社区 -->
+  <div class="cat-section" data-cat="forum" style="display:none">
+  <div class="section-title"><div class="icon yellow"><i class="fas fa-comments"></i></div>技术社区</div>
+  <div class="card-grid">
+    <a class="card-item" href="https://bbs.21ic.com/" target="_blank"><div class="card-icon"><i class="fas fa-users"></i></div><span>21ic电子网</span></a>
+    <a class="card-item" href="https://www.amobbs.com/" target="_blank"><div class="card-icon"><i class="fas fa-lightbulb"></i></div><span>阿莫电子论坛</span></a>
+    <a class="card-item" href="https://bbs.elecfans.com/" target="_blank"><div class="card-icon"><i class="fas fa-fire"></i></div><span>电子发烧友</span></a>
+    <a class="card-item" href="https://www.eda365.com/" target="_blank"><div class="card-icon"><i class="fas fa-draw-polygon"></i></div><span>EDA365</span></a>
+    <a class="card-item" href="https://stackoverflow.com/" target="_blank"><div class="card-icon"><i class="fab fa-stack-overflow"></i></div><span>Stack Overflow</span></a>
+    <a class="card-item" href="https://www.zhihu.com/" target="_blank"><div class="card-icon"><i class="fab fa-zhihu"></i></div><span>知乎</span></a>
+  </div>
+  </div>
+
+  <!-- 硬件工具 -->
+  <div class="cat-section" data-cat="tools-hw" style="display:none">
+  <div class="section-title"><div class="icon purple"><i class="fas fa-tools"></i></div>硬件工具</div>
+  <div class="card-grid">
+    <a class="card-item" href="https://lceda.cn/" target="_blank"><div class="card-icon"><i class="fas fa-project-diagram"></i></div><span>立创EDA</span></a>
+    <a class="card-item" href="https://www.jlc.com/" target="_blank"><div class="card-icon"><i class="fas fa-print"></i></div><span>嘉立创 PCB打样</span></a>
+    <a class="card-item" href="https://www.digikey.cn/" target="_blank"><div class="card-icon"><i class="fas fa-shopping-cart"></i></div><span>Digi-Key</span></a>
+    <a class="card-item" href="https://www.mouser.cn/" target="_blank"><div class="card-icon"><i class="fas fa-boxes"></i></div><span>Mouser贸泽</span></a>
+    <a class="card-item" href="https://www.altium.com.cn/" target="_blank"><div class="card-icon"><i class="fas fa-layer-group"></i></div><span>Altium Designer</span></a>
+    <a class="card-item" href="https://www.analog.com/" target="_blank"><div class="card-icon"><i class="fas fa-wave-square"></i></div><span>ADI 亚德诺</span></a>
+  </div>
+  </div>
+
+</div>
+
+<!-- 页脚 -->
+<div class="footer">
+  ⚡ 嵌入式导航 · 电控工程师专属 · 无商业推广<br>
+  由 <a href="https://codex.openai.com" target="_blank">Codex</a> 构建
+</div>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+// 分类切换
+$(".cat-nav li").click(function(){
+  var cat = $(this).data("cat");
+  $(".cat-nav li").removeClass("active");
+  $(this).addClass("active");
+  if(cat === "all") {
+    $(".cat-section").show();
+  } else {
+    $(".cat-section").hide();
+    $(".cat-section[data-cat='" + cat + "']").show();
+  }
+});
+
+// 搜索功能
+function doSearch(){
+  var q = $("#searchInput").val().trim();
+  if(!q){ alert("请输入搜索关键词"); return; }
+  window.open("https://www.baidu.com/s?wd=" + encodeURIComponent(q + " 嵌入式"), "_blank");
+}
+$("#searchInput").on("keydown", function(e){ if(e.key==="Enter") doSearch(); });
+
+// 平滑滚动
+$("a[href^='#']").click(function(e){
+  e.preventDefault();
+  var t = $(this.hash);
+  if(t.length) $("html,body").animate({scrollTop:t.offset().top-100}, 400);
+});
+</script>
+
+</body>
+</html>
