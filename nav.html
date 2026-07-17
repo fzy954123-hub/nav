@@ -357,28 +357,29 @@ function doSiteSearch(){
   if(!q){ resetView(); return; }
   $(".cat-section").show();
   var found = 0;
+  var tokens = q.split(/\s+/);
+  // first pass: strict token AND matching
   $(".card").each(function(){
-    var kw = ($(this).data("keywords") || "").toLowerCase();
-    var nm = $(this).find(".c-name").text().toLowerCase();
-    var text = nm + " " + kw;
-    // token-based: split by whitespace, match if ALL tokens found
-    var tokens = q.split(/\s+/);
+    var text = ($(this).find(".c-name").text() + " " + ($(this).data("keywords")||"")).toLowerCase();
     var match = true;
     for(var i = 0; i < tokens.length; i++){
       if(text.indexOf(tokens[i]) < 0){ match = false; break; }
     }
-    // fallback: progressive shortening of the full query
-    if(!match){
-      for(var len = q.length; len >= 2; len--){
-        if(text.indexOf(q.substring(0, len)) >= 0){ match = true; break; }
-      }
-    }
-    if(match){
-      $(this).show();found++;
-    } else {
-      $(this).hide();
-    }
+    if(match){ $(this).show();found++; }
+    else { $(this).hide(); }
   });
+  // second pass: if nothing found, progressive shortening
+  if(found === 0){
+    for(var len = q.length; len >= 2; len--){
+      var sub = q.substring(0, len);
+      $(".card").each(function(){
+        if($(this).is(":visible")) return;
+        var text = ($(this).find(".c-name").text() + " " + ($(this).data("keywords")||"")).toLowerCase();
+        if(text.indexOf(sub) >= 0){ $(this).show();found++; }
+      });
+      if(found > 0) break;
+    }
+  }
   $(".cat-section").each(function(){
     if($(this).find(".card:visible").length === 0){
       $(this).hide();
