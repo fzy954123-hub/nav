@@ -65,7 +65,14 @@ body{
   text-shadow:0 0 20px rgba(0,212,255,.3);
 }
 
+/* 主题切换 */
+.theme-li a{color:#8899aa;text-decoration:none;font-size:13px;transition:.2s;cursor:pointer;white-space:nowrap}
+.theme-li a:hover{color:#00d4ff}
+[data-theme="light"] .theme-li a{color:#667}
+[data-theme="light"] .theme-li a:hover{color:#0055cc}
+
 /* Banner */
+
 .banner{
   margin-top:58px;position:relative;padding:60px 20px 50px;text-align:center;overflow:hidden;
   background:linear-gradient(180deg,rgba(10,14,20,0) 0%,rgba(0,212,255,.03) 50%,rgba(0,0,0,0) 100%);
@@ -108,15 +115,6 @@ body{
 .engine-select option{background:#131920;color:#c0c8d4}
 .search-row label{display:flex;align-items:center;color:#556;font-size:12px;white-space:nowrap;gap:4px}
 
-/* 主题切换按钮 */
-.theme-toggle{
-  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
-  border-radius:10px;width:38px;height:38px;cursor:pointer;font-size:18px;
-  display:flex;align-items:center;justify-content:center;transition:.2s;
-  margin-right:12px;flex-shrink:0;
-}
-.theme-toggle:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.2)}
-
 /* 浅色主题 */
 [data-theme="light"] body{
   background:#f2f3f5;color:#333;
@@ -141,8 +139,6 @@ body{
 [data-theme="light"] .card:hover{background:#fafafa;border-color:rgba(0,150,255,.2);color:#111;box-shadow:0 4px 15px rgba(0,0,0,.08)}
 [data-theme="light"] .card .c-tag{color:#999}
 [data-theme="light"] .footer{color:#999}
-[data-theme="light"] .theme-toggle{background:rgba(0,0,0,.04);border-color:rgba(0,0,0,.1)}
-[data-theme="light"] .theme-toggle:hover{background:rgba(0,0,0,.08)}
 [data-theme="light"] .engine-select{background:rgba(0,0,0,.03);border-color:rgba(0,0,0,.1);color:#555}
 [data-theme="light"] .engine-select option{background:#fff;color:#333}
 [data-theme="light"] .result-hint{color:#999}
@@ -230,7 +226,6 @@ main{max-width:1300px;margin:0 auto;padding:30px 20px 60px}
 <!-- 顶部 -->
 <div class="topbar"><div class="container"><a href="index.html" class="back-home" style="color:#667788;text-decoration:none;font-size:14px">← 首页</a>
   <a class="logo" href="#"><div class="icon-wrap">🌊</div><span>百川导航</span></a>
-  <button class="theme-toggle" id="themeToggle" title="切换深色/浅色模式"><span class="theme-icon">🌙</span></button>
   <ul class="top-tools">
     <li><a href="#video">短视频</a></li>
     <li><a href="#tv">影视</a></li>
@@ -239,6 +234,7 @@ main{max-width:1300px;margin:0 auto;padding:30px 20px 60px}
     <li><a href="#game">游戏</a></li>
     <li><a href="#tools">工具</a></li>
     <li><a href="#life">生活</a></li>
+    <li class="theme-li"><a href="javascript:;" id="themeToggle"><span class="theme-icon">🌙</span> 深色模式</a></li>
   </ul>
 </div></div>
 
